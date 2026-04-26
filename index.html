@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نظام إدارة حجوزات الامتحانات الوطنية</title>
+  <link rel="manifest" href="#" />
+  <style>
+    /* ===== RESET & ROOT ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1a56db;
+      --primary-dark: #1e429f;
+      --primary-light: #e8f0fe;
+      --success: #0e9f6e;
+      --success-light: #d5f5e3;
+      --warning: #e3a008;
+      --warning-light: #fef3c7;
+      --danger: #e02424;
+      --danger-light: #fde8e8;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --white: #ffffff;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-lg: 16px;
+      --font: 'Segoe UI', Tahoma, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--gray-100);
+      color: var(--gray-800);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .header-title h1 {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .header-title p {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .header-stats {
+      display: flex;
+      gap: 16px;
+    }
+
+    .stat-badge {
+      text-align: center;
+      background: rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 6px 12px;
+    }
+
+    .stat-badge .num { font-size: 20px; font-weight: 700; }
+    .stat-badge .lbl { font-size: 10px; opacity: 0.8; }
+
+    /* ===== NAV TABS ===== */
+    .nav-tabs {
+      background: var(--white);
+      border-bottom: 2px solid var(--gray-200);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+
+    .nav-tabs-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      padding: 0 16px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 14px 20px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-500);
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s;
+      font-family: var(--font);
+    }
+
+    .tab-btn:hover { color: var(--primary); background: var(--primary-light); border-radius: 8px 8px 0 0; }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .tab-btn .tab-icon { font-size: 16px; }
+
+    /* ===== MAIN LAYOUT ===== */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .card-header-icon {
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+
+    .card-header h2 { font-size: 17px; font-weight: 700; color: var(--gray-800); }
+    .card-header p { font-size: 12px; color: var(--gray-500); }
+
+    /* ===== FORM ===== */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .header-stats { display: none; }
+      .header-title h1 { font-size: 14px; }
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    label span.req { color: var(--danger); margin-right: 2px; }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-family: var(--font);
+      color: var(--gray-800);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26,86,219,0.12);
+    }
+
+    input::placeholder { color: var(--gray-400); }
+
+    .exam-select-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 480px) { .exam-select-grid { grid-template-columns: 1fr; } }
+
+    .exam-card {
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .exam-card:hover { border-color: var(--primary); background: var(--primary-light); }
+    .exam-card.selected { border-color: var(--primary); background: var(--primary-light); }
+    .exam-card .exam-icon { font-size: 26px; margin-bottom: 6px; }
+    .exam-card .exam-name { font-size: 13px; font-weight: 700; color: var(--gray-700); }
+    .exam-card .exam-desc { font-size: 11px; color: var(--gray-500); margin-top: 3px; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-success { background: var(--success); color: white; }
+    .btn-success:hover { background: #07784f; }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn-ghost { background: var(--gray-100); color: var(--gray-700); }
+    .btn-ghost:hover { background: var(--gray-200); }
+    .btn-sm { padding: 7px 14px; font-size: 12px; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ===== BADGES ===== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-arabic { background: #ede9fe; color: #5b21b6; }
+    .badge-english { background: #dbeafe; color: #1e40af; }
+    .badge-computer { background: #d1fae5; color: #065f46; }
+    .badge-pending { background: var(--warning-light); color: #92400e; }
+    .badge-confirmed { background: var(--success-light); color: #065f46; }
+    .badge-cancelled { background: var(--danger-light); color: #991b1b; }
+
+    /* ===== SEARCH BAR ===== */
+    .search-bar {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .search-bar input {
+      padding-right: 44px;
+      background: var(--gray-50);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-400);
+      font-size: 17px;
+      pointer-events: none;
+    }
+
+    /* ===== TABLE ===== */
+    .table-wrapper { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead { background: var(--gray-50); }
+    th {
+      padding: 12px 14px;
+      text-align: right;
+      font-weight: 700;
+      color: var(--gray-600);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--gray-200);
+      white-space: nowrap;
+    }
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--gray-100);
+      color: var(--gray-700);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--gray-50); }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray-400);
+    }
+    .empty-state .empty-icon { font-size: 52px; margin-bottom: 14px; }
+    .empty-state h3 { font-size: 17px; color: var(--gray-500); margin-bottom: 6px; }
+    .empty-state p { font-size: 13px; }
+
+    /* ===== ALERT / NOTIFICATION ===== */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 280px;
+      max-width: 90vw;
+    }
+
+    .toast {
+      background: var(--gray-900);
+      color: white;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-lg);
+      animation: slideIn 0.3s ease;
+      font-size: 14px;
+    }
+
+    .toast.success { background: var(--success); }
+    .toast.warning { background: var(--warning); }
+    .toast.danger { background: var(--danger); }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== NOTIFICATION BELL ===== */
+    .notif-panel {
+      position: fixed;
+      top: 80px;
+      left: 16px;
+      right: 16px;
+      max-width: 400px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      z-index: 200;
+      display: none;
+      overflow: hidden;
+    }
+
+    .notif-panel.open { display: block; }
+    .notif-header { background: var(--primary); color: white; padding: 14px 18px; font-weight: 700; font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
+    .notif-item { padding: 14px 18px; border-bottom: 1px solid var(--gray-100); display: flex; gap: 12px; align-items: flex-start; }
+    .notif-item:last-child { border-bottom: none; }
+    .notif-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--warning); margin-top: 5px; flex-shrink: 0; }
+    .notif-item p { font-size: 13px; color: var(--gray-700); line-height: 1.5; }
+    .notif-item small { color: var(--gray-400); font-size: 11px; }
+
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .filter-btn {
+      padding: 7px 14px;
+      border-radius: 99px;
+      border: 1.5px solid var(--gray-300);
+      background: white;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--gray-600);
+      transition: all 0.2s;
+      font-family: var(--font);
+    }
+
+    .filter-btn.active { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+    .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ===== DASHBOARD STATS GRID ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 380px) { .stats-grid { grid-template-columns: 1fr; } }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      border-right: 4px solid var(--primary);
+      transition: transform 0.2s;
+    }
+
+    .stat-card:hover { transform: translateY(-2px); }
+    .stat-card.arabic { border-color: #7c3aed; }
+    .stat-card.english { border-color: #1d4ed8; }
+    .stat-card.computer { border-color: #059669; }
+    .stat-card.warning { border-color: var(--warning); }
+
+    .stat-card .stat-icon { font-size: 24px; margin-bottom: 8px; }
+    .stat-card .stat-value { font-size: 28px; font-weight: 800; color: var(--gray-900); }
+    .stat-card .stat-label { font-size: 12px; color: var(--gray-500); font-weight: 600; margin-top: 2px; }
+
+    /* ===== UPCOMING SECTION ===== */
+    .upcoming-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .upcoming-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      border-right: 4px solid var(--primary);
+    }
+
+    .upcoming-item.urgent { border-color: var(--danger); background: var(--danger-light); }
+    .upcoming-item.soon { border-color: var(--warning); background: var(--warning-light); }
+
+    .upcoming-time {
+      text-align: center;
+      min-width: 56px;
+      background: white;
+      border-radius: 8px;
+      padding: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .upcoming-time .day { font-size: 20px; font-weight: 800; color: var(--primary); }
+    .upcoming-time .month { font-size: 11px; color: var(--gray-500); }
+
+    .upcoming-info { flex: 1; }
+    .upcoming-info .name { font-weight: 700; font-size: 14px; }
+    .upcoming-info .detail { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .modal-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 { font-size: 17px; font-weight: 700; }
+    .modal-body { padding: 20px 24px; }
+    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--gray-200); display: flex; gap: 10px; justify-content: flex-end; }
+
+    .btn-close {
+      background: none; border: none; cursor: pointer;
+      font-size: 20px; color: var(--gray-400);
+      width: 32px; height: 32px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-close:hover { background: var(--gray-100); color: var(--gray-700); }
+
+    /* ===== DETAIL ROW ===== */
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 14px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-row .detail-key { color: var(--gray-500); font-weight: 600; }
+    .detail-row .detail-val { color: var(--gray-800); font-weight: 700; }
+
+    /* ===== MOBILE FIXES ===== */
+    @media (max-width: 480px) {
+      .card { padding: 16px; }
+      .tab-btn { padding: 12px 14px; font-size: 13px; }
+      table { font-size: 13px; }
+      th, td { padding: 10px 10px; }
+    }
+
+    /* ===== AUTH SCREEN ===== */
+    #authScreen {
+      position: fixed; inset: 0;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1a56db 100%);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .auth-box {
+      background: white;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 420px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    }
+
+    .auth-header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      padding: 30px 28px 24px;
+      text-align: center;
+      color: white;
+    }
+
+    .auth-header .auth-logo {
+      width: 64px; height: 64px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 14px;
+    }
+
+    .auth-header h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .auth-header p  { font-size: 13px; opacity: 0.8; }
+
+    .auth-body { padding: 28px; }
+
+    .auth-tabs {
+      display: flex;
+      gap: 6px;
+      background: var(--gray-100);
+      border-radius: 10px;
+      padding: 5px;
+      margin-bottom: 22px;
+    }
+
+    .auth-tab {
+      flex: 1; padding: 9px;
+      border: none; border-radius: 7px;
+      background: none; cursor: pointer;
+      font-size: 13px; font-weight: 700;
+      color: var(--gray-500);
+      font-family: var(--font);
+      transition: all 0.2s;
+    }
+
+    .auth-tab.active { background: white; color: var(--primary); box-shadow: var(--shadow-sm); }
+
+    .auth-form { display: none; }
+    .auth-form.active { display: block; }
+
+    .auth-form .form-group { margin-bottom: 14px; }
+
+    .input-icon-wrap { position: relative; }
+    .input-icon-wrap input { padding-right: 42px; }
+    .input-icon-wrap .i-icon {
+      position: absolute; right: 13px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px; pointer-events: none;
+    }
+
+    .role-select-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-top: 6px;
+    }
+
+    .role-card {
+      border: 2px solid var(--gray-200);
+      border-radius: 9px; padding: 12px 8px;
+      text-align: center; cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .role-card:hover { border-color: var(--primary); }
+    .role-card.selected { border-color: var(--primary); background: var(--primary-light); }
+    .role-card .role-icon { font-size: 22px; margin-bottom: 4px; }
+    .role-card .role-name { font-size: 12px; font-weight: 700; color: var(--gray-700); }
+    .role-card .role-desc { font-size: 10px; color: var(--gray-500); margin-top: 2px; }
+
+    /* ===== USER MENU IN HEADER ===== */
+    .user-menu-wrap { position: relative; }
+
+    .user-btn {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: none; border-radius: 9px;
+      padding: 7px 12px; cursor: pointer; color: white;
+      font-family: var(--font); font-size: 13px; font-weight: 600;
+    }
+
+    .user-btn:hover { background: rgba(255,255,255,0.25); }
+
+    .user-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800;
+    }
+
+    .user-dropdown {
+      position: absolute; top: calc(100% + 8px); left: 0;
+      background: white; border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      min-width: 200px; z-index: 300;
+      display: none; overflow: hidden;
+    }
+
+    .user-dropdown.open { display: block; }
+
+    .user-dropdown-header {
+      padding: 14px 16px;
+      background: var(--primary-light);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .user-dropdown-header .uname { font-weight: 800; font-size: 14px; color: var(--gray-800); }
+    .user-dropdown-header .urole { font-size: 11px; color: var(--primary); font-weight: 600; }
+
+    .dropdown-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 16px; font-size: 13px; font-weight: 600;
+      color: var(--gray-700); cursor: pointer;
+      transition: background 0.15s; border: none;
+      background: none; width: 100%; font-family: var(--font);
+      text-align: right;
+    }
+
+    .dropdown-item:hover { background: var(--gray-50); }
+    .dropdown-item.danger { color: var(--danger); }
+    .dropdown-item.danger:hover { background: var(--danger-light); }
+
+    /* ===== ADMIN PAGE ===== */
+    .staff-card {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--gray-50); border-radius: var(--radius-sm);
+      padding: 14px; margin-bottom: 10px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .staff-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800; color: white; flex-shrink: 0;
+    }
+
+    .staff-info { flex: 1; }
+    .staff-info .sname { font-weight: 700; font-size: 14px; }
+    .staff-info .smeta { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+    .role-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 99px;
+      font-size: 11px; font-weight: 700;
+    }
+
+    .role-admin    { background: #fde8e8; color: #991b1b; }
+    .role-staff    { background: #dbeafe; color: #1e40af; }
+    .role-viewer   { background: #d1fae5; color: #065f46; }
+
+    /* ===== ACTIVITY LOG ===== */
+    .log-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 0; border-bottom: 1px solid var(--gray-100);
+      font-size: 13px;
+    }
+    .log-item:last-child { border-bottom: none; }
+    .log-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ===================== AUTH SCREEN ===================== -->
+<div id="authScreen">
+  <div class="auth-box">
+    <div class="auth-header">
+      <div class="auth-logo">🎓</div>
+      <h2>نظام حجوزات الامتحانات</h2>
+      <p>تسجيل الدخول لإدارة الحجوزات</p>
+    </div>
+    <div class="auth-body">
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('login', this)">تسجيل الدخول</button>
+        <button class="auth-tab" onclick="switchAuthTab('register', this)">حساب جديد</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div class="auth-form active" id="authLogin">
+        <div class="form-group">
+          <label>اسم المستخدم</label>
+          <div class="input-icon-wrap">
+            <span class="i-icon">👤</span>
+            <input type="text" id="loginUser" placeholder="أدخل اسم المستخدم" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور</label>
+          <div class="input-icon-wrap">
+            <span class="i-icon">🔒</span>
+            <input type="password" id="loginPass" placeholder="أدخل كلمة المرور" onkeydown="if(event.key==='Enter') doLogin()" />
+          </div>
+        </div>
+        <div id="loginError" style="color:var(--danger);font-size:13px;margin-bottom:12px;display:none;background:var(--danger-light);padding:10px 12px;border-radius:8px;"></div>
+        <button class="btn btn-primary btn-full" onclick="doLogin()" style="margin-top:4px;">
+          🔐 دخول
+        </button>
+        <div style="margin-top:16px;padding:12px;background:var(--gray-50);border-radius:8px;font-size:12px;color:var(--gray-500);">
+          <strong>حساب المدير الافتراضي:</strong><br>
+          المستخدم: <code>admin</code> — كلمة المرور: <code>admin123</code>
+        </div>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div class="auth-form" id="authRegister">
+        <div class="form-group">
+          <label>الاسم الكامل <span class="req">*</span></label>
+          <div class="input-icon-wrap">
+            <span class="i-icon">👤</span>
+            <input type="text" id="regName" placeholder="مثال: أحمد محمد" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>اسم المستخدم <span class="req">*</span></label>
+          <div class="input-icon-wrap">
+            <span class="i-icon">🆔</span>
+            <input type="text" id="regUser" placeholder="اسم مستخدم فريد" dir="ltr" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور <span class="req">*</span></label>
+          <div class="input-icon-wrap">
+            <span class="i-icon">🔒</span>
+            <input type="password" id="regPass" placeholder="6 أحرف على الأقل" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>الدور الوظيفي <span class="req">*</span></label>
+          <div class="role-select-grid">
+            <div class="role-card" onclick="selectRole('staff', this)">
+              <div class="role-icon">👨‍💼</div>
+              <div class="role-name">موظف</div>
+              <div class="role-desc">تسجيل وإدارة الطلاب</div>
+            </div>
+            <div class="role-card" onclick="selectRole('viewer', this)">
+              <div class="role-icon">👁️</div>
+              <div class="role-name">مشاهد</div>
+              <div class="role-desc">عرض البيانات فقط</div>
+            </div>
+          </div>
+          <input type="hidden" id="regRole" />
+        </div>
+        <div id="regError" style="color:var(--danger);font-size:13px;margin-bottom:12px;display:none;background:var(--danger-light);padding:10px 12px;border-radius:8px;"></div>
+        <div id="regNote" style="font-size:12px;color:var(--warning);background:var(--warning-light);padding:10px 12px;border-radius:8px;margin-bottom:12px;">
+          ⚠️ الحساب الجديد يحتاج موافقة المدير للتفعيل
+        </div>
+        <button class="btn btn-primary btn-full" onclick="doRegister()">
+          ✅ إنشاء الحساب
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- NOTIFICATION PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">
+    🔔 الإشعارات
+    <button onclick="toggleNotif()" class="btn-close" style="color:white">✕</button>
+  </div>
+  <div id="notifList"></div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="header-logo">
+      <div class="logo-icon">🎓</div>
+      <div class="header-title">
+        <h1>نظام حجوزات الامتحانات الوطنية</h1>
+        <p>إدارة طلبات التسجيل والحجز</p>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <button onclick="toggleNotif()" style="background:rgba(255,255,255,0.15);border:none;cursor:pointer;color:white;border-radius:8px;padding:8px 10px;font-size:18px;position:relative;" id="bellBtn">
+        🔔
+        <span id="notifBadge" style="position:absolute;top:2px;right:2px;background:red;color:white;font-size:9px;border-radius:50%;width:16px;height:16px;display:none;align-items:center;justify-content:center;font-weight:700;"></span>
+      </button>
+      <div class="header-stats">
+        <div class="stat-badge">
+          <div class="num" id="hdrTotal">0</div>
+          <div class="lbl">إجمالي</div>
+        </div>
+        <div class="stat-badge">
+          <div class="num" id="hdrToday">0</div>
+          <div class="lbl">اليوم</div>
+        </div>
+      </div>
+      <!-- USER MENU -->
+      <div class="user-menu-wrap">
+        <button class="user-btn" onclick="toggleUserMenu()" id="userMenuBtn">
+          <div class="user-avatar" id="userAvatar">؟</div>
+          <span id="userDisplayName">—</span>
+          <span>▾</span>
+        </button>
+        <div class="user-dropdown" id="userDropdown">
+          <div class="user-dropdown-header">
+            <div class="uname" id="ddName">—</div>
+            <div class="urole" id="ddRole">—</div>
+          </div>
+          <button class="dropdown-item" onclick="openProfileModal()">⚙️ إعدادات الحساب</button>
+          <button class="dropdown-item" id="adminPanelBtn" onclick="switchTab('admin', document.querySelector('.tab-admin')); toggleUserMenu();" style="display:none;">🛡️ لوحة المدير</button>
+          <button class="dropdown-item danger" onclick="doLogout()">🚪 تسجيل الخروج</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<nav class="nav-tabs">
+  <div class="nav-tabs-inner">
+    <button class="tab-btn active" onclick="switchTab('dashboard', this)">
+      <span class="tab-icon">📊</span> لوحة التحكم
+    </button>
+    <button class="tab-btn" onclick="switchTab('register', this)">
+      <span class="tab-icon">➕</span> تسجيل طالب
+    </button>
+    <button class="tab-btn" onclick="switchTab('students', this)">
+      <span class="tab-icon">👥</span> قائمة الطلاب
+    </button>
+    <button class="tab-btn" onclick="switchTab('schedule', this)">
+      <span class="tab-icon">📅</span> جدول الحجوزات
+    </button>
+    <button class="tab-btn" onclick="switchTab('search', this)">
+      <span class="tab-icon">🔍</span> البحث
+    </button>
+    <button class="tab-btn tab-admin" id="adminTabBtn" onclick="switchTab('admin', this)" style="display:none;">
+      <span class="tab-icon">🛡️</span> إدارة الموظفين
+    </button>
+  </div>
+</nav>
+
+<!-- ===================== PAGES ===================== -->
+<div class="main-container">
+
+  <!-- PAGE: DASHBOARD -->
+  <div class="page active" id="page-dashboard">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">إجمالي الطلاب</div>
+      </div>
+      <div class="stat-card arabic">
+        <div class="stat-icon">📖</div>
+        <div class="stat-value" id="statArabic">0</div>
+        <div class="stat-label">امتحان عربي</div>
+      </div>
+      <div class="stat-card english">
+        <div class="stat-icon">🌐</div>
+        <div class="stat-value" id="statEnglish">0</div>
+        <div class="stat-label">امتحان انكليزي</div>
+      </div>
+      <div class="stat-card computer">
+        <div class="stat-icon">💻</div>
+        <div class="stat-value" id="statComputer">0</div>
+        <div class="stat-label">امتحان حاسوب</div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+      <div class="card" style="grid-column: 1 / -1;" id="upcomingCard">
+        <div class="card-header">
+          <div class="card-header-icon" style="background:#fef3c7;">⏰</div>
+          <div><h2>المواعيد القادمة خلال 24 ساعة</h2><p>طلاب يحتاجون تذكير</p></div>
+        </div>
+        <div class="upcoming-list" id="upcomingList">
+          <div class="empty-state" style="padding:30px">
+            <div class="empty-icon">📭</div>
+            <p>لا توجد مواعيد قريبة</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: REGISTER -->
+  <div class="page" id="page-register">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon" style="background:var(--primary-light);">✍️</div>
+        <div><h2>تسجيل طالب جديد</h2><p>أدخل بيانات الطالب والحجز</p></div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>الاسم الرباعي <span class="req">*</span></label>
+          <input type="text" id="fName" placeholder="مثال: أحمد محمد علي حسن" />
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف <span class="req">*</span></label>
+          <input type="tel" id="fPhone" placeholder="07xxxxxxxxx" maxlength="11" />
+        </div>
+        <div class="form-group">
+          <label>الرقم الوطني</label>
+          <input type="text" id="fNid" placeholder="الرقم الوطني الموحد" maxlength="12" />
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="fEmail" placeholder="example@email.com" dir="ltr" />
+        </div>
+        <div class="form-group full">
+          <label>نوع الامتحان <span class="req">*</span></label>
+          <div class="exam-select-grid">
+            <div class="exam-card" onclick="selectExam('arabic', this)">
+              <div class="exam-icon">📖</div>
+              <div class="exam-name">اللغة العربية</div>
+              <div class="exam-desc">60 سؤال - 60 دقيقة</div>
+            </div>
+            <div class="exam-card" onclick="selectExam('english', this)">
+              <div class="exam-icon">🌐</div>
+              <div class="exam-name">اللغة الإنجليزية</div>
+              <div class="exam-desc">اختبار الكفاءة اللغوية</div>
+            </div>
+            <div class="exam-card" onclick="selectExam('computer', this)">
+              <div class="exam-icon">💻</div>
+              <div class="exam-name">الحاسوب</div>
+              <div class="exam-desc">INCPT - مهارات الحاسوب</div>
+            </div>
+          </div>
+          <input type="hidden" id="fExam" />
+        </div>
+        <div class="form-group">
+          <label>تاريخ الحجز المطلوب <span class="req">*</span></label>
+          <input type="date" id="fDate" />
+        </div>
+        <div class="form-group">
+          <label>الوقت المطلوب <span class="req">*</span></label>
+          <input type="time" id="fTime" value="09:00" />
+        </div>
+        <div class="form-group full">
+          <label>ملاحظات إضافية</label>
+          <textarea id="fNotes" rows="3" placeholder="أي ملاحظات أو طلبات خاصة..."></textarea>
+        </div>
+      </div>
+
+      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="registerStudent()">
+          ✅ تسجيل وحجز الموعد
+        </button>
+        <button class="btn btn-ghost" onclick="clearForm()">
+          🗑️ مسح البيانات
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: STUDENTS LIST -->
+  <div class="page" id="page-students">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon" style="background:#dbeafe;">👥</div>
+        <div><h2>قائمة الطلاب المسجلين</h2><p id="studentCountLabel">0 طالب</p></div>
+      </div>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterStudents('all', this)">الكل</button>
+        <button class="filter-btn" onclick="filterStudents('arabic', this)">📖 عربي</button>
+        <button class="filter-btn" onclick="filterStudents('english', this)">🌐 انكليزي</button>
+        <button class="filter-btn" onclick="filterStudents('computer', this)">💻 حاسوب</button>
+        <button class="filter-btn" onclick="filterStudents('pending', this)">⏳ بانتظار</button>
+        <button class="filter-btn" onclick="filterStudents('confirmed', this)">✅ محجوز</button>
+      </div>
+
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="listSearch" placeholder="ابحث بالاسم أو الهاتف..." oninput="renderStudentTable()" />
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الاسم</th>
+              <th>الهاتف</th>
+              <th>الامتحان</th>
+              <th>تاريخ الحجز</th>
+              <th>الوقت</th>
+              <th>الحالة</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody"></tbody>
+        </table>
+      </div>
+      <div id="studentEmptyState" class="empty-state" style="display:none;">
+        <div class="empty-icon">📋</div>
+        <h3>لا يوجد طلاب بعد</h3>
+        <p>ابدأ بتسجيل طالب جديد من تبويب "تسجيل طالب"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: SCHEDULE -->
+  <div class="page" id="page-schedule">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon" style="background:#d1fae5;">📅</div>
+        <div><h2>جدول الحجوزات</h2><p>مرتب حسب التاريخ والوقت</p></div>
+      </div>
+      <div id="scheduleContent"></div>
+    </div>
+  </div>
+
+  <!-- PAGE: SEARCH -->
+  <div class="page" id="page-search">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon" style="background:#fce7f3;">🔍</div>
+        <div><h2>البحث عن طالب</h2><p>ابحث بالاسم أو رقم الهاتف أو الرقم الوطني</p></div>
+      </div>
+      <div class="search-bar" style="margin-bottom:20px;">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="mainSearch" placeholder="اكتب اسم الطالب أو رقم الهاتف..." oninput="doSearch()" style="font-size:16px;" />
+      </div>
+      <div id="searchResults"></div>
+    </div>
+  </div>
+
+  <!-- PAGE: ADMIN -->
+  <div class="page" id="page-admin">
+
+    <!-- Staff List -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon" style="background:#fde8e8;">🛡️</div>
+        <div><h2>إدارة حسابات الموظفين</h2><p>تفعيل وتعطيل وتغيير الأدوار</p></div>
+      </div>
+      <div id="staffList"></div>
+    </div>
+
+    <!-- Activity Log -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon" style="background:#ede9fe;">📋</div>
+        <div><h2>سجل النشاطات</h2><p>آخر عمليات الموظفين</p></div>
+      </div>
+      <div id="activityLog">
+        <div class="empty-state" style="padding:30px;">
+          <div class="empty-icon">📋</div>
+          <p>لا توجد نشاطات مسجلة بعد</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END MAIN CONTAINER -->
+
+<!-- PROFILE MODAL -->
+<div class="modal-overlay" id="profileModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>⚙️ إعدادات حسابي</h3>
+      <button class="btn-close" onclick="closeProfileModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group" style="margin-bottom:14px;">
+        <label>الاسم الكامل</label>
+        <input type="text" id="profName" />
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label>كلمة المرور الجديدة</label>
+        <input type="password" id="profPass" placeholder="اتركه فارغاً إذا لا تريد التغيير" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="saveProfile()">💾 حفظ</button>
+      <button class="btn btn-ghost" onclick="closeProfileModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="studentModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🎓 بيانات الطالب</h3>
+      <button class="btn-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<script>
+    // ===================================================
+    // AUTH DATA
+    // ===================================================
+    const ROLE_LABELS = {
+      admin:  { label: 'مدير النظام', badge: 'role-admin',  color: '#ef4444', icon: '🛡️' },
+      staff:  { label: 'موظف',        badge: 'role-staff',  color: '#3b82f6', icon: '👨‍💼' },
+      viewer: { label: 'مشاهد',       badge: 'role-viewer', color: '#10b981', icon: '👁️'  }
+    };
+
+    let accounts = JSON.parse(localStorage.getItem('inpt_accounts') || 'null');
+    if (!accounts) {
+      accounts = [
+        { id: '1', username: 'admin', password: 'admin123', name: 'المدير العام', role: 'admin', active: true, createdAt: new Date().toISOString() }
+      ];
+      localStorage.setItem('inpt_accounts', JSON.stringify(accounts));
+    }
+
+    let currentUser = JSON.parse(sessionStorage.getItem('inpt_user') || 'null');
+    let activityLogs = JSON.parse(localStorage.getItem('inpt_logs') || '[]');
+
+    // ===================================================
+    // AUTH FUNCTIONS
+    // ===================================================
+    function switchAuthTab(tab, btn) {
+      document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('auth' + (tab === 'login' ? 'Login' : 'Register')).classList.add('active');
+    }
+
+    function selectRole(role, el) {
+      document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('regRole').value = role;
+    }
+
+    function doLogin() {
+      const u = document.getElementById('loginUser').value.trim();
+      const p = document.getElementById('loginPass').value;
+      const errEl = document.getElementById('loginError');
+
+      if (!u || !p) { showAuthError(errEl, 'يرجى إدخال اسم المستخدم وكلمة المرور'); return; }
+
+      const acc = accounts.find(a => a.username === u && a.password === p);
+      if (!acc) { showAuthError(errEl, '❌ اسم المستخدم أو كلمة المرور غير صحيحة'); return; }
+      if (!acc.active) { showAuthError(errEl, '⏳ حسابك لم يُفعَّل بعد. انتظر موافقة المدير'); return; }
+
+      errEl.style.display = 'none';
+      currentUser = acc;
+      sessionStorage.setItem('inpt_user', JSON.stringify(acc));
+      addLog(`تسجيل دخول`, acc.name, 'login');
+      initApp();
+    }
+
+    function doRegister() {
+      const name  = document.getElementById('regName').value.trim();
+      const user  = document.getElementById('regUser').value.trim();
+      const pass  = document.getElementById('regPass').value;
+      const role  = document.getElementById('regRole').value;
+      const errEl = document.getElementById('regError');
+
+      if (!name) { showAuthError(errEl, 'يرجى إدخال الاسم الكامل'); return; }
+      if (!user) { showAuthError(errEl, 'يرجى إدخال اسم المستخدم'); return; }
+      if (pass.length < 6) { showAuthError(errEl, 'كلمة المرور يجب أن تكون 6 أحرف على الأقل'); return; }
+      if (!role) { showAuthError(errEl, 'يرجى اختيار الدور الوظيفي'); return; }
+      if (accounts.find(a => a.username === user)) { showAuthError(errEl, '❌ اسم المستخدم مستخدم مسبقاً'); return; }
+
+      const newAcc = {
+        id: Date.now().toString(), username: user, password: pass,
+        name, role, active: false, createdAt: new Date().toISOString()
+      };
+      accounts.push(newAcc);
+      saveAccounts();
+
+      errEl.style.display = 'none';
+      showToast('✅ تم إنشاء الحساب! انتظر موافقة المدير للتفعيل', 'success');
+      // Switch back to login
+      document.querySelectorAll('.auth-tab')[0].click();
+    }
+
+    function showAuthError(el, msg) {
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function doLogout() {
+      addLog('تسجيل خروج', currentUser.name, 'logout');
+      currentUser = null;
+      sessionStorage.removeItem('inpt_user');
+      document.getElementById('authScreen').style.display = 'flex';
+      document.getElementById('loginUser').value = '';
+      document.getElementById('loginPass').value = '';
+      toggleUserMenu(true);
+    }
+
+    function saveAccounts() {
+      localStorage.setItem('inpt_accounts', JSON.stringify(accounts));
+    }
+
+    // ===================================================
+    // INIT APP (after login)
+    // ===================================================
+    function initApp() {
+      document.getElementById('authScreen').style.display = 'none';
+
+      // Set header user info
+      const initials = currentUser.name.split(' ').map(w => w[0]).join('').slice(0, 2);
+      document.getElementById('userAvatar').textContent = initials;
+      document.getElementById('userDisplayName').textContent = currentUser.name.split(' ')[0];
+      document.getElementById('ddName').textContent  = currentUser.name;
+      document.getElementById('ddRole').textContent  = ROLE_LABELS[currentUser.role].icon + ' ' + ROLE_LABELS[currentUser.role].label;
+
+      // Admin-only elements
+      const isAdmin = currentUser.role === 'admin';
+      document.getElementById('adminTabBtn').style.display    = isAdmin ? 'flex' : 'none';
+      document.getElementById('adminPanelBtn').style.display  = isAdmin ? 'flex' : 'none';
+
+      // Viewer: hide register tab
+      if (currentUser.role === 'viewer') {
+        document.querySelectorAll('.tab-btn')[1].style.display = 'none';
+      }
+
+      updateHeaderStats();
+      checkNotifications();
+      renderDashboard();
+    }
+
+    // ===================================================
+    // USER MENU
+    // ===================================================
+    function toggleUserMenu(forceClose = false) {
+      const dd = document.getElementById('userDropdown');
+      if (forceClose) { dd.classList.remove('open'); return; }
+      dd.classList.toggle('open');
+    }
+
+    // ===================================================
+    // PROFILE MODAL
+    // ===================================================
+    function openProfileModal() {
+      toggleUserMenu(true);
+      document.getElementById('profName').value = currentUser.name;
+      document.getElementById('profPass').value = '';
+      document.getElementById('profileModal').classList.add('open');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profileModal').classList.remove('open');
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('profName').value.trim();
+      const pass = document.getElementById('profPass').value;
+      if (!name) { showToast('يرجى إدخال الاسم', 'danger'); return; }
+
+      const acc = accounts.find(a => a.id === currentUser.id);
+      if (acc) {
+        acc.name = name;
+        if (pass && pass.length >= 6) acc.password = pass;
+        else if (pass && pass.length < 6) { showToast('كلمة المرور قصيرة جداً', 'danger'); return; }
+        saveAccounts();
+        currentUser = acc;
+        sessionStorage.setItem('inpt_user', JSON.stringify(acc));
+        const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
+        document.getElementById('userAvatar').textContent = initials;
+        document.getElementById('userDisplayName').textContent = name.split(' ')[0];
+        document.getElementById('ddName').textContent = name;
+        addLog('تعديل بيانات الحساب', name, 'edit');
+        showToast('✅ تم حفظ البيانات', 'success');
+        closeProfileModal();
+      }
+    }
+
+    // ===================================================
+    // ADMIN: STAFF LIST
+    // ===================================================
+    function renderStaffList() {
+      const container = document.getElementById('staffList');
+      const others = accounts.filter(a => a.id !== currentUser.id);
+
+      if (others.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding:30px"><div class="empty-icon">👥</div><p>لا يوجد موظفون آخرون</p></div>`;
+        return;
+      }
+
+      container.innerHTML = others.map(a => {
+        const rl = ROLE_LABELS[a.role];
+        const initials = a.name.split(' ').map(w => w[0]).join('').slice(0, 2);
+        const statusColor = a.active ? 'var(--success)' : 'var(--warning)';
+        const statusLabel = a.active ? '✅ مفعّل' : '⏳ بانتظار التفعيل';
+        return `<div class="staff-card">
+          <div class="staff-avatar" style="background:${rl.color};">${initials}</div>
+          <div class="staff-info">
+            <div class="sname">${a.name}</div>
+            <div class="smeta">
+              <span dir="ltr">@${a.username}</span> &nbsp;·&nbsp;
+              <span class="role-badge ${rl.badge}">${rl.icon} ${rl.label}</span> &nbsp;·&nbsp;
+              <span style="color:${statusColor};font-weight:700;font-size:12px;">${statusLabel}</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
+            ${!a.active ? `<button class="btn btn-success btn-sm" onclick="activateAccount('${a.id}')">✅ تفعيل</button>` : ''}
+            ${a.active  ? `<button class="btn btn-ghost btn-sm" onclick="toggleAccount('${a.id}')">🔒 تعطيل</button>` : ''}
+            <select onchange="changeRole('${a.id}', this.value)" class="btn btn-ghost btn-sm" style="cursor:pointer;" value="${a.role}">
+              <option value="staff"  ${a.role==='staff'  ? 'selected':''}>👨‍💼 موظف</option>
+              <option value="viewer" ${a.role==='viewer' ? 'selected':''}>👁️ مشاهد</option>
+              <option value="admin"  ${a.role==='admin'  ? 'selected':''}>🛡️ مدير</option>
+            </select>
+            <button class="btn btn-danger btn-sm" onclick="deleteAccount('${a.id}')">🗑️</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function activateAccount(id) {
+      const a = accounts.find(x => x.id === id);
+      if (a) { a.active = true; saveAccounts(); addLog(`تفعيل حساب: ${a.name}`, currentUser.name, 'activate'); renderStaffList(); showToast(`✅ تم تفعيل حساب ${a.name}`, 'success'); }
+    }
+
+    function toggleAccount(id) {
+      const a = accounts.find(x => x.id === id);
+      if (a) { a.active = !a.active; saveAccounts(); renderStaffList(); showToast(`${a.active ? '✅ تفعيل' : '🔒 تعطيل'} حساب ${a.name}`, 'warning'); }
+    }
+
+    function changeRole(id, role) {
+      const a = accounts.find(x => x.id === id);
+      if (a) { a.role = role; saveAccounts(); addLog(`تغيير صلاحية ${a.name} إلى ${ROLE_LABELS[role].label}`, currentUser.name, 'role'); showToast(`تم تغيير دور ${a.name}`, 'success'); }
+    }
+
+    function deleteAccount(id) {
+      const a = accounts.find(x => x.id === id);
+      if (!a) return;
+      if (!confirm(`هل تريد حذف حساب ${a.name}؟`)) return;
+      accounts = accounts.filter(x => x.id !== id);
+      saveAccounts();
+      addLog(`حذف حساب: ${a.name}`, currentUser.name, 'delete');
+      renderStaffList();
+      showToast('تم حذف الحساب', 'warning');
+    }
+
+    // ===================================================
+    // ACTIVITY LOG
+    // ===================================================
+    function addLog(action, user, type) {
+      activityLogs.unshift({ action, user, type, time: new Date().toISOString() });
+      if (activityLogs.length > 100) activityLogs = activityLogs.slice(0, 100);
+      localStorage.setItem('inpt_logs', JSON.stringify(activityLogs));
+    }
+
+    function renderActivityLog() {
+      const container = document.getElementById('activityLog');
+      if (activityLogs.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding:30px"><div class="empty-icon">📋</div><p>لا توجد نشاطات</p></div>`;
+        return;
+      }
+      const colors = { login: '#10b981', logout: '#6b7280', activate: '#3b82f6', delete: '#ef4444', edit: '#f59e0b', role: '#8b5cf6' };
+      container.innerHTML = activityLogs.slice(0, 30).map(l => {
+        const color = colors[l.type] || '#9ca3af';
+        const time  = new Date(l.time).toLocaleString('ar-IQ');
+        return `<div class="log-item">
+          <div class="log-dot" style="background:${color};"></div>
+          <div style="flex:1;">
+            <span style="font-weight:700;">${l.user}</span> — ${l.action}
+            <div style="font-size:11px;color:var(--gray-400);margin-top:2px;">${time}</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    // ===================================================
+    // DATA STORE
+    // ===================================================
+    let students = JSON.parse(localStorage.getItem('inpt_students') || '[]');
+    let currentFilter = 'all';
+
+    const EXAM_LABELS = {
+      arabic:   { label: 'اللغة العربية',    icon: '📖', badge: 'badge-arabic' },
+      english:  { label: 'اللغة الإنجليزية', icon: '🌐', badge: 'badge-english' },
+      computer: { label: 'الحاسوب (INCPT)',   icon: '💻', badge: 'badge-computer' }
+    };
+
+    const STATUS_LABELS = {
+      pending:   { label: 'بانتظار الحجز', badge: 'badge-pending',   icon: '⏳' },
+      confirmed: { label: 'تم الحجز',       badge: 'badge-confirmed', icon: '✅' },
+      cancelled: { label: 'ملغي',            badge: 'badge-cancelled', icon: '❌' }
+    };
+
+    function save() { localStorage.setItem('inpt_students', JSON.stringify(students)); }
+
+    // ===================================================
+    // TABS
+    // ===================================================
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('page-' + tab).classList.add('active');
+      if (btn) btn.classList.add('active');
+      if (tab === 'students')  renderStudentTable();
+      if (tab === 'schedule')  renderSchedule();
+      if (tab === 'dashboard') renderDashboard();
+      if (tab === 'admin')     { renderStaffList(); renderActivityLog(); }
+    }
+
+    // ===================================================
+    // EXAM SELECT
+    // ===================================================
+    function selectExam(type, el) {
+      document.querySelectorAll('.exam-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('fExam').value = type;
+    }
+
+    // ===================================================
+    // REGISTER STUDENT
+    // ===================================================
+    function registerStudent() {
+      if (currentUser && currentUser.role === 'viewer') { showToast('⛔ ليس لديك صلاحية التسجيل', 'danger'); return; }
+      const name  = document.getElementById('fName').value.trim();
+      const phone = document.getElementById('fPhone').value.trim();
+      const nid   = document.getElementById('fNid').value.trim();
+      const email = document.getElementById('fEmail').value.trim();
+      const exam  = document.getElementById('fExam').value;
+      const date  = document.getElementById('fDate').value;
+      const time  = document.getElementById('fTime').value;
+      const notes = document.getElementById('fNotes').value.trim();
+
+      if (!name)  { showToast('يرجى إدخال الاسم الكامل', 'danger'); return; }
+      if (!phone || phone.length < 10) { showToast('يرجى إدخال رقم هاتف صحيح', 'danger'); return; }
+      if (!exam)  { showToast('يرجى اختيار نوع الامتحان', 'danger'); return; }
+      if (!date)  { showToast('يرجى تحديد تاريخ الحجز', 'danger'); return; }
+      if (!time)  { showToast('يرجى تحديد وقت الحجز', 'danger'); return; }
+
+      const student = {
+        id: Date.now().toString(), name, phone, nid, email, exam, date, time, notes,
+        status: 'confirmed', registeredAt: new Date().toISOString(),
+        registeredBy: currentUser ? currentUser.name : 'غير معروف'
+      };
+
+      students.push(student);
+      save();
+      clearForm();
+      updateHeaderStats();
+      checkNotifications();
+      addLog(`تسجيل طالب: ${name}`, currentUser.name, 'edit');
+      showToast(`✅ تم تسجيل ${name} بنجاح!`, 'success');
+    }
+
+    function clearForm() {
+      ['fName','fPhone','fNid','fEmail','fDate','fTime','fNotes'].forEach(id => { document.getElementById(id).value = ''; });
+      document.getElementById('fExam').value = '';
+      document.getElementById('fTime').value = '09:00';
+      document.querySelectorAll('.exam-card').forEach(c => c.classList.remove('selected'));
+    }
+
+    // ===================================================
+    // STUDENT TABLE
+    // ===================================================
+    function filterStudents(type, btn) {
+      currentFilter = type;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderStudentTable();
+    }
+
+    function renderStudentTable() {
+      const q = (document.getElementById('listSearch')?.value || '').toLowerCase();
+      let list = students.filter(s => {
+        const matchFilter =
+          currentFilter === 'all' ? true :
+          currentFilter === 'pending'   ? s.status === 'pending' :
+          currentFilter === 'confirmed' ? s.status === 'confirmed' :
+          s.exam === currentFilter;
+        const matchSearch = !q || s.name.toLowerCase().includes(q) || s.phone.includes(q);
+        return matchFilter && matchSearch;
+      });
+      list.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
+
+      const tbody  = document.getElementById('studentTableBody');
+      const empty  = document.getElementById('studentEmptyState');
+      const countL = document.getElementById('studentCountLabel');
+      countL.textContent = list.length + ' طالب';
+
+      if (list.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+      empty.style.display = 'none';
+
+      const canEdit = !currentUser || currentUser.role !== 'viewer';
+
+      tbody.innerHTML = list.map((s, i) => {
+        const ex = EXAM_LABELS[s.exam];
+        const st = STATUS_LABELS[s.status];
+        return `<tr>
+          <td style="color:var(--gray-400);font-size:12px;">${i + 1}</td>
+          <td><div style="font-weight:700;">${s.name}</div>${s.nid ? `<div style="font-size:11px;color:var(--gray-400);">${s.nid}</div>` : ''}</td>
+          <td dir="ltr" style="font-size:13px;">${s.phone}</td>
+          <td><span class="badge ${ex.badge}">${ex.icon} ${ex.label}</span></td>
+          <td style="font-size:13px;">${formatDate(s.date)}</td>
+          <td style="font-size:13px;" dir="ltr">${s.time}</td>
+          <td><span class="badge ${st.badge}">${st.icon} ${st.label}</span></td>
+          <td><div style="display:flex;gap:6px;">
+            <button class="btn btn-ghost btn-sm" onclick="viewStudent('${s.id}')">👁️</button>
+            ${canEdit ? `<button class="btn btn-danger btn-sm" onclick="deleteStudent('${s.id}')">🗑️</button>` : ''}
+          </div></td>
+        </tr>`;
+      }).join('');
+    }
+
+    // ===================================================
+    // SCHEDULE
+    // ===================================================
+    function renderSchedule() {
+      const container = document.getElementById('scheduleContent');
+      if (students.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="empty-icon">📅</div><h3>لا توجد حجوزات</h3></div>`;
+        return;
+      }
+      const groups = {};
+      const sorted = [...students].filter(s => s.date).sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
+      sorted.forEach(s => { if (!groups[s.date]) groups[s.date] = []; groups[s.date].push(s); });
+      const today = new Date().toISOString().split('T')[0];
+      let html = '';
+      Object.entries(groups).forEach(([date, list]) => {
+        const isToday = date === today;
+        const isPast  = date < today;
+        html += `<div style="margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="height:2px;flex:1;background:var(--gray-200);"></div>
+            <span style="background:${isToday ? 'var(--primary)' : isPast ? 'var(--gray-300)' : 'var(--success)'};color:white;padding:4px 14px;border-radius:99px;font-size:13px;font-weight:700;">
+              ${isToday ? '📅 اليوم - ' : ''}${formatDate(date)}
+            </span>
+            <div style="height:2px;flex:1;background:var(--gray-200);"></div>
+          </div>
+          <div class="table-wrapper"><table>
+            <thead><tr><th>الوقت</th><th>الاسم</th><th>الهاتف</th><th>الامتحان</th><th>الحالة</th><th>سجّله</th><th></th></tr></thead>
+            <tbody>${list.map(s => {
+              const ex = EXAM_LABELS[s.exam]; const st = STATUS_LABELS[s.status];
+              return `<tr>
+                <td dir="ltr" style="font-weight:700;color:var(--primary);">${s.time||'—'}</td>
+                <td style="font-weight:600;">${s.name}</td>
+                <td dir="ltr" style="font-size:13px;">${s.phone}</td>
+                <td><span class="badge ${ex.badge}">${ex.icon} ${ex.label}</span></td>
+                <td><span class="badge ${st.badge}">${st.icon} ${st.label}</span></td>
+                <td style="font-size:11px;color:var(--gray-400);">${s.registeredBy || '—'}</td>
+                <td><button class="btn btn-ghost btn-sm" onclick="viewStudent('${s.id}')">👁️</button></td>
+              </tr>`;
+            }).join('')}</tbody>
+          </table></div>
+        </div>`;
+      });
+      container.innerHTML = html;
+    }
+
+    // ===================================================
+    // DASHBOARD
+    // ===================================================
+    function renderDashboard() {
+      document.getElementById('statTotal').textContent    = students.length;
+      document.getElementById('statArabic').textContent   = students.filter(s => s.exam === 'arabic').length;
+      document.getElementById('statEnglish').textContent  = students.filter(s => s.exam === 'english').length;
+      document.getElementById('statComputer').textContent = students.filter(s => s.exam === 'computer').length;
+      const now = new Date();
+      const in48 = new Date(now.getTime() + 48 * 3600000);
+      const upcoming = students.filter(s => s.date && s.time).filter(s => { const dt = new Date(s.date + 'T' + s.time); return dt >= now && dt <= in48; }).sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
+      const list = document.getElementById('upcomingList');
+      if (upcoming.length === 0) { list.innerHTML = `<div class="empty-state" style="padding:30px"><div class="empty-icon">📭</div><p>لا توجد مواعيد خلال 48 ساعة</p></div>`; return; }
+      list.innerHTML = upcoming.map(s => {
+        const dt = new Date(s.date + 'T' + s.time);
+        const diffH = Math.round((dt - now) / 3600000);
+        const cls = diffH < 2 ? 'urgent' : diffH < 12 ? 'soon' : '';
+        const ex = EXAM_LABELS[s.exam];
+        return `<div class="upcoming-item ${cls}">
+          <div class="upcoming-time"><div class="day">${dt.getDate()}</div><div class="month">${dt.toLocaleString('ar',{month:'short'})}</div></div>
+          <div class="upcoming-info"><div class="name">${s.name}</div><div class="detail">${ex.icon} ${ex.label} — ${s.time} — ${diffH < 1 ? 'أقل من ساعة' : diffH + ' ساعة'}</div></div>
+          <button class="btn btn-ghost btn-sm" onclick="viewStudent('${s.id}')">تفاصيل</button>
+        </div>`;
+      }).join('');
+    }
+
+    // ===================================================
+    // SEARCH
+    // ===================================================
+    function doSearch() {
+      const q = document.getElementById('mainSearch').value.trim().toLowerCase();
+      const container = document.getElementById('searchResults');
+      if (!q) { container.innerHTML = ''; return; }
+      const results = students.filter(s => s.name.toLowerCase().includes(q) || s.phone.includes(q) || (s.nid && s.nid.includes(q)));
+      if (results.length === 0) { container.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><h3>لا توجد نتائج</h3></div>`; return; }
+      container.innerHTML = `<p style="margin-bottom:12px;color:var(--gray-500);font-size:13px;">تم العثور على ${results.length} نتيجة</p>
+        <div class="table-wrapper"><table>
+          <thead><tr><th>الاسم</th><th>الهاتف</th><th>الامتحان</th><th>تاريخ الحجز</th><th>الوقت</th><th>الحالة</th><th></th></tr></thead>
+          <tbody>${results.map(s => {
+            const ex = EXAM_LABELS[s.exam]; const st = STATUS_LABELS[s.status];
+            return `<tr>
+              <td style="font-weight:700;">${s.name}</td>
+              <td dir="ltr">${s.phone}</td>
+              <td><span class="badge ${ex.badge}">${ex.icon} ${ex.label}</span></td>
+              <td>${formatDate(s.date)}</td>
+              <td dir="ltr">${s.time}</td>
+              <td><span class="badge ${st.badge}">${st.icon} ${st.label}</span></td>
+              <td><button class="btn btn-ghost btn-sm" onclick="viewStudent('${s.id}')">👁️ عرض</button></td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table></div>`;
+    }
+
+    // ===================================================
+    // VIEW / DELETE STUDENT
+    // ===================================================
+    function viewStudent(id) {
+      const s = students.find(x => x.id === id); if (!s) return;
+      const ex = EXAM_LABELS[s.exam]; const st = STATUS_LABELS[s.status];
+      document.getElementById('modalBody').innerHTML = `
+        <div class="detail-row"><span class="detail-key">الاسم الكامل</span><span class="detail-val">${s.name}</span></div>
+        <div class="detail-row"><span class="detail-key">رقم الهاتف</span><span class="detail-val" dir="ltr">${s.phone}</span></div>
+        ${s.nid ? `<div class="detail-row"><span class="detail-key">الرقم الوطني</span><span class="detail-val">${s.nid}</span></div>` : ''}
+        ${s.email ? `<div class="detail-row"><span class="detail-key">البريد الإلكتروني</span><span class="detail-val" dir="ltr">${s.email}</span></div>` : ''}
+        <div class="detail-row"><span class="detail-key">نوع الامتحان</span><span class="detail-val">${ex.icon} ${ex.label}</span></div>
+        <div class="detail-row"><span class="detail-key">تاريخ الحجز</span><span class="detail-val">${formatDate(s.date)}</span></div>
+        <div class="detail-row"><span class="detail-key">الوقت</span><span class="detail-val" dir="ltr">${s.time}</span></div>
+        <div class="detail-row"><span class="detail-key">الحالة</span><span class="detail-val"><span class="badge ${st.badge}">${st.icon} ${st.label}</span></span></div>
+        <div class="detail-row"><span class="detail-key">سجّله</span><span class="detail-val">${s.registeredBy || '—'}</span></div>
+        ${s.notes ? `<div class="detail-row"><span class="detail-key">ملاحظات</span><span class="detail-val">${s.notes}</span></div>` : ''}
+        <div class="detail-row"><span class="detail-key">تاريخ التسجيل</span><span class="detail-val" style="font-size:12px;">${new Date(s.registeredAt).toLocaleString('ar')}</span></div>`;
+      const canEdit = !currentUser || currentUser.role !== 'viewer';
+      document.getElementById('modalFooter').innerHTML = `
+        ${canEdit ? `<button class="btn btn-success btn-sm" onclick="changeStatus('${id}','confirmed'); closeModal();">✅ تأكيد</button>
+        <button class="btn btn-ghost btn-sm" onclick="changeStatus('${id}','pending'); closeModal();">⏳ بانتظار</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteStudent('${id}'); closeModal();">🗑️ حذف</button>` : ''}
+        <button class="btn btn-ghost btn-sm" onclick="closeModal()">إغلاق</button>`;
+      document.getElementById('studentModal').classList.add('open');
+    }
+
+    function closeModal() { document.getElementById('studentModal').classList.remove('open'); }
+
+    function deleteStudent(id) {
+      if (currentUser && currentUser.role === 'viewer') { showToast('⛔ ليس لديك صلاحية الحذف', 'danger'); return; }
+      if (!confirm('هل تريد حذف هذا الطالب؟')) return;
+      const s = students.find(x => x.id === id);
+      students = students.filter(x => x.id !== id);
+      save();
+      if (s) addLog(`حذف طالب: ${s.name}`, currentUser?.name || '—', 'delete');
+      renderStudentTable();
+      updateHeaderStats();
+      showToast('تم حذف الطالب', 'warning');
+    }
+
+    function changeStatus(id, status) {
+      const s = students.find(x => x.id === id);
+      if (s) { s.status = status; save(); renderStudentTable(); renderSchedule(); }
+    }
+
+    // ===================================================
+    // NOTIFICATIONS
+    // ===================================================
+    function checkNotifications() {
+      const now = new Date(); const in24 = new Date(now.getTime() + 24 * 3600000);
+      const soon = students.filter(s => { if (!s.date || !s.time) return false; const dt = new Date(s.date + 'T' + s.time); return dt >= now && dt <= in24; });
+      const badge = document.getElementById('notifBadge'); const list = document.getElementById('notifList');
+      if (soon.length > 0) {
+        badge.style.display = 'flex'; badge.textContent = soon.length;
+        list.innerHTML = soon.map(s => {
+          const dt = new Date(s.date + 'T' + s.time); const diffH = Math.round((dt - now) / 3600000);
+          const ex = EXAM_LABELS[s.exam];
+          return `<div class="notif-item"><div class="notif-dot"></div><div><p><strong>${s.name}</strong> — ${ex.icon} ${ex.label}</p><small>⏰ ${s.date} الساعة ${s.time} (بعد ${diffH} ساعة)</small></div></div>`;
+        }).join('');
+      } else { badge.style.display = 'none'; list.innerHTML = `<div style="padding:20px;text-align:center;color:var(--gray-400);font-size:13px;">لا توجد إشعارات جديدة</div>`; }
+    }
+
+    function toggleNotif() { document.getElementById('notifPanel').classList.toggle('open'); }
+
+    // ===================================================
+    // TOAST / HELPERS
+    // ===================================================
+    function showToast(msg, type = '') {
+      const t = document.createElement('div'); t.className = `toast ${type}`; t.textContent = msg;
+      document.getElementById('toastContainer').appendChild(t);
+      setTimeout(() => t.remove(), 3500);
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '—';
+      const d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('ar-IQ', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    function updateHeaderStats() {
+      document.getElementById('hdrTotal').textContent = students.length;
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('hdrToday').textContent = students.filter(s => s.date === today).length;
+    }
+
+    // ===================================================
+    // CLOSE DROPDOWNS ON OUTSIDE CLICK
+    // ===================================================
+    document.addEventListener('click', e => {
+      const notifPanel = document.getElementById('notifPanel');
+      const bellBtn    = document.getElementById('bellBtn');
+      if (notifPanel.classList.contains('open') && !notifPanel.contains(e.target) && !bellBtn.contains(e.target))
+        notifPanel.classList.remove('open');
+
+      const userDrop = document.getElementById('userDropdown');
+      const userBtn  = document.getElementById('userMenuBtn');
+      if (userDrop && userDrop.classList.contains('open') && !userDrop.contains(e.target) && !userBtn.contains(e.target))
+        userDrop.classList.remove('open');
+
+      if (e.target === document.getElementById('studentModal')) closeModal();
+      if (e.target === document.getElementById('profileModal')) closeProfileModal();
+    });
+
+    // ===================================================
+    // INIT
+    // ===================================================
+    document.getElementById('fDate').min = new Date().toISOString().split('T')[0];
+
+    // Auto-login if session exists
+    if (currentUser) {
+      initApp();
+    }
+
+    setInterval(checkNotifications, 5 * 60 * 1000);
+</script>
+</body></html>
