@@ -1,1803 +1,1429 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>نظام إدارة حجوزات الامتحانات الوطنية</title>
-  <link rel="manifest" href="#" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="الدليل السياحي الشامل لمحافظة بغداد — اكتشف جمال عاصمة العراق">
+  <meta name="theme-color" content="#b45309">
+  <title>بغداد — الدليل السياحي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /* ===== RESET & ROOT ===== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    /* ═══════════════════════════════════════
+       DESIGN SYSTEM — بغداد الذهبية
+       Aesthetic: Rich Iraqi amber + deep navy
+       Warm terracotta, gold, ancient stone
+    ═══════════════════════════════════════ */
     :root {
-      --primary: #1a56db;
-      --primary-dark: #1e429f;
-      --primary-light: #e8f0fe;
-      --success: #0e9f6e;
-      --success-light: #d5f5e3;
-      --warning: #e3a008;
-      --warning-light: #fef3c7;
-      --danger: #e02424;
-      --danger-light: #fde8e8;
-      --gray-50: #f9fafb;
-      --gray-100: #f3f4f6;
-      --gray-200: #e5e7eb;
-      --gray-300: #d1d5db;
-      --gray-400: #9ca3af;
-      --gray-500: #6b7280;
-      --gray-600: #4b5563;
-      --gray-700: #374151;
-      --gray-800: #1f2937;
-      --gray-900: #111827;
-      --white: #ffffff;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-      --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
-      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
-      --radius: 12px;
-      --radius-sm: 8px;
-      --radius-lg: 16px;
-      --font: 'Segoe UI', Tahoma, Arial, sans-serif;
+      --gold:      #d97706;
+      --gold-l:    #f59e0b;
+      --gold-p:    #fef3c7;
+      --gold-p2:   #fde68a;
+      --amber:     #b45309;
+      --amber-d:   #92400e;
+      --teal:      #0f766e;
+      --teal-l:    #14b8a6;
+      --teal-p:    #ccfbf1;
+      --navy:      #1e3a5f;
+      --navy-l:    #2563eb;
+      --red:       #dc2626;
+      --green:     #16a34a;
+
+      --bg:        #fffbf5;
+      --bg2:       #fef9ef;
+      --sur:       #ffffff;
+      --bor:       #e7d7b5;
+      --bor2:      #d4b896;
+
+      --tx:        #1c1209;
+      --tx2:       #3d2b0f;
+      --mu:        #78624a;
+      --mu2:       #a08060;
+
+      --top:       60px;
+      --bot:       66px;
+      --sb:        270px;
+
+      --r:         12px;
+      --rl:        18px;
+      --rxl:       24px;
+
+      --sh:        0 2px 8px rgba(180,83,9,.1);
+      --shm:       0 8px 32px rgba(180,83,9,.15);
     }
 
-    html { scroll-behavior: smooth; }
+    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Tajawal',sans-serif; background:var(--bg); color:var(--tx); min-height:100vh; overflow-x:hidden; }
+    ::-webkit-scrollbar { width:4px; height:4px; }
+    ::-webkit-scrollbar-thumb { background:var(--bor2); border-radius:4px; }
 
-    body {
-      font-family: var(--font);
-      background: var(--gray-100);
-      color: var(--gray-800);
-      min-height: 100vh;
-      font-size: 15px;
-      line-height: 1.6;
+    /* ══════════════════════
+       HERO — الشاشة الرئيسية
+    ══════════════════════ */
+    .hero {
+      position:relative; min-height:100svh;
+      background:linear-gradient(160deg,#1a0a00 0%,#3b1a08 35%,#7c3a00 65%,#b45309 100%);
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      overflow:hidden; padding:40px 20px 80px;
+    }
+    /* Geometric islamic pattern overlay */
+    .hero-pattern {
+      position:absolute; inset:0;
+      background-image:
+        repeating-linear-gradient(45deg,rgba(255,200,50,.04) 0,rgba(255,200,50,.04) 1px,transparent 0,transparent 50%),
+        repeating-linear-gradient(-45deg,rgba(255,200,50,.04) 0,rgba(255,200,50,.04) 1px,transparent 0,transparent 50%);
+      background-size:24px 24px;
+    }
+    .hero-glow {
+      position:absolute;
+      width:600px; height:600px; border-radius:50%;
+      background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);
+      top:50%; left:50%; transform:translate(-50%,-50%);
+      animation:glowPulse 4s ease-in-out infinite;
+    }
+    @keyframes glowPulse { 0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1);} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.1);} }
+
+    .hero-content { position:relative;z-index:1;text-align:center;max-width:700px; }
+
+    /* Ornamental top */
+    .ornament {
+      display:flex; align-items:center; justify-content:center;
+      gap:12px; margin-bottom:20px;
+      animation:fadeUp .8s ease both;
+    }
+    .orn-line { flex:1; max-width:80px; height:1px; background:linear-gradient(90deg,transparent,rgba(245,158,11,.6)); }
+    .orn-line.r { background:linear-gradient(270deg,transparent,rgba(245,158,11,.6)); }
+    .orn-diamond { width:8px;height:8px;background:var(--gold-l);transform:rotate(45deg); }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 18px; border-radius:20px;
+      border:1px solid rgba(245,158,11,.4);
+      background:rgba(245,158,11,.1);
+      color:var(--gold-l); font-size:.78rem; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase;
+      margin-bottom:18px;
+      animation:fadeUp .8s ease .1s both;
     }
 
-    /* ===== HEADER ===== */
-    header {
-      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-      color: white;
-      padding: 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow-lg);
+    .hero-title {
+      font-family:'Amiri',serif;
+      font-size:clamp(2.8rem,8vw,5rem);
+      font-weight:700; color:white;
+      line-height:1.1; letter-spacing:-1px;
+      margin-bottom:8px;
+      animation:fadeUp .8s ease .15s both;
+    }
+    .hero-title .golden { color:var(--gold-l); }
+
+    .hero-subtitle {
+      font-size:clamp(1rem,3vw,1.3rem);
+      color:rgba(255,255,255,.7);
+      font-weight:300; margin-bottom:28px;
+      animation:fadeUp .8s ease .2s both;
     }
 
-    .header-inner {
-      max-width: 1200px;
-      margin: auto;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      justify-content: space-between;
+    /* Stats row */
+    .hero-stats {
+      display:flex; gap:0; justify-content:center;
+      background:rgba(255,255,255,.07); backdrop-filter:blur(12px);
+      border:1px solid rgba(245,158,11,.2);
+      border-radius:16px; overflow:hidden;
+      margin-bottom:32px;
+      animation:fadeUp .8s ease .25s both;
+    }
+    .hs { flex:1; padding:14px 16px; text-align:center; }
+    .hs:not(:last-child) { border-left:1px solid rgba(245,158,11,.2); }
+    .hs-num { font-size:1.6rem; font-weight:900; color:var(--gold-l); }
+    .hs-lbl { font-size:.68rem; color:rgba(255,255,255,.6); margin-top:2px; }
+
+    /* CTA buttons */
+    .hero-btns {
+      display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+      animation:fadeUp .8s ease .3s both;
+    }
+    .btn-cta {
+      padding:14px 28px; border-radius:14px; border:none;
+      font-family:'Tajawal',sans-serif; font-size:.95rem; font-weight:700;
+      cursor:pointer; transition:all .25s; display:inline-flex; align-items:center; gap:9px;
+    }
+    .btn-cta:active { transform:scale(.97); }
+    .btn-primary-cta { background:linear-gradient(135deg,var(--gold),var(--amber)); color:white; box-shadow:0 4px 20px rgba(180,83,9,.4); }
+    .btn-primary-cta:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(180,83,9,.5); }
+    .btn-ghost-cta { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:white; backdrop-filter:blur(10px); }
+    .btn-ghost-cta:hover { background:rgba(255,255,255,.18); }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      color:rgba(255,255,255,.5); font-size:.72rem; cursor:pointer;
+      animation:fadeIn 1s ease 1s both;
+    }
+    .scroll-arrow { width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;animation:bounce 2s ease-in-out infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px);} to{opacity:1;transform:translateY(0);} }
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+    /* ══════════════════════
+       TOPBAR
+    ══════════════════════ */
+    .topbar {
+      position:fixed; top:0; left:0; right:0; z-index:500;
+      height:var(--top);
+      background:rgba(255,251,245,.95); backdrop-filter:blur(16px);
+      border-bottom:1.5px solid var(--bor);
+      display:flex; align-items:center; gap:12px; padding:0 16px;
+      box-shadow:0 2px 12px rgba(180,83,9,.08);
+      transform:translateY(-100%); transition:transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .topbar.visible { transform:translateY(0); }
+    .tb-logo { display:flex; align-items:center; gap:9px; flex:1; }
+    .tb-logo-icon {
+      width:34px; height:34px; border-radius:10px;
+      background:linear-gradient(135deg,var(--gold),var(--amber));
+      display:flex; align-items:center; justify-content:center;
+      color:white; font-size:.85rem;
+      box-shadow:0 2px 8px rgba(180,83,9,.3);
+    }
+    .tb-logo-name { font-size:.9rem; font-weight:800; color:var(--tx); }
+    .tb-logo-sub { font-size:.62rem; color:var(--mu); }
+    .tb-right { display:flex; align-items:center; gap:8px; }
+    .tb-btn {
+      width:36px; height:36px; border-radius:10px; border:1.5px solid var(--bor);
+      background:var(--sur); color:var(--mu); display:flex; align-items:center;
+      justify-content:center; font-size:.88rem; cursor:pointer; position:relative;
+    }
+    .tb-btn:hover { background:var(--gold-p); border-color:var(--bor2); color:var(--amber); }
+    .menu-btn { background:var(--amber); border-color:var(--amber); color:white; box-shadow:0 2px 8px rgba(180,83,9,.3); }
+    .fav-count {
+      position:absolute; top:-4px; right:-4px;
+      width:16px; height:16px; border-radius:50%; background:var(--red);
+      color:white; font-size:.6rem; font-weight:700;
+      display:none; align-items:center; justify-content:center;
+    }
+    .fav-count.show { display:flex; }
+
+    /* ══════════════════════
+       SIDEBAR
+    ══════════════════════ */
+    .overlay { position:fixed;inset:0;z-index:600;background:rgba(28,18,9,.5);backdrop-filter:blur(3px);display:none; }
+    .overlay.on { display:block; }
+    .sidebar {
+      position:fixed; top:0; right:0; width:var(--sb); height:100vh;
+      background:var(--sur); border-left:1.5px solid var(--bor);
+      display:flex; flex-direction:column; z-index:700;
+      transform:translateX(100%); transition:transform .3s cubic-bezier(.4,0,.2,1);
+      overflow:hidden;
+    }
+    .sidebar.open { transform:translateX(0); }
+
+    .sb-header {
+      padding:18px 16px 14px;
+      background:linear-gradient(135deg,#1a0a00,#3b1a08);
+      border-bottom:1.5px solid rgba(245,158,11,.2);
+    }
+    .sb-logo { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .sb-logo-icon {
+      width:40px; height:40px; border-radius:12px;
+      background:linear-gradient(135deg,var(--gold),var(--amber));
+      display:flex; align-items:center; justify-content:center;
+      color:white; font-size:1rem;
+    }
+    .sb-logo-name { font-size:1rem; font-weight:800; color:white; }
+    .sb-logo-sub { font-size:.65rem; color:rgba(255,255,255,.55); }
+
+    .sb-search {
+      display:flex; align-items:center; gap:8px;
+      padding:9px 13px; border-radius:11px;
+      background:rgba(255,255,255,.1); border:1px solid rgba(245,158,11,.2);
+    }
+    .sb-search input {
+      background:none; border:none; color:white; font-family:'Tajawal',sans-serif;
+      font-size:.86rem; flex:1; outline:none;
+    }
+    .sb-search input::placeholder { color:rgba(255,255,255,.4); }
+    .sb-search i { color:rgba(255,255,255,.4); font-size:.82rem; }
+
+    .sb-nav { flex:1; overflow-y:auto; padding:10px; }
+    .sb-nav::-webkit-scrollbar { width:3px; }
+    .sb-nav::-webkit-scrollbar-thumb { background:var(--bor); border-radius:3px; }
+    .nav-sep { font-size:.62rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--mu2); padding:0 6px; margin:10px 0 4px; }
+    .nav-btn {
+      display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:11px;
+      cursor:pointer; transition:all .18s; color:var(--mu); font-size:.87rem;
+      border:none; background:transparent; width:100%; font-family:'Tajawal',sans-serif; text-align:right;
+    }
+    .nav-btn:hover { background:var(--gold-p); color:var(--amber); }
+    .nav-btn.on { background:var(--gold-p); color:var(--amber-d); font-weight:700; border:1.5px solid var(--gold-p2); }
+    .nav-btn i { width:17px; text-align:center; font-size:.86rem; }
+    .nav-count { margin-right:auto; background:var(--gold); color:white; font-size:.63rem; font-weight:700; padding:1px 7px; border-radius:10px; display:none; }
+    .nav-count.show { display:inline-block; }
+
+    .sb-footer { padding:10px; border-top:1.5px solid var(--bor); }
+    .weather-widget {
+      background:linear-gradient(135deg,#1e3a5f,#2563eb);
+      border-radius:12px; padding:13px; display:flex; align-items:center; gap:11px; color:white;
+    }
+    .ww-temp { font-size:1.8rem; font-weight:900; }
+    .ww-lbl { font-size:.72rem; opacity:.75; }
+    .ww-city { font-size:.82rem; font-weight:700; }
+
+    /* ══════════════════════
+       MAIN CONTENT
+    ══════════════════════ */
+    .main {
+      padding-top:calc(var(--top) + 18px);
+      padding-left:16px; padding-right:16px;
+      padding-bottom:calc(var(--bot) + 18px);
+    }
+    @media(min-width:769px) {
+      .topbar,.overlay { display:none!important; }
+      .sidebar { transform:translateX(0)!important; }
+      .main { margin-right:var(--sb); padding:28px 32px 36px; }
+      .bottom-nav { display:none!important; }
     }
 
-    .header-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    /* ══════════════════════
+       BOTTOM NAV
+    ══════════════════════ */
+    .bottom-nav {
+      position:fixed; bottom:0; left:0; right:0; z-index:400;
+      height:var(--bot); background:rgba(255,251,245,.97); backdrop-filter:blur(16px);
+      border-top:1.5px solid var(--bor);
+      display:flex; align-items:center; justify-content:space-around; padding:0 6px;
+      box-shadow:0 -4px 20px rgba(180,83,9,.08);
     }
-
-    .logo-icon {
-      width: 44px;
-      height: 44px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
+    .bn {
+      display:flex; flex-direction:column; align-items:center; gap:3px;
+      padding:7px 10px; border-radius:11px; border:none; background:none;
+      color:var(--mu2); font-size:.6rem; font-weight:600; font-family:'Tajawal',sans-serif;
+      cursor:pointer; flex:1; transition:all .18s; position:relative;
     }
+    .bn i { font-size:1.1rem; }
+    .bn.on { color:var(--amber); background:var(--gold-p); }
+    .bn-dot { position:absolute;top:5px;right:calc(50% - 14px);background:var(--red);color:white;font-size:.56rem;font-weight:700;padding:1px 5px;border-radius:10px;display:none; }
+    .bn-dot.on { display:block; }
 
-    .header-title h1 {
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.2;
-    }
+    /* ══════════════════════
+       SECTIONS
+    ══════════════════════ */
+    .sec { display:none; animation:secFade .35s ease both; }
+    .sec.on { display:block; }
+    @keyframes secFade { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
 
-    .header-title p {
-      font-size: 12px;
-      opacity: 0.8;
-    }
-
-    .header-stats {
-      display: flex;
-      gap: 16px;
-    }
-
-    .stat-badge {
-      text-align: center;
-      background: rgba(255,255,255,0.12);
-      border-radius: 8px;
-      padding: 6px 12px;
-    }
-
-    .stat-badge .num { font-size: 20px; font-weight: 700; }
-    .stat-badge .lbl { font-size: 10px; opacity: 0.8; }
-
-    /* ===== NAV TABS ===== */
-    .nav-tabs {
-      background: var(--white);
-      border-bottom: 2px solid var(--gray-200);
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .nav-tabs::-webkit-scrollbar { display: none; }
-
-    .nav-tabs-inner {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      padding: 0 16px;
-      gap: 4px;
-    }
-
-    .tab-btn {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 14px 20px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gray-500);
-      border-bottom: 3px solid transparent;
-      white-space: nowrap;
-      transition: all 0.2s;
-      font-family: var(--font);
-    }
-
-    .tab-btn:hover { color: var(--primary); background: var(--primary-light); border-radius: 8px 8px 0 0; }
-    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
-    .tab-btn .tab-icon { font-size: 16px; }
-
-    /* ===== MAIN LAYOUT ===== */
-    .main-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px 16px;
-    }
-
-    .page { display: none; }
-    .page.active { display: block; }
-
-    /* ===== CARDS ===== */
+    /* ══════════════════════
+       CARDS
+    ══════════════════════ */
     .card {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 20px;
+      background:var(--sur); border:1.5px solid var(--bor);
+      border-radius:var(--rl); padding:18px; margin-bottom:14px;
+      box-shadow:var(--sh);
+    }
+    .ch {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:14px; padding-bottom:12px; border-bottom:1.5px solid var(--bor);
+      font-weight:700; font-size:.9rem; color:var(--tx);
+    }
+    .ch-l { display:flex; align-items:center; gap:8px; }
+
+    /* ══════════════════════
+       PLACE CARDS
+    ══════════════════════ */
+    .places-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+    @media(max-width:480px) { .places-grid { grid-template-columns:1fr; } }
+
+    .place-card {
+      background:var(--sur); border:1.5px solid var(--bor);
+      border-radius:var(--rxl); overflow:hidden;
+      box-shadow:var(--sh); transition:all .25s; cursor:pointer;
+    }
+    .place-card:hover { transform:translateY(-4px); box-shadow:var(--shm); border-color:var(--bor2); }
+    .place-card:active { transform:scale(.98); }
+
+    .pc-img {
+      height:190px; position:relative; overflow:hidden;
+      background:linear-gradient(135deg,#7c3a00,#1a0a00);
+    }
+    .pc-img-inner {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .4s ease;
+    }
+    .place-card:hover .pc-img-inner { transform:scale(1.06); }
+    .pc-img-fallback {
+      width:100%; height:100%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    }
+    .pc-img-fallback i { font-size:3rem; color:rgba(255,255,255,.3); }
+    .pc-img-fallback span { font-size:.8rem; color:rgba(255,255,255,.25); }
+
+    .pc-badge {
+      position:absolute; top:12px; right:12px;
+      padding:4px 12px; border-radius:20px; font-size:.72rem; font-weight:700;
+      backdrop-filter:blur(10px);
+    }
+    .pcb-history { background:rgba(180,83,9,.85); color:white; }
+    .pcb-nature  { background:rgba(22,163,74,.85); color:white; }
+    .pcb-culture { background:rgba(30,58,95,.85); color:white; }
+    .pcb-food    { background:rgba(220,38,38,.85); color:white; }
+    .pcb-market  { background:rgba(109,40,217,.85); color:white; }
+    .pcb-relig   { background:rgba(15,118,110,.85); color:white; }
+
+    .pc-fav {
+      position:absolute; top:12px; left:12px;
+      width:34px; height:34px; border-radius:50%;
+      background:rgba(255,255,255,.15); backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.25); color:white; font-size:.88rem;
+      display:flex; align-items:center; justify-content:center; cursor:pointer;
+      transition:all .2s;
+    }
+    .pc-fav:hover { background:rgba(220,38,38,.3); }
+    .pc-fav.faved { background:rgba(220,38,38,.8); border-color:transparent; }
+    .pc-fav.faved i { color:white; }
+
+    .pc-rating {
+      position:absolute; bottom:12px; right:12px;
+      display:flex; align-items:center; gap:4px;
+      padding:4px 10px; border-radius:20px;
+      background:rgba(0,0,0,.55); backdrop-filter:blur(6px);
+      color:var(--gold-l); font-size:.78rem; font-weight:700;
     }
 
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--gray-200);
+    .pc-body { padding:15px; }
+    .pc-cat { font-size:.7rem; font-weight:700; color:var(--amber); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:5px; }
+    .pc-name { font-size:1.05rem; font-weight:800; color:var(--tx); margin-bottom:6px; line-height:1.3; }
+    .pc-desc { font-size:.82rem; color:var(--mu); line-height:1.65; margin-bottom:12px; }
+    .pc-footer { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .pc-info { display:flex; align-items:center; gap:4px; font-size:.75rem; color:var(--mu2); }
+    .pc-info i { font-size:.7rem; color:var(--amber); }
+
+    /* ══════════════════════
+       FILTER CHIPS
+    ══════════════════════ */
+    .filter-bar { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px; }
+    .filter-bar::-webkit-scrollbar { height:0; }
+    .chip {
+      flex-shrink:0; padding:7px 16px; border-radius:20px; font-size:.79rem; font-weight:600;
+      cursor:pointer; background:var(--sur); border:1.5px solid var(--bor); color:var(--mu);
+      font-family:'Tajawal',sans-serif; transition:all .18s; white-space:nowrap;
     }
+    .chip.on { background:var(--gold-p); border-color:var(--gold-p2); color:var(--amber-d); }
+    .chip:active { transform:scale(.96); }
 
-    .card-header-icon {
-      width: 38px; height: 38px;
-      border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
+    /* ══════════════════════
+       MAP SECTION
+    ══════════════════════ */
+    .map-wrap {
+      border-radius:var(--rxl); overflow:hidden;
+      border:1.5px solid var(--bor); box-shadow:var(--sh);
+      margin-bottom:16px; position:relative;
     }
-
-    .card-header h2 { font-size: 17px; font-weight: 700; color: var(--gray-800); }
-    .card-header p { font-size: 12px; color: var(--gray-500); }
-
-    /* ===== FORM ===== */
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    .map-frame { width:100%; height:400px; border:none; display:block; }
+    .map-overlay {
+      position:absolute; top:12px; right:12px;
+      background:var(--sur); border:1.5px solid var(--bor);
+      border-radius:12px; padding:10px 14px;
+      box-shadow:var(--shm); font-size:.8rem; color:var(--tx2);
     }
+    .map-overlay strong { display:block; color:var(--amber); font-size:.88rem; margin-bottom:2px; }
 
-    @media (max-width: 600px) {
-      .form-grid { grid-template-columns: 1fr; }
-      .header-stats { display: none; }
-      .header-title h1 { font-size: 14px; }
+    /* ══════════════════════
+       FOOD SECTION
+    ══════════════════════ */
+    .food-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
+    .food-card {
+      background:var(--sur); border:1.5px solid var(--bor); border-radius:var(--rl);
+      overflow:hidden; transition:all .2s; cursor:pointer;
     }
-
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group.full { grid-column: 1 / -1; }
-
-    label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--gray-700);
+    .food-card:hover { border-color:var(--bor2); transform:translateY(-2px); box-shadow:var(--shm); }
+    .food-img {
+      height:140px; position:relative;
+      display:flex; align-items:center; justify-content:center;
+      font-size:4rem;
     }
+    .food-body { padding:13px; }
+    .food-name { font-size:.92rem; font-weight:800; color:var(--tx); margin-bottom:4px; }
+    .food-desc { font-size:.78rem; color:var(--mu); line-height:1.6; }
+    .food-tag { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; font-size:.7rem; font-weight:700; background:var(--gold-p); color:var(--amber-d); margin-top:8px; }
 
-    label span.req { color: var(--danger); margin-right: 2px; }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 11px 14px;
-      border: 1.5px solid var(--gray-300);
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      font-family: var(--font);
-      color: var(--gray-800);
-      background: var(--white);
-      transition: border-color 0.2s, box-shadow 0.2s;
-      outline: none;
+    /* ══════════════════════
+       TIPS & INFO
+    ══════════════════════ */
+    .tips-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
+    .tip-card {
+      background:var(--sur); border:1.5px solid var(--bor); border-radius:var(--rl);
+      padding:16px; display:flex; flex-direction:column; gap:10px; transition:all .2s;
     }
+    .tip-card:hover { border-color:var(--bor2); }
+    .tip-icon { width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+    .ti-gold { background:var(--gold-p); color:var(--amber); }
+    .ti-teal { background:var(--teal-p); color:var(--teal); }
+    .ti-navy { background:#dbeafe; color:var(--navy-l); }
+    .ti-red  { background:#fee2e2; color:var(--red); }
+    .ti-green{ background:#dcfce7; color:var(--green); }
+    .ti-gray { background:#f1f5f9; color:#475569; }
+    .tip-title { font-weight:800; font-size:.88rem; color:var(--tx); }
+    .tip-body { font-size:.8rem; color:var(--mu); line-height:1.65; }
 
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(26,86,219,0.12);
+    /* ══════════════════════
+       TIMELINE / HISTORY
+    ══════════════════════ */
+    .timeline { padding-right:20px; }
+    .tl-item { position:relative; padding-bottom:22px; padding-right:22px; border-right:2px solid var(--bor2); }
+    .tl-item:last-child { border-color:transparent; padding-bottom:0; }
+    .tl-dot {
+      position:absolute; right:-9px; top:4px;
+      width:16px; height:16px; border-radius:50%;
+      background:var(--gold); border:3px solid var(--sur);
+      box-shadow:0 0 0 2px var(--gold);
     }
+    .tl-year { font-size:.78rem; font-weight:800; color:var(--amber); margin-bottom:4px; letter-spacing:1px; }
+    .tl-event { font-weight:700; font-size:.9rem; color:var(--tx); margin-bottom:4px; }
+    .tl-desc { font-size:.8rem; color:var(--mu); line-height:1.65; }
 
-    input::placeholder { color: var(--gray-400); }
-
-    .exam-select-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+    /* ══════════════════════
+       FAVOURITES
+    ══════════════════════ */
+    .fav-empty {
+      text-align:center; padding:50px 20px;
     }
+    .fav-empty i { font-size:3rem; color:var(--bor2); margin-bottom:12px; display:block; }
+    .fav-empty-t { font-size:.95rem; font-weight:700; color:var(--mu); }
+    .fav-empty-s { font-size:.8rem; color:var(--mu2); margin-top:5px; }
 
-    @media (max-width: 480px) { .exam-select-grid { grid-template-columns: 1fr; } }
-
-    .exam-card {
-      border: 2px solid var(--gray-200);
-      border-radius: var(--radius-sm);
-      padding: 14px 10px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      user-select: none;
+    /* ══════════════════════
+       SEARCH RESULTS
+    ══════════════════════ */
+    .search-box {
+      display:flex; align-items:center; gap:10px;
+      background:var(--sur); border:2px solid var(--bor);
+      border-radius:14px; padding:12px 16px; margin-bottom:16px;
+      transition:border-color .2s;
     }
+    .search-box:focus-within { border-color:var(--gold); }
+    .search-box input {
+      flex:1; background:none; border:none; color:var(--tx);
+      font-family:'Tajawal',sans-serif; font-size:.95rem; outline:none;
+    }
+    .search-box input::placeholder { color:var(--mu2); }
+    .search-box i { color:var(--amber); font-size:1rem; }
 
-    .exam-card:hover { border-color: var(--primary); background: var(--primary-light); }
-    .exam-card.selected { border-color: var(--primary); background: var(--primary-light); }
-    .exam-card .exam-icon { font-size: 26px; margin-bottom: 6px; }
-    .exam-card .exam-name { font-size: 13px; font-weight: 700; color: var(--gray-700); }
-    .exam-card .exam-desc { font-size: 11px; color: var(--gray-500); margin-top: 3px; }
-
-    /* ===== BUTTONS ===== */
+    /* ══════════════════════
+       BUTTONS
+    ══════════════════════ */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 22px;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: var(--font);
-      transition: all 0.2s;
-      text-decoration: none;
+      display:inline-flex; align-items:center; gap:7px; padding:10px 18px;
+      border:none; border-radius:11px; font-family:'Tajawal',sans-serif;
+      font-size:.87rem; font-weight:700; cursor:pointer; transition:all .2s; white-space:nowrap;
     }
+    .btn:active { transform:scale(.97); }
+    .btn:disabled { opacity:.6; cursor:not-allowed; }
+    .btn-gold { background:linear-gradient(135deg,var(--gold),var(--amber)); color:white; box-shadow:0 3px 12px rgba(180,83,9,.3); }
+    .btn-gold:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 6px 18px rgba(180,83,9,.4); }
+    .btn-ghost { background:var(--bg); border:1.5px solid var(--bor); color:var(--tx2); }
+    .btn-ghost:hover:not(:disabled) { background:var(--gold-p); border-color:var(--bor2); color:var(--amber); }
+    .btn-sm { padding:7px 14px; font-size:.8rem; }
+    .btn-xs { padding:5px 11px; font-size:.75rem; border-radius:9px; }
+    .btn-full { width:100%; justify-content:center; }
 
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-    .btn-success { background: var(--success); color: white; }
-    .btn-success:hover { background: #07784f; }
-    .btn-danger { background: var(--danger); color: white; }
-    .btn-danger:hover { background: #b91c1c; }
-    .btn-ghost { background: var(--gray-100); color: var(--gray-700); }
-    .btn-ghost:hover { background: var(--gray-200); }
-    .btn-sm { padding: 7px 14px; font-size: 12px; }
-    .btn-full { width: 100%; justify-content: center; }
+    /* ══════════════════════
+       BADGE
+    ══════════════════════ */
+    .bdg { display:inline-flex; align-items:center; gap:3px; padding:3px 10px; border-radius:20px; font-size:.72rem; font-weight:700; }
+    .bdg-gold { background:var(--gold-p); color:var(--amber-d); }
+    .bdg-teal { background:var(--teal-p); color:var(--teal); }
+    .bdg-navy { background:#dbeafe; color:var(--navy); }
+    .bdg-red  { background:#fee2e2; color:var(--red); }
 
-    /* ===== BADGES ===== */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 10px;
-      border-radius: 99px;
-      font-size: 12px;
-      font-weight: 600;
+    /* ══════════════════════
+       MODAL (Place Detail)
+    ══════════════════════ */
+    .modal-bg {
+      position:fixed; inset:0; z-index:800;
+      background:rgba(28,18,9,.6); backdrop-filter:blur(4px);
+      display:none; align-items:flex-end; justify-content:center;
     }
-
-    .badge-arabic { background: #ede9fe; color: #5b21b6; }
-    .badge-english { background: #dbeafe; color: #1e40af; }
-    .badge-computer { background: #d1fae5; color: #065f46; }
-    .badge-pending { background: var(--warning-light); color: #92400e; }
-    .badge-confirmed { background: var(--success-light); color: #065f46; }
-    .badge-cancelled { background: var(--danger-light); color: #991b1b; }
-
-    /* ===== SEARCH BAR ===== */
-    .search-bar {
-      position: relative;
-      margin-bottom: 16px;
-    }
-
-    .search-bar input {
-      padding-right: 44px;
-      background: var(--gray-50);
-    }
-
-    .search-icon {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--gray-400);
-      font-size: 17px;
-      pointer-events: none;
-    }
-
-    /* ===== TABLE ===== */
-    .table-wrapper { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); }
-
-    table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    thead { background: var(--gray-50); }
-    th {
-      padding: 12px 14px;
-      text-align: right;
-      font-weight: 700;
-      color: var(--gray-600);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--gray-200);
-      white-space: nowrap;
-    }
-    td {
-      padding: 13px 14px;
-      border-bottom: 1px solid var(--gray-100);
-      color: var(--gray-700);
-      vertical-align: middle;
-    }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: var(--gray-50); }
-
-    /* ===== EMPTY STATE ===== */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--gray-400);
-    }
-    .empty-state .empty-icon { font-size: 52px; margin-bottom: 14px; }
-    .empty-state h3 { font-size: 17px; color: var(--gray-500); margin-bottom: 6px; }
-    .empty-state p { font-size: 13px; }
-
-    /* ===== ALERT / NOTIFICATION ===== */
-    .toast-container {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-width: 280px;
-      max-width: 90vw;
-    }
-
-    .toast {
-      background: var(--gray-900);
-      color: white;
-      padding: 14px 18px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: var(--shadow-lg);
-      animation: slideIn 0.3s ease;
-      font-size: 14px;
-    }
-
-    .toast.success { background: var(--success); }
-    .toast.warning { background: var(--warning); }
-    .toast.danger { background: var(--danger); }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ===== NOTIFICATION BELL ===== */
-    .notif-panel {
-      position: fixed;
-      top: 80px;
-      left: 16px;
-      right: 16px;
-      max-width: 400px;
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-      z-index: 200;
-      display: none;
-      overflow: hidden;
-    }
-
-    .notif-panel.open { display: block; }
-    .notif-header { background: var(--primary); color: white; padding: 14px 18px; font-weight: 700; font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
-    .notif-item { padding: 14px 18px; border-bottom: 1px solid var(--gray-100); display: flex; gap: 12px; align-items: flex-start; }
-    .notif-item:last-child { border-bottom: none; }
-    .notif-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--warning); margin-top: 5px; flex-shrink: 0; }
-    .notif-item p { font-size: 13px; color: var(--gray-700); line-height: 1.5; }
-    .notif-item small { color: var(--gray-400); font-size: 11px; }
-
-    /* ===== FILTER BAR ===== */
-    .filter-bar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .filter-btn {
-      padding: 7px 14px;
-      border-radius: 99px;
-      border: 1.5px solid var(--gray-300);
-      background: white;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--gray-600);
-      transition: all 0.2s;
-      font-family: var(--font);
-    }
-
-    .filter-btn.active { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
-    .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
-
-    /* ===== DASHBOARD STATS GRID ===== */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 380px) { .stats-grid { grid-template-columns: 1fr; } }
-
-    .stat-card {
-      background: white;
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow);
-      border-right: 4px solid var(--primary);
-      transition: transform 0.2s;
-    }
-
-    .stat-card:hover { transform: translateY(-2px); }
-    .stat-card.arabic { border-color: #7c3aed; }
-    .stat-card.english { border-color: #1d4ed8; }
-    .stat-card.computer { border-color: #059669; }
-    .stat-card.warning { border-color: var(--warning); }
-
-    .stat-card .stat-icon { font-size: 24px; margin-bottom: 8px; }
-    .stat-card .stat-value { font-size: 28px; font-weight: 800; color: var(--gray-900); }
-    .stat-card .stat-label { font-size: 12px; color: var(--gray-500); font-weight: 600; margin-top: 2px; }
-
-    /* ===== UPCOMING SECTION ===== */
-    .upcoming-list { display: flex; flex-direction: column; gap: 10px; }
-
-    .upcoming-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--gray-50);
-      border-radius: var(--radius-sm);
-      padding: 14px;
-      border-right: 4px solid var(--primary);
-    }
-
-    .upcoming-item.urgent { border-color: var(--danger); background: var(--danger-light); }
-    .upcoming-item.soon { border-color: var(--warning); background: var(--warning-light); }
-
-    .upcoming-time {
-      text-align: center;
-      min-width: 56px;
-      background: white;
-      border-radius: 8px;
-      padding: 8px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .upcoming-time .day { font-size: 20px; font-weight: 800; color: var(--primary); }
-    .upcoming-time .month { font-size: 11px; color: var(--gray-500); }
-
-    .upcoming-info { flex: 1; }
-    .upcoming-info .name { font-weight: 700; font-size: 14px; }
-    .upcoming-info .detail { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
-
-    /* ===== MODAL ===== */
-    .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 500;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-overlay.open { display: flex; }
-
+    .modal-bg.on { display:flex; }
+    @media(min-width:600px) { .modal-bg { align-items:center; } }
     .modal {
-      background: white;
-      border-radius: var(--radius-lg);
-      width: 100%;
-      max-width: 480px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: var(--shadow-lg);
+      background:var(--sur); border-radius:24px 24px 0 0;
+      width:100%; max-width:640px; max-height:92vh;
+      overflow-y:auto; padding:0 0 24px;
     }
-
-    .modal-header {
-      padding: 20px 24px 16px;
-      border-bottom: 1px solid var(--gray-200);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    @media(min-width:600px) { .modal { border-radius:20px; } }
+    .modal-hero { height:240px; position:relative; overflow:hidden; }
+    .modal-hero-bg { width:100%;height:100%;object-fit:cover; }
+    .modal-hero-fallback {
+      width:100%;height:100%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:5rem;
     }
-
-    .modal-header h3 { font-size: 17px; font-weight: 700; }
-    .modal-body { padding: 20px 24px; }
-    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--gray-200); display: flex; gap: 10px; justify-content: flex-end; }
-
-    .btn-close {
-      background: none; border: none; cursor: pointer;
-      font-size: 20px; color: var(--gray-400);
-      width: 32px; height: 32px; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
+    .modal-handle { width:40px;height:4px;border-radius:4px;background:rgba(255,255,255,.4);position:absolute;top:12px;left:50%;transform:translateX(-50%); }
+    .modal-close {
+      position:absolute; top:14px; right:14px;
+      width:36px;height:36px;border-radius:50%;
+      background:rgba(0,0,0,.4);backdrop-filter:blur(8px);
+      border:none;color:white;display:flex;align-items:center;justify-content:center;
+      font-size:.9rem;cursor:pointer;
     }
-    .btn-close:hover { background: var(--gray-100); color: var(--gray-700); }
+    .modal-body { padding:20px 20px 0; }
+    .modal-cat { font-size:.72rem; font-weight:700; color:var(--amber); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:5px; }
+    .modal-name { font-family:'Amiri',serif; font-size:1.7rem; font-weight:700; color:var(--tx); margin-bottom:8px; }
+    .modal-meta { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+    .modal-meta-item { display:flex; align-items:center; gap:5px; font-size:.8rem; color:var(--mu); }
+    .modal-meta-item i { color:var(--amber); font-size:.75rem; }
+    .modal-desc { font-size:.88rem; color:var(--tx2); line-height:1.8; margin-bottom:16px; }
+    .modal-section-title { font-weight:800; font-size:.88rem; color:var(--tx); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+    .modal-tags { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:14px; }
+    .modal-tag { padding:5px 13px; border-radius:20px; background:var(--bg2); border:1.5px solid var(--bor); font-size:.78rem; color:var(--mu); font-weight:600; }
+    .modal-actions { display:flex; gap:10px; flex-wrap:wrap; }
 
-    /* ===== DETAIL ROW ===== */
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--gray-100);
-      font-size: 14px;
+    /* ══════════════════════
+       TOAST
+    ══════════════════════ */
+    .toast {
+      position:fixed; bottom:calc(var(--bot) + 12px); left:50%;
+      transform:translateX(-50%) translateY(12px);
+      background:rgba(28,18,9,.95); color:white;
+      padding:11px 20px; border-radius:12px; font-size:.86rem; font-weight:600;
+      z-index:9999; opacity:0; transition:all .3s cubic-bezier(.16,1,.3,1);
+      white-space:nowrap; pointer-events:none;
     }
-    .detail-row:last-child { border-bottom: none; }
-    .detail-row .detail-key { color: var(--gray-500); font-weight: 600; }
-    .detail-row .detail-val { color: var(--gray-800); font-weight: 700; }
+    .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+    .toast.ok { background:rgba(22,163,74,.95); }
+    .toast.err { background:rgba(220,38,38,.95); }
 
-    /* ===== MOBILE FIXES ===== */
-    @media (max-width: 480px) {
-      .card { padding: 16px; }
-      .tab-btn { padding: 12px 14px; font-size: 13px; }
-      table { font-size: 13px; }
-      th, td { padding: 10px 10px; }
+    /* ══════════════════════
+       PAGE HEADER
+    ══════════════════════ */
+    .pg-header { margin-bottom:18px; }
+    .pg-title { font-family:'Amiri',serif; font-size:1.5rem; font-weight:700; color:var(--tx); display:flex; align-items:center; gap:10px; }
+    .pg-icon { width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--amber));display:flex;align-items:center;justify-content:center;color:white;font-size:.95rem; }
+    .pg-sub { font-size:.82rem; color:var(--mu); margin-top:4px; }
+
+    /* ══════════════════════
+       WEATHER CARD
+    ══════════════════════ */
+    .weather-card {
+      background:linear-gradient(135deg,#1e3a5f,#2563eb);
+      border-radius:var(--rxl); padding:22px; color:white; margin-bottom:14px;
+      position:relative; overflow:hidden;
     }
-
-    /* ===== AUTH SCREEN ===== */
-    #authScreen {
-      position: fixed; inset: 0;
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1a56db 100%);
-      z-index: 9000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    .weather-card::before {
+      content:''; position:absolute; top:-30px; left:-30px;
+      width:180px; height:180px; border-radius:50%;
+      background:rgba(255,255,255,.06);
     }
+    .wc-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
+    .wc-temp { font-size:3rem; font-weight:900; }
+    .wc-city { font-size:1rem; font-weight:700; opacity:.9; }
+    .wc-desc { font-size:.8rem; opacity:.65; margin-top:3px; }
+    .wc-icon { font-size:3rem; opacity:.7; }
+    .wc-details { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; border-top:1px solid rgba(255,255,255,.15); padding-top:12px; }
+    .wcd { text-align:center; }
+    .wcd-v { font-size:.95rem; font-weight:800; }
+    .wcd-l { font-size:.65rem; opacity:.6; margin-top:2px; }
 
-    .auth-box {
-      background: white;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 420px;
-      overflow: hidden;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    /* Responsive tweaks */
+    @media(max-width:480px) {
+      .places-grid { gap:12px; }
+      .tips-grid { grid-template-columns:1fr 1fr; }
+      .food-grid { grid-template-columns:1fr; }
     }
-
-    .auth-header {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-      padding: 30px 28px 24px;
-      text-align: center;
-      color: white;
-    }
-
-    .auth-header .auth-logo {
-      width: 64px; height: 64px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 32px;
-      margin: 0 auto 14px;
-    }
-
-    .auth-header h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
-    .auth-header p  { font-size: 13px; opacity: 0.8; }
-
-    .auth-body { padding: 28px; }
-
-    .auth-tabs {
-      display: flex;
-      gap: 6px;
-      background: var(--gray-100);
-      border-radius: 10px;
-      padding: 5px;
-      margin-bottom: 22px;
-    }
-
-    .auth-tab {
-      flex: 1; padding: 9px;
-      border: none; border-radius: 7px;
-      background: none; cursor: pointer;
-      font-size: 13px; font-weight: 700;
-      color: var(--gray-500);
-      font-family: var(--font);
-      transition: all 0.2s;
-    }
-
-    .auth-tab.active { background: white; color: var(--primary); box-shadow: var(--shadow-sm); }
-
-    .auth-form { display: none; }
-    .auth-form.active { display: block; }
-
-    .auth-form .form-group { margin-bottom: 14px; }
-
-    .input-icon-wrap { position: relative; }
-    .input-icon-wrap input { padding-right: 42px; }
-    .input-icon-wrap .i-icon {
-      position: absolute; right: 13px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 16px; pointer-events: none;
-    }
-
-    .role-select-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; margin-top: 6px;
-    }
-
-    .role-card {
-      border: 2px solid var(--gray-200);
-      border-radius: 9px; padding: 12px 8px;
-      text-align: center; cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .role-card:hover { border-color: var(--primary); }
-    .role-card.selected { border-color: var(--primary); background: var(--primary-light); }
-    .role-card .role-icon { font-size: 22px; margin-bottom: 4px; }
-    .role-card .role-name { font-size: 12px; font-weight: 700; color: var(--gray-700); }
-    .role-card .role-desc { font-size: 10px; color: var(--gray-500); margin-top: 2px; }
-
-    /* ===== USER MENU IN HEADER ===== */
-    .user-menu-wrap { position: relative; }
-
-    .user-btn {
-      display: flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.15);
-      border: none; border-radius: 9px;
-      padding: 7px 12px; cursor: pointer; color: white;
-      font-family: var(--font); font-size: 13px; font-weight: 600;
-    }
-
-    .user-btn:hover { background: rgba(255,255,255,0.25); }
-
-    .user-avatar {
-      width: 30px; height: 30px; border-radius: 50%;
-      background: rgba(255,255,255,0.25);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; font-weight: 800;
-    }
-
-    .user-dropdown {
-      position: absolute; top: calc(100% + 8px); left: 0;
-      background: white; border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-      min-width: 200px; z-index: 300;
-      display: none; overflow: hidden;
-    }
-
-    .user-dropdown.open { display: block; }
-
-    .user-dropdown-header {
-      padding: 14px 16px;
-      background: var(--primary-light);
-      border-bottom: 1px solid var(--gray-200);
-    }
-
-    .user-dropdown-header .uname { font-weight: 800; font-size: 14px; color: var(--gray-800); }
-    .user-dropdown-header .urole { font-size: 11px; color: var(--primary); font-weight: 600; }
-
-    .dropdown-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 11px 16px; font-size: 13px; font-weight: 600;
-      color: var(--gray-700); cursor: pointer;
-      transition: background 0.15s; border: none;
-      background: none; width: 100%; font-family: var(--font);
-      text-align: right;
-    }
-
-    .dropdown-item:hover { background: var(--gray-50); }
-    .dropdown-item.danger { color: var(--danger); }
-    .dropdown-item.danger:hover { background: var(--danger-light); }
-
-    /* ===== ADMIN PAGE ===== */
-    .staff-card {
-      display: flex; align-items: center; gap: 14px;
-      background: var(--gray-50); border-radius: var(--radius-sm);
-      padding: 14px; margin-bottom: 10px;
-      border: 1px solid var(--gray-200);
-    }
-
-    .staff-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; font-weight: 800; color: white; flex-shrink: 0;
-    }
-
-    .staff-info { flex: 1; }
-    .staff-info .sname { font-weight: 700; font-size: 14px; }
-    .staff-info .smeta { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
-
-    .role-badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 3px 10px; border-radius: 99px;
-      font-size: 11px; font-weight: 700;
-    }
-
-    .role-admin    { background: #fde8e8; color: #991b1b; }
-    .role-staff    { background: #dbeafe; color: #1e40af; }
-    .role-viewer   { background: #d1fae5; color: #065f46; }
-
-    /* ===== ACTIVITY LOG ===== */
-    .log-item {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 11px 0; border-bottom: 1px solid var(--gray-100);
-      font-size: 13px;
-    }
-    .log-item:last-child { border-bottom: none; }
-    .log-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
   </style>
 </head>
 <body>
 
-<!-- ===================== AUTH SCREEN ===================== -->
-<div id="authScreen">
-  <div class="auth-box">
-    <div class="auth-header">
-      <div class="auth-logo">🎓</div>
-      <h2>نظام حجوزات الامتحانات</h2>
-      <p>تسجيل الدخول لإدارة الحجوزات</p>
-    </div>
-    <div class="auth-body">
-      <div class="auth-tabs">
-        <button class="auth-tab active" onclick="switchAuthTab('login', this)">تسجيل الدخول</button>
-        <button class="auth-tab" onclick="switchAuthTab('register', this)">حساب جديد</button>
-      </div>
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast"></div>
 
-      <!-- LOGIN FORM -->
-      <div class="auth-form active" id="authLogin">
-        <div class="form-group">
-          <label>اسم المستخدم</label>
-          <div class="input-icon-wrap">
-            <span class="i-icon">👤</span>
-            <input type="text" id="loginUser" placeholder="أدخل اسم المستخدم" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>كلمة المرور</label>
-          <div class="input-icon-wrap">
-            <span class="i-icon">🔒</span>
-            <input type="password" id="loginPass" placeholder="أدخل كلمة المرور" onkeydown="if(event.key==='Enter') doLogin()" />
-          </div>
-        </div>
-        <div id="loginError" style="color:var(--danger);font-size:13px;margin-bottom:12px;display:none;background:var(--danger-light);padding:10px 12px;border-radius:8px;"></div>
-        <button class="btn btn-primary btn-full" onclick="doLogin()" style="margin-top:4px;">
-          🔐 دخول
-        </button>
-        <div style="margin-top:16px;padding:12px;background:var(--gray-50);border-radius:8px;font-size:12px;color:var(--gray-500);">
-          <strong>حساب المدير الافتراضي:</strong><br>
-          المستخدم: <code>admin</code> — كلمة المرور: <code>admin123</code>
-        </div>
-      </div>
-
-      <!-- REGISTER FORM -->
-      <div class="auth-form" id="authRegister">
-        <div class="form-group">
-          <label>الاسم الكامل <span class="req">*</span></label>
-          <div class="input-icon-wrap">
-            <span class="i-icon">👤</span>
-            <input type="text" id="regName" placeholder="مثال: أحمد محمد" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>اسم المستخدم <span class="req">*</span></label>
-          <div class="input-icon-wrap">
-            <span class="i-icon">🆔</span>
-            <input type="text" id="regUser" placeholder="اسم مستخدم فريد" dir="ltr" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>كلمة المرور <span class="req">*</span></label>
-          <div class="input-icon-wrap">
-            <span class="i-icon">🔒</span>
-            <input type="password" id="regPass" placeholder="6 أحرف على الأقل" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>الدور الوظيفي <span class="req">*</span></label>
-          <div class="role-select-grid">
-            <div class="role-card" onclick="selectRole('staff', this)">
-              <div class="role-icon">👨‍💼</div>
-              <div class="role-name">موظف</div>
-              <div class="role-desc">تسجيل وإدارة الطلاب</div>
-            </div>
-            <div class="role-card" onclick="selectRole('viewer', this)">
-              <div class="role-icon">👁️</div>
-              <div class="role-name">مشاهد</div>
-              <div class="role-desc">عرض البيانات فقط</div>
-            </div>
-          </div>
-          <input type="hidden" id="regRole" />
-        </div>
-        <div id="regError" style="color:var(--danger);font-size:13px;margin-bottom:12px;display:none;background:var(--danger-light);padding:10px 12px;border-radius:8px;"></div>
-        <div id="regNote" style="font-size:12px;color:var(--warning);background:var(--warning-light);padding:10px 12px;border-radius:8px;margin-bottom:12px;">
-          ⚠️ الحساب الجديد يحتاج موافقة المدير للتفعيل
-        </div>
-        <button class="btn btn-primary btn-full" onclick="doRegister()">
-          ✅ إنشاء الحساب
-        </button>
-      </div>
+<!-- ═══ MODAL ═══ -->
+<div class="modal-bg" id="modal" onclick="closeModalBg(event)">
+  <div class="modal" id="modal-inner">
+    <div class="modal-hero" id="modal-hero">
+      <div class="modal-handle"></div>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
     </div>
+    <div class="modal-body" id="modal-body"></div>
   </div>
 </div>
 
-<!-- TOAST CONTAINER -->
-<div class="toast-container" id="toastContainer"></div>
+<!-- ═══ OVERLAY ═══ -->
+<div class="overlay" id="overlay" onclick="closeSb()"></div>
 
-<!-- NOTIFICATION PANEL -->
-<div class="notif-panel" id="notifPanel">
-  <div class="notif-header">
-    🔔 الإشعارات
-    <button onclick="toggleNotif()" class="btn-close" style="color:white">✕</button>
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar" id="sb">
+  <div class="sb-header">
+    <div class="sb-logo">
+      <div class="sb-logo-icon"><i class="fas fa-mosque"></i></div>
+      <div>
+        <div class="sb-logo-name">بغداد</div>
+        <div class="sb-logo-sub">الدليل السياحي الشامل</div>
+      </div>
+    </div>
+    <div class="sb-search">
+      <i class="fas fa-search"></i>
+      <input type="text" id="sidebar-search" placeholder="ابحث عن مكان..." oninput="doSearch(this.value)">
+    </div>
   </div>
-  <div id="notifList"></div>
-</div>
+  <div class="sb-nav">
+    <div class="nav-sep">التنقل</div>
+    <button class="nav-btn on" onclick="goTo(this,'home')"><i class="fas fa-house"></i> الرئيسية</button>
+    <button class="nav-btn" onclick="goTo(this,'places')"><i class="fas fa-map-location-dot"></i> المعالم السياحية</button>
+    <button class="nav-btn" onclick="goTo(this,'food')"><i class="fas fa-utensils"></i> المطبخ البغدادي</button>
+    <button class="nav-btn" onclick="goTo(this,'map')"><i class="fas fa-map"></i> الخريطة</button>
+    <div class="nav-sep">اكتشاف</div>
+    <button class="nav-btn" onclick="goTo(this,'history')"><i class="fas fa-landmark"></i> التاريخ</button>
+    <button class="nav-btn" onclick="goTo(this,'tips')"><i class="fas fa-circle-info"></i> نصائح السفر</button>
+    <button class="nav-btn" onclick="goTo(this,'favs')">
+      <i class="fas fa-heart"></i> المفضلة
+      <span class="nav-count" id="nav-fav-count"></span>
+    </button>
+    <button class="nav-btn" onclick="goTo(this,'search')"><i class="fas fa-search"></i> البحث</button>
+  </div>
+  <div class="sb-footer">
+    <div class="weather-widget">
+      <i class="fas fa-sun" style="font-size:1.8rem;opacity:.8"></i>
+      <div>
+        <div class="ww-city">بغداد، العراق</div>
+        <div class="ww-temp">38°م</div>
+        <div class="ww-lbl">مشمس — رطوبة 25%</div>
+      </div>
+    </div>
+  </div>
+</aside>
 
-<!-- HEADER -->
-<header>
-  <div class="header-inner">
-    <div class="header-logo">
-      <div class="logo-icon">🎓</div>
-      <div class="header-title">
-        <h1>نظام حجوزات الامتحانات الوطنية</h1>
-        <p>إدارة طلبات التسجيل والحجز</p>
-      </div>
+<!-- ═══ TOPBAR ═══ -->
+<header class="topbar" id="topbar">
+  <button class="tb-btn menu-btn" onclick="openSb()"><i class="fas fa-bars"></i></button>
+  <div class="tb-logo">
+    <div class="tb-logo-icon"><i class="fas fa-mosque"></i></div>
+    <div>
+      <div class="tb-logo-name">بغداد</div>
+      <div class="tb-logo-sub">الدليل السياحي</div>
     </div>
-    <div style="display:flex; align-items:center; gap:12px;">
-      <button onclick="toggleNotif()" style="background:rgba(255,255,255,0.15);border:none;cursor:pointer;color:white;border-radius:8px;padding:8px 10px;font-size:18px;position:relative;" id="bellBtn">
-        🔔
-        <span id="notifBadge" style="position:absolute;top:2px;right:2px;background:red;color:white;font-size:9px;border-radius:50%;width:16px;height:16px;display:none;align-items:center;justify-content:center;font-weight:700;"></span>
-      </button>
-      <div class="header-stats">
-        <div class="stat-badge">
-          <div class="num" id="hdrTotal">0</div>
-          <div class="lbl">إجمالي</div>
-        </div>
-        <div class="stat-badge">
-          <div class="num" id="hdrToday">0</div>
-          <div class="lbl">اليوم</div>
-        </div>
-      </div>
-      <!-- USER MENU -->
-      <div class="user-menu-wrap">
-        <button class="user-btn" onclick="toggleUserMenu()" id="userMenuBtn">
-          <div class="user-avatar" id="userAvatar">؟</div>
-          <span id="userDisplayName">—</span>
-          <span>▾</span>
-        </button>
-        <div class="user-dropdown" id="userDropdown">
-          <div class="user-dropdown-header">
-            <div class="uname" id="ddName">—</div>
-            <div class="urole" id="ddRole">—</div>
-          </div>
-          <button class="dropdown-item" onclick="openProfileModal()">⚙️ إعدادات الحساب</button>
-          <button class="dropdown-item" id="adminPanelBtn" onclick="switchTab('admin', document.querySelector('.tab-admin')); toggleUserMenu();" style="display:none;">🛡️ لوحة المدير</button>
-          <button class="dropdown-item danger" onclick="doLogout()">🚪 تسجيل الخروج</button>
-        </div>
-      </div>
-    </div>
+  </div>
+  <div class="tb-right">
+    <button class="tb-btn" onclick="goTo(null,'search')" title="بحث"><i class="fas fa-search"></i></button>
+    <button class="tb-btn" onclick="goTo(null,'favs')" title="المفضلة" style="position:relative">
+      <i class="fas fa-heart"></i>
+      <div class="fav-count" id="tb-fav-count"></div>
+    </button>
   </div>
 </header>
 
-<!-- TABS -->
-<nav class="nav-tabs">
-  <div class="nav-tabs-inner">
-    <button class="tab-btn active" onclick="switchTab('dashboard', this)">
-      <span class="tab-icon">📊</span> لوحة التحكم
-    </button>
-    <button class="tab-btn" onclick="switchTab('register', this)">
-      <span class="tab-icon">➕</span> تسجيل طالب
-    </button>
-    <button class="tab-btn" onclick="switchTab('students', this)">
-      <span class="tab-icon">👥</span> قائمة الطلاب
-    </button>
-    <button class="tab-btn" onclick="switchTab('schedule', this)">
-      <span class="tab-icon">📅</span> جدول الحجوزات
-    </button>
-    <button class="tab-btn" onclick="switchTab('search', this)">
-      <span class="tab-icon">🔍</span> البحث
-    </button>
-    <button class="tab-btn tab-admin" id="adminTabBtn" onclick="switchTab('admin', this)" style="display:none;">
-      <span class="tab-icon">🛡️</span> إدارة الموظفين
-    </button>
+<!-- ═══ MAIN ═══ -->
+<main class="main" id="main-content">
+
+  <!-- ═══════ HOME ═══════ -->
+  <div class="sec on" id="sec-home">
+    <!-- Weather -->
+    <div class="weather-card">
+      <div style="position:relative;z-index:1">
+        <div class="wc-top">
+          <div>
+            <div class="wc-temp">38°</div>
+            <div class="wc-city">بغداد، العراق</div>
+            <div class="wc-desc">مشمس وحار — مناسب للسياحة الداخلية</div>
+          </div>
+          <div class="wc-icon"><i class="fas fa-sun"></i></div>
+        </div>
+        <div class="wc-details">
+          <div class="wcd"><div class="wcd-v">25%</div><div class="wcd-l">رطوبة</div></div>
+          <div class="wcd"><div class="wcd-v">12 كم/س</div><div class="wcd-l">رياح</div></div>
+          <div class="wcd"><div class="wcd-v">22°</div><div class="wcd-l">ليلاً</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick stats -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+      <div class="card" style="text-align:center;padding:14px;margin-bottom:0">
+        <div style="font-size:1.5rem;font-weight:900;color:var(--amber)">47+</div>
+        <div style="font-size:.72rem;color:var(--mu);margin-top:2px">معلماً سياحياً</div>
+      </div>
+      <div class="card" style="text-align:center;padding:14px;margin-bottom:0">
+        <div style="font-size:1.5rem;font-weight:900;color:var(--teal)">8+</div>
+        <div style="font-size:.72rem;color:var(--mu);margin-top:2px">أحياء تاريخية</div>
+      </div>
+      <div class="card" style="text-align:center;padding:14px;margin-bottom:0">
+        <div style="font-size:1.5rem;font-weight:900;color:var(--navy-l)">5000+</div>
+        <div style="font-size:.72rem;color:var(--mu);margin-top:2px">سنة من التاريخ</div>
+      </div>
+    </div>
+
+    <!-- Featured places -->
+    <div class="card">
+      <div class="ch">
+        <div class="ch-l"><i class="fas fa-star" style="color:var(--gold)"></i> أبرز المعالم</div>
+        <button class="btn btn-ghost btn-xs" onclick="goTo(null,'places')">عرض الكل</button>
+      </div>
+      <div class="places-grid" id="home-featured"></div>
+    </div>
+
+    <!-- Quick access -->
+    <div class="card">
+      <div class="ch"><div class="ch-l"><i class="fas fa-compass" style="color:var(--amber)"></i> استكشاف سريع</div></div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+        <button class="btn btn-ghost btn-full" style="justify-content:flex-start;gap:10px;padding:14px" onclick="goTo(null,'food')">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--gold-p);display:flex;align-items:center;justify-content:center;color:var(--amber)"><i class="fas fa-utensils"></i></div>
+          <div style="text-align:right"><div style="font-weight:700;font-size:.86rem;color:var(--tx)">المطبخ البغدادي</div><div style="font-size:.72rem;color:var(--mu)">أشهر الأطباق</div></div>
+        </button>
+        <button class="btn btn-ghost btn-full" style="justify-content:flex-start;gap:10px;padding:14px" onclick="goTo(null,'history')">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--teal-p);display:flex;align-items:center;justify-content:center;color:var(--teal)"><i class="fas fa-landmark"></i></div>
+          <div style="text-align:right"><div style="font-weight:700;font-size:.86rem;color:var(--tx)">التاريخ العريق</div><div style="font-size:.72rem;color:var(--mu)">5000 سنة</div></div>
+        </button>
+        <button class="btn btn-ghost btn-full" style="justify-content:flex-start;gap:10px;padding:14px" onclick="goTo(null,'map')">
+          <div style="width:36px;height:36px;border-radius:10px;background:#dbeafe;display:flex;align-items:center;justify-content:center;color:var(--navy-l)"><i class="fas fa-map"></i></div>
+          <div style="text-align:right"><div style="font-weight:700;font-size:.86rem;color:var(--tx)">الخريطة</div><div style="font-size:.72rem;color:var(--mu)">ابحث عن أماكن</div></div>
+        </button>
+        <button class="btn btn-ghost btn-full" style="justify-content:flex-start;gap:10px;padding:14px" onclick="goTo(null,'tips')">
+          <div style="width:36px;height:36px;border-radius:10px;background:#dcfce7;display:flex;align-items:center;justify-content:center;color:var(--green)"><i class="fas fa-circle-info"></i></div>
+          <div style="text-align:right"><div style="font-weight:700;font-size:.86rem;color:var(--tx)">نصائح السفر</div><div style="font-size:.72rem;color:var(--mu)">كل ما تحتاج</div></div>
+        </button>
+      </div>
+    </div>
   </div>
+
+  <!-- ═══════ PLACES ═══════ -->
+  <div class="sec" id="sec-places">
+    <div class="pg-header">
+      <div class="pg-title"><div class="pg-icon"><i class="fas fa-map-location-dot"></i></div> المعالم السياحية</div>
+      <div class="pg-sub">اكتشف أجمل المواقع في عاصمة العراق</div>
+    </div>
+    <div class="filter-bar" id="places-filter">
+      <button class="chip on" onclick="filterPlaces(this,'all')">الكل</button>
+      <button class="chip" onclick="filterPlaces(this,'history')"><i class="fas fa-landmark"></i> تاريخية</button>
+      <button class="chip" onclick="filterPlaces(this,'culture')"><i class="fas fa-palette"></i> ثقافية</button>
+      <button class="chip" onclick="filterPlaces(this,'relig')"><i class="fas fa-mosque"></i> دينية</button>
+      <button class="chip" onclick="filterPlaces(this,'nature')"><i class="fas fa-tree"></i> طبيعية</button>
+      <button class="chip" onclick="filterPlaces(this,'market')"><i class="fas fa-store"></i> أسواق</button>
+      <button class="chip" onclick="filterPlaces(this,'food')"><i class="fas fa-utensils"></i> مطاعم</button>
+    </div>
+    <div class="places-grid" id="places-grid"></div>
+  </div>
+
+  <!-- ═══════ FOOD ═══════ -->
+  <div class="sec" id="sec-food">
+    <div class="pg-header">
+      <div class="pg-title"><div class="pg-icon"><i class="fas fa-utensils"></i></div> المطبخ البغدادي</div>
+      <div class="pg-sub">تذوّق أشهى الأطباق العراقية الأصيلة</div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,#7c3a00,#3b1a08);color:white;margin-bottom:14px">
+      <div style="font-size:.75rem;color:rgba(255,255,255,.6);margin-bottom:4px"><i class="fas fa-crown"></i> نصيحة الدليل</div>
+      <div style="font-size:.92rem;font-weight:700;line-height:1.6">المطبخ البغدادي من أقدم وأغنى المطابخ في العالم — مزيج رائع من التوابل والعراقة الأصيلة.</div>
+    </div>
+    <div class="food-grid" id="food-grid"></div>
+  </div>
+
+  <!-- ═══════ MAP ═══════ -->
+  <div class="sec" id="sec-map">
+    <div class="pg-header">
+      <div class="pg-title"><div class="pg-icon"><i class="fas fa-map"></i></div> خريطة بغداد</div>
+      <div class="pg-sub">استعرض مواقع المعالم السياحية تفاعلياً</div>
+    </div>
+    <div class="map-wrap">
+      <iframe class="map-frame" id="map-frame"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110901.36868048217!2d44.27279185!3d33.32060835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15577f67a0a74193%3A0x9deda9d2a3b16f2f!2sBaghdad!5e0!3m2!1sen!2siq!4v1704000000000!5m2!1sen!2siq"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <div class="map-overlay">
+        <strong><i class="fas fa-location-dot"></i> بغداد</strong>
+        33.3152° N, 44.3661° E
+      </div>
+    </div>
+    <!-- Quick links to locations -->
+    <div class="card">
+      <div class="ch"><div class="ch-l"><i class="fas fa-map-pin" style="color:var(--amber)"></i> روابط سريعة</div></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px" id="map-links"></div>
+    </div>
+  </div>
+
+  <!-- ═══════ HISTORY ═══════ -->
+  <div class="sec" id="sec-history">
+    <div class="pg-header">
+      <div class="pg-title"><div class="pg-icon"><i class="fas fa-landmark"></i></div> تاريخ بغداد</div>
+      <div class="pg-sub">رحلة عبر الزمن في أعرق مدن العالم</div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,#1a0a00,#3b1a08);color:white;margin-bottom:14px">
+      <div style="font-family:'Amiri',serif;font-size:1.2rem;font-weight:700;color:var(--gold-l);margin-bottom:8px">مدينة السلام — عاصمة الخلافة العباسية</div>
+      <div style="font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.75">بغداد، مدينة أسسها الخليفة المنصور عام 762م على ضفاف نهر دجلة، لتصبح أعظم مدن العالم في عصر الذهب الإسلامي وحاضرة الحضارة الإنسانية.</div>
+    </div>
+    <div class="card">
+      <div class="ch"><div class="ch-l"><i class="fas fa-timeline" style="color:var(--amber)"></i> الخط الزمني</div></div>
+      <div class="timeline" id="history-timeline"></div>
+    </div>
+    <div class="tips-grid" id="history-facts"></div>
+  </div>
+
+  <!-- ═══════ TIPS ═══════ -->
+  <div class="sec" id="sec-tips">
+    <div class="pg-header">
+      <div class="pg-title"><div class="pg-icon"><i class="fas fa-circle-info"></i></div> نصائح السفر</div>
+      <div class="pg-sub">كل ما تحتاج لزيارة ممتعة وآمنة</div>
+    </div>
+    <div class="tips-grid" id="tips-grid"></div>
+  </div>
+
+  <!-- ═══════ FAVOURITES ═══════ -->
+  <div class="sec" id="sec-favs">
+    <div class="pg-header">
+      <div class="pg-title"><div class="pg-icon"><i class="fas fa-heart"></i></div> المفضلة</div>
+      <div class="pg-sub" id="favs-count">لا توجد أماكن في المفضلة بعد</div>
+    </div>
+    <div id="favs-grid"></div>
+    <div class="fav-empty" id="favs-empty">
+      <i class="fas fa-heart"></i>
+      <div class="fav-empty-t">لا توجد أماكن محفوظة</div>
+      <div class="fav-empty-s">اضغط على قلب أي مكان لإضافته للمفضلة</div>
+      <button class="btn btn-gold btn-sm" style="margin-top:14px" onclick="goTo(null,'places')"><i class="fas fa-map-location-dot"></i> استكشف المعالم</button>
+    </div>
+  </div>
+
+  <!-- ═══════ SEARCH ═══════ -->
+  <div class="sec" id="sec-search">
+    <div class="pg-header">
+      <div class="pg-title"><div class="pg-icon"><i class="fas fa-search"></i></div> البحث</div>
+    </div>
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="main-search" placeholder="ابحث عن معلم، حي، طعام..." oninput="doSearch(this.value)">
+      <button onclick="document.getElementById('main-search').value='';doSearch('')" style="background:none;border:none;color:var(--mu2);cursor:pointer;font-size:.85rem"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="search-results"></div>
+  </div>
+
+</main>
+
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bottom-nav">
+  <button class="bn on" onclick="goTo(this,'home')"><i class="fas fa-house"></i><span>الرئيسية</span></button>
+  <button class="bn" onclick="goTo(this,'places')"><i class="fas fa-map-location-dot"></i><span>المعالم</span></button>
+  <button class="bn" onclick="goTo(this,'food')"><i class="fas fa-utensils"></i><span>الطعام</span></button>
+  <button class="bn" onclick="goTo(this,'map')"><i class="fas fa-map"></i><span>الخريطة</span></button>
+  <button class="bn" onclick="goTo(this,'favs')"><i class="fas fa-heart"></i><span>المفضلة</span><span class="bn-dot" id="bn-fav"></span></button>
 </nav>
 
-<!-- ===================== PAGES ===================== -->
-<div class="main-container">
-
-  <!-- PAGE: DASHBOARD -->
-  <div class="page active" id="page-dashboard">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon">👥</div>
-        <div class="stat-value" id="statTotal">0</div>
-        <div class="stat-label">إجمالي الطلاب</div>
+<!-- ═══ HERO SCREEN ═══ -->
+<div id="hero-screen" style="position:fixed;inset:0;z-index:9999;">
+  <div class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="ornament">
+        <div class="orn-line"></div>
+        <div class="orn-diamond"></div>
+        <div class="orn-line r"></div>
       </div>
-      <div class="stat-card arabic">
-        <div class="stat-icon">📖</div>
-        <div class="stat-value" id="statArabic">0</div>
-        <div class="stat-label">امتحان عربي</div>
+      <div class="hero-badge"><i class="fas fa-mosque"></i> الدليل السياحي الرسمي</div>
+      <h1 class="hero-title">مدينة <span class="golden">السلام</span><br>بغداد</h1>
+      <p class="hero-subtitle">عاصمة الخلافة العباسية وحاضرة الحضارة الإنسانية</p>
+      <div class="hero-stats">
+        <div class="hs"><div class="hs-num">762م</div><div class="hs-lbl">تأسيسها</div></div>
+        <div class="hs"><div class="hs-num">47+</div><div class="hs-lbl">معلم سياحي</div></div>
+        <div class="hs"><div class="hs-num">8M+</div><div class="hs-lbl">نسمة</div></div>
+        <div class="hs"><div class="hs-num">دجلة</div><div class="hs-lbl">يشقها</div></div>
       </div>
-      <div class="stat-card english">
-        <div class="stat-icon">🌐</div>
-        <div class="stat-value" id="statEnglish">0</div>
-        <div class="stat-label">امتحان انكليزي</div>
-      </div>
-      <div class="stat-card computer">
-        <div class="stat-icon">💻</div>
-        <div class="stat-value" id="statComputer">0</div>
-        <div class="stat-label">امتحان حاسوب</div>
-      </div>
-    </div>
-
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-      <div class="card" style="grid-column: 1 / -1;" id="upcomingCard">
-        <div class="card-header">
-          <div class="card-header-icon" style="background:#fef3c7;">⏰</div>
-          <div><h2>المواعيد القادمة خلال 24 ساعة</h2><p>طلاب يحتاجون تذكير</p></div>
-        </div>
-        <div class="upcoming-list" id="upcomingList">
-          <div class="empty-state" style="padding:30px">
-            <div class="empty-icon">📭</div>
-            <p>لا توجد مواعيد قريبة</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PAGE: REGISTER -->
-  <div class="page" id="page-register">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-icon" style="background:var(--primary-light);">✍️</div>
-        <div><h2>تسجيل طالب جديد</h2><p>أدخل بيانات الطالب والحجز</p></div>
-      </div>
-
-      <div class="form-grid">
-        <div class="form-group">
-          <label>الاسم الرباعي <span class="req">*</span></label>
-          <input type="text" id="fName" placeholder="مثال: أحمد محمد علي حسن" />
-        </div>
-        <div class="form-group">
-          <label>رقم الهاتف <span class="req">*</span></label>
-          <input type="tel" id="fPhone" placeholder="07xxxxxxxxx" maxlength="11" />
-        </div>
-        <div class="form-group">
-          <label>الرقم الوطني</label>
-          <input type="text" id="fNid" placeholder="الرقم الوطني الموحد" maxlength="12" />
-        </div>
-        <div class="form-group">
-          <label>البريد الإلكتروني</label>
-          <input type="email" id="fEmail" placeholder="example@email.com" dir="ltr" />
-        </div>
-        <div class="form-group full">
-          <label>نوع الامتحان <span class="req">*</span></label>
-          <div class="exam-select-grid">
-            <div class="exam-card" onclick="selectExam('arabic', this)">
-              <div class="exam-icon">📖</div>
-              <div class="exam-name">اللغة العربية</div>
-              <div class="exam-desc">60 سؤال - 60 دقيقة</div>
-            </div>
-            <div class="exam-card" onclick="selectExam('english', this)">
-              <div class="exam-icon">🌐</div>
-              <div class="exam-name">اللغة الإنجليزية</div>
-              <div class="exam-desc">اختبار الكفاءة اللغوية</div>
-            </div>
-            <div class="exam-card" onclick="selectExam('computer', this)">
-              <div class="exam-icon">💻</div>
-              <div class="exam-name">الحاسوب</div>
-              <div class="exam-desc">INCPT - مهارات الحاسوب</div>
-            </div>
-          </div>
-          <input type="hidden" id="fExam" />
-        </div>
-        <div class="form-group">
-          <label>تاريخ الحجز المطلوب <span class="req">*</span></label>
-          <input type="date" id="fDate" />
-        </div>
-        <div class="form-group">
-          <label>الوقت المطلوب <span class="req">*</span></label>
-          <input type="time" id="fTime" value="09:00" />
-        </div>
-        <div class="form-group full">
-          <label>ملاحظات إضافية</label>
-          <textarea id="fNotes" rows="3" placeholder="أي ملاحظات أو طلبات خاصة..."></textarea>
-        </div>
-      </div>
-
-      <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn btn-primary" onclick="registerStudent()">
-          ✅ تسجيل وحجز الموعد
+      <div class="hero-btns">
+        <button class="btn-cta btn-primary-cta" onclick="enterSite()">
+          <i class="fas fa-compass"></i> ابدأ استكشافك
         </button>
-        <button class="btn btn-ghost" onclick="clearForm()">
-          🗑️ مسح البيانات
+        <button class="btn-cta btn-ghost-cta" onclick="goToPlaces()">
+          <i class="fas fa-map-location-dot"></i> المعالم
         </button>
       </div>
     </div>
-  </div>
-
-  <!-- PAGE: STUDENTS LIST -->
-  <div class="page" id="page-students">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-icon" style="background:#dbeafe;">👥</div>
-        <div><h2>قائمة الطلاب المسجلين</h2><p id="studentCountLabel">0 طالب</p></div>
-      </div>
-
-      <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterStudents('all', this)">الكل</button>
-        <button class="filter-btn" onclick="filterStudents('arabic', this)">📖 عربي</button>
-        <button class="filter-btn" onclick="filterStudents('english', this)">🌐 انكليزي</button>
-        <button class="filter-btn" onclick="filterStudents('computer', this)">💻 حاسوب</button>
-        <button class="filter-btn" onclick="filterStudents('pending', this)">⏳ بانتظار</button>
-        <button class="filter-btn" onclick="filterStudents('confirmed', this)">✅ محجوز</button>
-      </div>
-
-      <div class="search-bar">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="listSearch" placeholder="ابحث بالاسم أو الهاتف..." oninput="renderStudentTable()" />
-      </div>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>الاسم</th>
-              <th>الهاتف</th>
-              <th>الامتحان</th>
-              <th>تاريخ الحجز</th>
-              <th>الوقت</th>
-              <th>الحالة</th>
-              <th>الإجراءات</th>
-            </tr>
-          </thead>
-          <tbody id="studentTableBody"></tbody>
-        </table>
-      </div>
-      <div id="studentEmptyState" class="empty-state" style="display:none;">
-        <div class="empty-icon">📋</div>
-        <h3>لا يوجد طلاب بعد</h3>
-        <p>ابدأ بتسجيل طالب جديد من تبويب "تسجيل طالب"</p>
-      </div>
+    <div class="scroll-hint" onclick="enterSite()">
+      <span>اضغط للدخول</span>
+      <div class="scroll-arrow"><i class="fas fa-chevron-down"></i></div>
     </div>
-  </div>
-
-  <!-- PAGE: SCHEDULE -->
-  <div class="page" id="page-schedule">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-icon" style="background:#d1fae5;">📅</div>
-        <div><h2>جدول الحجوزات</h2><p>مرتب حسب التاريخ والوقت</p></div>
-      </div>
-      <div id="scheduleContent"></div>
-    </div>
-  </div>
-
-  <!-- PAGE: SEARCH -->
-  <div class="page" id="page-search">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-icon" style="background:#fce7f3;">🔍</div>
-        <div><h2>البحث عن طالب</h2><p>ابحث بالاسم أو رقم الهاتف أو الرقم الوطني</p></div>
-      </div>
-      <div class="search-bar" style="margin-bottom:20px;">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="mainSearch" placeholder="اكتب اسم الطالب أو رقم الهاتف..." oninput="doSearch()" style="font-size:16px;" />
-      </div>
-      <div id="searchResults"></div>
-    </div>
-  </div>
-
-  <!-- PAGE: ADMIN -->
-  <div class="page" id="page-admin">
-
-    <!-- Staff List -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-icon" style="background:#fde8e8;">🛡️</div>
-        <div><h2>إدارة حسابات الموظفين</h2><p>تفعيل وتعطيل وتغيير الأدوار</p></div>
-      </div>
-      <div id="staffList"></div>
-    </div>
-
-    <!-- Activity Log -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-icon" style="background:#ede9fe;">📋</div>
-        <div><h2>سجل النشاطات</h2><p>آخر عمليات الموظفين</p></div>
-      </div>
-      <div id="activityLog">
-        <div class="empty-state" style="padding:30px;">
-          <div class="empty-icon">📋</div>
-          <p>لا توجد نشاطات مسجلة بعد</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-<!-- END MAIN CONTAINER -->
-
-<!-- PROFILE MODAL -->
-<div class="modal-overlay" id="profileModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>⚙️ إعدادات حسابي</h3>
-      <button class="btn-close" onclick="closeProfileModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group" style="margin-bottom:14px;">
-        <label>الاسم الكامل</label>
-        <input type="text" id="profName" />
-      </div>
-      <div class="form-group" style="margin-bottom:14px;">
-        <label>كلمة المرور الجديدة</label>
-        <input type="password" id="profPass" placeholder="اتركه فارغاً إذا لا تريد التغيير" />
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-primary" onclick="saveProfile()">💾 حفظ</button>
-      <button class="btn btn-ghost" onclick="closeProfileModal()">إلغاء</button>
-    </div>
-  </div>
-</div>
-<div class="modal-overlay" id="studentModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>🎓 بيانات الطالب</h3>
-      <button class="btn-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-    <div class="modal-footer" id="modalFooter"></div>
   </div>
 </div>
 
 <script>
-    // ===================================================
-    // AUTH DATA
-    // ===================================================
-    const ROLE_LABELS = {
-      admin:  { label: 'مدير النظام', badge: 'role-admin',  color: '#ef4444', icon: '🛡️' },
-      staff:  { label: 'موظف',        badge: 'role-staff',  color: '#3b82f6', icon: '👨‍💼' },
-      viewer: { label: 'مشاهد',       badge: 'role-viewer', color: '#10b981', icon: '👁️'  }
-    };
+// ═══════════════════════════════════
+// DATA — بيانات المعالم السياحية
+// ═══════════════════════════════════
+const PLACES = [
+  {
+    id:1, name:"المتحف العراقي", cat:"culture", badge:"ثقافي",
+    desc:"أحد أعظم المتاحف في العالم يضم آثاراً تعود لآلاف السنين من حضارات سومر وبابل وآشور وأكد.",
+    fullDesc:"تأسس المتحف العراقي عام 1923م ويُعدّ من أهم المتاحف الأثرية في العالم. يضم أكثر من 170,000 قطعة أثرية تمثل حضارات وادي الرافدين عبر العصور المختلفة. من أبرز محتوياته تمثال الملك شولجي ورأس المرأة من الوركاء والألواح المسمارية.",
+    location:"الكرخ — شارع المتحف", time:"9:00 - 16:00", closed:"الاثنين",
+    rating:"4.8", icon:"🏛️",
+    color:"linear-gradient(135deg,#1e3a5f,#2563eb)",
+    tags:["حضارة بابل","آثار سومرية","مخطوطات","تماثيل قديمة"],
+    mapUrl:"https://maps.google.com/?q=Iraq+Museum+Baghdad",
+    featured:true
+  },
+  {
+    id:2, name:"الجامع الكبير — أبو حنيفة", cat:"relig", badge:"ديني",
+    desc:"أحد أشهر المساجد في العالم الإسلامي ويضم ضريح الإمام أبي حنيفة النعمان مؤسس المذهب الحنفي.",
+    fullDesc:"الجامع الكبير في الأعظمية يُعدّ من أبرز المعالم الإسلامية في بغداد. يضم ضريح الإمام أبي حنيفة النعمان إمام أهل الرأي ومؤسس المذهب الحنفي. يقصده الزوار من جميع أنحاء العالم الإسلامي. المسجد مبني بالطراز العثماني مع إضافات عصرية.",
+    location:"الأعظمية — شارع الإمام أبي حنيفة", time:"طوال اليوم", closed:"—",
+    rating:"4.9", icon:"🕌",
+    color:"linear-gradient(135deg,#0f766e,#14b8a6)",
+    tags:["مسجد","تراث إسلامي","ضريح","معمار عثماني"],
+    mapUrl:"https://maps.google.com/?q=Abu+Hanifa+Mosque+Baghdad",
+    featured:true
+  },
+  {
+    id:3, name:"شارع المتنبي", cat:"culture", badge:"ثقافي",
+    desc:"روح بغداد الثقافية — شارع الكتب والمثقفين الأشهر في الوطن العربي، يُقام فيه سوق الكتب كل جمعة.",
+    fullDesc:"شارع المتنبي هو رمز بغداد الثقافي والأدبي، سُمّي بهذا الاسم تيمناً بالشاعر العربي الكبير المتنبي. يُقام فيه سوق الكتب كل يوم جمعة منذ عقود، ويُعدّ ملتقى المثقفين والمفكرين والأدباء. تجد فيه الكتب القديمة والحديثة والمخطوطات النادرة والمجلات والصحف.",
+    location:"الرصافة — قرب جسر الشهداء", time:"الجمعة 8:00 - 14:00 ويومياً", closed:"—",
+    rating:"4.7", icon:"📚",
+    color:"linear-gradient(135deg,#7c3a00,#b45309)",
+    tags:["كتب","ثقافة","سوق","أدب عربي"],
+    mapUrl:"https://maps.google.com/?q=Al-Mutanabbi+Street+Baghdad",
+    featured:true
+  },
+  {
+    id:4, name:"قوس كسرى — طاق كسرى", cat:"history", badge:"تاريخي",
+    desc:"أعظم قوس بناه الإنسان في التاريخ القديم — قاعة العروش الساسانية التي بُنيت قبل 1500 سنة في المدائن.",
+    fullDesc:"طاق كسرى أو إيوان كسرى هو بقايا القصر الملكي الساساني في المدائن (سلمان باك) جنوب بغداد. يُعدّ من أعظم الآثار المعمارية في العالم القديم؛ فقوسه القائم حتى اليوم يبلغ ارتفاعه 37 متراً وعرضه 26 متراً، بُني في القرن الثالث الميلادي دون استخدام داعمات.",
+    location:"المدائن — 35 كم جنوب بغداد", time:"8:00 - 17:00", closed:"الاثنين",
+    rating:"4.9", icon:"🏰",
+    color:"linear-gradient(135deg,#78350f,#92400e)",
+    tags:["حضارة فارسية","معمار قديم","آثار","المدائن"],
+    mapUrl:"https://maps.google.com/?q=Taq+Kasra+Iraq",
+    featured:true
+  },
+  {
+    id:5, name:"سوق الصفافير", cat:"market", badge:"سوق",
+    desc:"السوق التاريخي الأشهر في بغداد لصناعة الأواني النحاسية والتحف اليدوية بأسلوب الآباء والأجداد.",
+    fullDesc:"سوق الصفافير في قلب بغداد القديمة هو أحد أعتق الأسواق في المدينة. يشتهر بحرفيي الصفر والنحاس الذين يصنعون الأواني والتحف بأساليب تقليدية توارثوها عن أجدادهم. تسمع في ممراته رنين المطارق على النحاس وتشم روائح المعادن الأصيلة.",
+    location:"الرصافة — بين سوق الذهب والشورجة", time:"9:00 - 18:00", closed:"الجمعة",
+    rating:"4.6", icon:"🔨",
+    color:"linear-gradient(135deg,#5b21b6,#7c3aed)",
+    tags:["حرف يدوية","نحاس","تراث","تسوق"],
+    mapUrl:"https://maps.google.com/?q=Al-Safafeer+Market+Baghdad",
+    featured:false
+  },
+  {
+    id:6, name:"جزيرة الأعراس", cat:"nature", badge:"طبيعي",
+    desc:"جزيرة رومانسية في قلب نهر دجلة تضم حدائق خضراء ومطاعم ومقاهٍ بإطلالة مذهلة على النهر.",
+    fullDesc:"جزيرة الأعراس واحدة من أجمل المناطق الترفيهية في بغداد، تقع في قلب نهر دجلة وتضم حدائق وملاعب ومطاعم ومقاهٍ. تُشتهر بأجواء الربيع الخلابة حين تتفتح الأزهار وتخضر الحدائق. يزورها البغداديون للاسترخاء والتمتع بمنظر النهر الرائع.",
+    location:"الكرادة — نهر دجلة", time:"9:00 - 23:00", closed:"—",
+    rating:"4.5", icon:"🌿",
+    color:"linear-gradient(135deg,#166534,#16a34a)",
+    tags:["طبيعة","نهر دجلة","ترفيه","مطاعم"],
+    mapUrl:"https://maps.google.com/?q=Al+Aras+Island+Baghdad",
+    featured:false
+  },
+  {
+    id:7, name:"برج الشهيد", cat:"history", badge:"تاريخي",
+    desc:"أبرز معالم بغداد الحديثة — نصب تذكاري ضخم يُخلّد ذكرى شهداء العراق بتصميم معماري رائع للمعمار جعفر علاوي.",
+    fullDesc:"برج الشهيد أو نصب الشهيد أحد أيقونات بغداد الحديثة. صممه المعمار العراقي سمير علي وأشرف على بنائه عام 1983. يتكون من قبة لازوردية مشقوقة ترمز إلى شعلة الأمل. يضم متحفاً يوثق تاريخ العراق وشهداءه، ومن أعلاه تستمتع بمنظر بانورامي رائع لبغداد.",
+    location:"ساحة الشهداء — الكرخ", time:"9:00 - 21:00", closed:"الاثنين",
+    rating:"4.7", icon:"🏯",
+    color:"linear-gradient(135deg,#1e3a5f,#0f766e)",
+    tags:["نصب تذكاري","معمار حديث","متحف","بانوراما"],
+    mapUrl:"https://maps.google.com/?q=Shaheed+Monument+Baghdad",
+    featured:false
+  },
+  {
+    id:8, name:"الشارع التجاري — الرشيد", cat:"culture", badge:"ثقافي",
+    desc:"شريان بغداد التجاري والتاريخي الذي بُني في العهد العثماني وشهد أحداثاً محورية في تاريخ العراق الحديث.",
+    fullDesc:"شارع الرشيد أحد أعرق شوارع بغداد، امتد على طول الضفة اليمنى لنهر دجلة. بُني بأمر العثمانيين وأكمل تطويره في العهد الملكي. كان قلب الحياة التجارية والاجتماعية في بغداد لعقود طويلة. تجد فيه المباني ذات الطراز العثماني والملكي التي تروي قصة المدينة.",
+    location:"الرصافة — على طول دجلة", time:"يومياً", closed:"—",
+    rating:"4.4", icon:"🏪",
+    color:"linear-gradient(135deg,#7c3a00,#b45309)",
+    tags:["تجارة","تراث عثماني","تاريخ حديث","مشي"],
+    mapUrl:"https://maps.google.com/?q=Al-Rashid+Street+Baghdad",
+    featured:false
+  },
+  {
+    id:9, name:"مرقد الإمام موسى الكاظم", cat:"relig", badge:"ديني",
+    desc:"أحد أقدس البقاع في العالم الإسلامي — ضريح الإمام موسى الكاظم السابع وحفيده محمد الجواد في الكاظمية.",
+    fullDesc:"مرقد الإمامين الكاظمين في الكاظمية يُعدّ من أقدس المراقد في العالم الإسلامي. يضم ضريحي الإمام موسى الكاظم والإمام محمد الجواد. يقصده الملايين من زوار المراقد سنوياً من مختلف الدول. القبتان الذهبيتان ومنارتاه الأربع تُشكّل معلماً معمارياً استثنائياً.",
+    location:"الكاظمية — شمال غرب بغداد", time:"طوال اليوم", closed:"—",
+    rating:"5.0", icon:"⭐",
+    color:"linear-gradient(135deg,#78350f,#d97706)",
+    tags:["مرقد","إسلامي","قبة ذهبية","زيارة دينية"],
+    mapUrl:"https://maps.google.com/?q=Al-Kadhimain+Baghdad",
+    featured:true
+  },
+  {
+    id:10, name:"منطقة الأعظمية", cat:"culture", badge:"ثقافي",
+    desc:"قلب بغداد التاريخي على الضفة الشرقية لدجلة — حي عريق يمزج بين الموروث الثقافي والحيوية المعاصرة.",
+    fullDesc:"الأعظمية حي تاريخي عريق على الضفة الشرقية لنهر دجلة، يُعدّ من أقدم أحياء بغداد وأكثرها حيوية. يشتهر بمقاهيه التراثية وطعامه الأصيل ومسجد أبي حنيفة الشهير. كان تاريخياً مقراً للعلماء والأدباء والمثقفين.",
+    location:"الأعظمية — الضفة الشرقية", time:"يومياً", closed:"—",
+    rating:"4.6", icon:"🕌",
+    color:"linear-gradient(135deg,#1e3a5f,#2563eb)",
+    tags:["حي تاريخي","مقاهي","تراث","طعام"],
+    mapUrl:"https://maps.google.com/?q=Al-Adhamiyah+Baghdad",
+    featured:false
+  },
+  {
+    id:11, name:"متحف بغداد للتاريخ الطبيعي", cat:"culture", badge:"ثقافي",
+    desc:"وجهة رائعة للتعلم عن الطبيعة والبيئة العراقية والحيوانات القديمة التي عاشت في بلاد الرافدين.",
+    fullDesc:"متحف بغداد للتاريخ الطبيعي يضم مجموعة نادرة من المستحاثات وعينات الحيوانات والنباتات التي تُجسّد ثراء البيئة العراقية عبر العصور. من أبرز معروضاته هياكل الديناصورات وأشجار بلاد الرافدين وعينات من الحياة البرية العراقية.",
+    location:"شارع الجامعة — الكرخ", time:"9:00 - 15:00", closed:"الجمعة والسبت",
+    rating:"4.3", icon:"🦕",
+    color:"linear-gradient(135deg,#166534,#15803d)",
+    tags:["علوم","طبيعة","متحف","تعليم"],
+    mapUrl:"https://maps.google.com/?q=Baghdad+Natural+History+Museum",
+    featured:false
+  },
+  {
+    id:12, name:"بيت الحكمة الجديد", cat:"culture", badge:"ثقافي",
+    desc:"إحياء لأعظم مؤسسة علمية في التاريخ الإسلامي — مركز ثقافي وأكاديمي على أرض مدينة السلام.",
+    fullDesc:"بيت الحكمة في بغداد يستلهم روح المؤسسة التاريخية العظيمة التي أسسها الخليفة هارون الرشيد وازدهرت في عهد المأمون. يضم اليوم مكتبة ضخمة وقاعات للمحاضرات والأبحاث، ويستضيف ندوات ومؤتمرات علمية وثقافية يشارك فيها علماء من العالم.",
+    location:"وسط بغداد — شارع العرصات", time:"9:00 - 17:00", closed:"الجمعة",
+    rating:"4.5", icon:"📖",
+    color:"linear-gradient(135deg,#1e3a5f,#7c3aed)",
+    tags:["علم","ثقافة","مكتبة","تراث عباسي"],
+    mapUrl:"https://maps.google.com/?q=Bayt+Al-Hikmah+Baghdad",
+    featured:false
+  },
+];
 
-    let accounts = JSON.parse(localStorage.getItem('inpt_accounts') || 'null');
-    if (!accounts) {
-      accounts = [
-        { id: '1', username: 'admin', password: 'admin123', name: 'المدير العام', role: 'admin', active: true, createdAt: new Date().toISOString() }
-      ];
-      localStorage.setItem('inpt_accounts', JSON.stringify(accounts));
+const FOODS = [
+  { name:"التكة البغدادية", desc:"لحم مشوي متبّل بالتوابل العراقية الأصيلة، يُقدّم مع الأرز والطماطم المشوية.", icon:"🥩", tag:"أكلة شعبية", color:"linear-gradient(135deg,#7c3a00,#b45309)" },
+  { name:"السمك المسكوف", desc:"الطبق الوطني العراقي — سمك شبّوط مشوي على النار المكشوفة بطريقة الحفرة منذ آلاف السنين.", icon:"🐟", tag:"طبق وطني", color:"linear-gradient(135deg,#1e3a5f,#2563eb)" },
+  { name:"القيمة البغدادية", desc:"يخنة اللحم مع الحمص الأصفر والمشمش الحامض، تُقدّم مع الأرز الأبيض.", icon:"🍲", tag:"أكلة تقليدية", color:"linear-gradient(135deg,#166534,#16a34a)" },
+  { name:"الكبة الموصلية", desc:"كرات اللحم المحشوّة المطبوخة بالمرق العراقي — وصفة توارثتها الأجيال منذ عهد الخلافة.", icon:"🥙", tag:"حرفة يدوية", color:"linear-gradient(135deg,#5b21b6,#7c3aed)" },
+  { name:"البقلاوة العراقية", desc:"حلوى العيد والمناسبات — طبقات من العجين الرقيق مع الفستق والشيرة العطرية.", icon:"🍯", tag:"حلويات", color:"linear-gradient(135deg,#78350f,#d97706)" },
+  { name:"الدولمة العراقية", desc:"ورق العنب المحشو باللحم والأرز والتوابل — طبق يجمع كل العائلة على مائدة واحدة.", icon:"🌿", tag:"طبق عائلي", color:"linear-gradient(135deg,#166534,#15803d)" },
+  { name:"عيش الكلي", desc:"خبز التنور العراقي الطازج — الرفيق الأصيل لكل وجبة بغدادية.", icon:"🫓", tag:"خبز أصيل", color:"linear-gradient(135deg,#7c3a00,#92400e)" },
+  { name:"الرشتة العراقية", desc:"شوربة المعكرونة اليدوية مع العدس الأحمر والتمر الهندي — طعام الشتاء والدفء.", icon:"🍜", tag:"شوربة تقليدية", color:"linear-gradient(135deg,#1e3a5f,#0f766e)" },
+];
+
+const HISTORY_TIMELINE = [
+  { year:"762 م", event:"تأسيس بغداد", desc:"الخليفة المنصور يُؤسّس مدينة السلام المستديرة على ضفة دجلة لتكون عاصمة الخلافة العباسية." },
+  { year:"786-809 م", event:"عصر هارون الرشيد", desc:"بغداد تبلغ ذروة ازدهارها وتصبح أكبر مدن العالم بمليون نسمة، وتزدهر في عهده ألف ليلة وليلة." },
+  { year:"830 م", event:"بيت الحكمة", desc:"المأمون يُنشئ بيت الحكمة فتصبح بغداد مركز العالم للعلوم والترجمة والفلسفة والطب." },
+  { year:"1258 م", event:"الغزو المغولي", desc:"هولاكو خان يُحاصر بغداد ويُدمّر الحضارة العباسية في واحدة من أكبر المآسي الإنسانية في التاريخ." },
+  { year:"1534 م", event:"الحكم العثماني", desc:"السلطان سليمان القانوني يدخل بغداد وتبدأ حقبة جديدة في ظل الحكم العثماني الذي دام قروناً." },
+  { year:"1921 م", event:"تأسيس المملكة", desc:"تُعلن المملكة العراقية وتصبح بغداد عاصمتها مع تتويج الملك فيصل الأول ملكاً على العراق." },
+  { year:"1932 م", event:"الاستقلال", desc:"العراق يحصل على استقلاله الكامل وعضوية عصبة الأمم، وبغداد تنطلق في مسيرة البناء الحديث." },
+  { year:"اليوم", event:"بغداد تتجدد", desc:"عاصمة العراق تستعيد نهضتها وتفتح أبوابها للزوار من كل أنحاء العالم لاكتشاف كنوزها الحضارية." },
+];
+
+const HISTORY_FACTS = [
+  { icon:"fas fa-city", cls:"ti-gold", title:"أكبر مدن العالم", body:"في القرن التاسع الميلادي كانت بغداد أكبر مدينة في العالم بتعداد تجاوز مليون نسمة." },
+  { icon:"fas fa-book", cls:"ti-teal", title:"مركز العلم العالمي", body:"ضمّت بغداد العباسية أعظم المكتبات والعلماء في الرياضيات والفلك والطب والفلسفة." },
+  { icon:"fas fa-circle", cls:"ti-navy", title:"المدينة المستديرة", body:"بُنيت بغداد الأولى بشكل دائري مثالي — وهو نظام معماري فريد من نوعه في التاريخ القديم." },
+  { icon:"fas fa-water", cls:"ti-green", title:"نهر دجلة", body:"يشق دجلة قلب بغداد ليمنحها الحياة منذ آلاف السنين — أحد نهري بلاد الرافدين العريقة." },
+];
+
+const TIPS = [
+  { icon:"fas fa-calendar", cls:"ti-gold", title:"أفضل وقت للزيارة", body:"أكتوبر حتى أبريل — الطقس معتدل وممتع. تجنّب الصيف (يونيو-أغسطس) حيث الحرارة تتجاوز 45 درجة." },
+  { icon:"fas fa-shirt", cls:"ti-teal", title:"اللباس المناسب", body:"ارتدِ ملابس محتشمة عند زيارة المواقع الدينية. المرأة تضع غطاء الرأس في المراقد والمساجد." },
+  { icon:"fas fa-money-bill", cls:"ti-gold", title:"العملة والدفع", body:"الدينار العراقي هو العملة الرسمية. معظم المحلات نقد فقط. الصرف متاح في البنوك والصرافين." },
+  { icon:"fas fa-taxi", cls:"ti-navy", title:"التنقل الداخلي", body:"تاكسي التطبيقات (Careem, SnApp) الأفضل والأآمن. تجنّب التنقل ليلاً في المناطق غير المألوفة." },
+  { icon:"fas fa-language", cls:"ti-teal", title:"اللغة", body:"العربية هي اللغة الرسمية. الكردية شائعة في الشمال. كثير من الشباب يتحدث الإنجليزية." },
+  { icon:"fas fa-utensils", cls:"ti-gold", title:"آداب الطعام", body:"جرّب الأكل في المطاعم الشعبية لتجربة أصيلة. الضيافة العراقية كريمة — لا ترفض الدعوات." },
+  { icon:"fas fa-camera", cls:"ti-navy", title:"التصوير", body:"استأذن قبل تصوير الأشخاص. يُمنع التصوير في بعض المباني الحكومية والعسكرية." },
+  { icon:"fas fa-heart-pulse", cls:"ti-green", title:"الصحة والأمان", body:"اشترِ تأمين سفر قبل الزيارة. اشرب المياه المعبأة فقط. احفظ رقم السفارة والطوارئ." },
+  { icon:"fas fa-sun", cls:"ti-gold", title:"الحماية من الشمس", body:"احمل معك واقي شمس وقبعة وزجاجة ماء دائماً. الجفاف خطر حقيقي في الصيف." },
+  { icon:"fas fa-phone", cls:"ti-teal", title:"الاتصالات", body:"شريحة Zain أو Korek للزوار متاحة. الإنترنت جيد في المدن. WiFi في معظم المطاعم والفنادق." },
+  { icon:"fas fa-mosque", cls:"ti-navy", title:"الاحترام الديني", body:"تجنّب الأكل والشرب في الأماكن العامة خلال رمضان. احترم أوقات الصلاة وأجواء المراقد." },
+  { icon:"fas fa-suitcase", cls:"ti-gray", title:"ماذا تحمل معك؟", body:"وثائق السفر، أدوية الإسعافات الأولية، بطاقة بنكية دولية، خريطة أوفلاين، ترجمة بسيطة." },
+];
+
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+let favs = JSON.parse(localStorage.getItem('baghdad-favs') || '[]');
+let currentFilter = 'all';
+
+// ═══════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════
+let toastT;
+function toast(m, t='') {
+  const el = document.getElementById('toast');
+  el.textContent = m;
+  el.className = 'toast on' + (t ? ' ' + t : '');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.className = 'toast', 3e3);
+}
+
+function openSb() { document.getElementById('sb').classList.add('open'); document.getElementById('overlay').classList.add('on'); }
+function closeSb() { document.getElementById('sb').classList.remove('open'); document.getElementById('overlay').classList.remove('on'); }
+
+function goTo(btn, sec) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+  document.querySelectorAll('.nav-btn, .bn').forEach(b => b.classList.remove('on'));
+  document.getElementById('sec-' + sec).classList.add('on');
+  document.querySelectorAll(`[onclick*="'${sec}'"]`).forEach(b => b.classList.add('on'));
+  closeSb();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (sec === 'favs') renderFavs();
+  if (sec === 'search') setTimeout(() => document.getElementById('main-search').focus(), 300);
+}
+
+// ═══════════════════════════════════
+// HERO
+// ═══════════════════════════════════
+function enterSite() {
+  const hero = document.getElementById('hero-screen');
+  hero.style.transition = 'opacity .6s ease, transform .6s ease';
+  hero.style.opacity = '0';
+  hero.style.transform = 'scale(1.03)';
+  setTimeout(() => { hero.style.display = 'none'; document.getElementById('topbar').classList.add('visible'); }, 650);
+}
+function goToPlaces() { enterSite(); setTimeout(() => goTo(null, 'places'), 700); }
+window.enterSite = enterSite;
+window.goToPlaces = goToPlaces;
+
+// Show topbar on scroll
+window.addEventListener('scroll', () => {
+  const hero = document.getElementById('hero-screen');
+  if (hero.style.display === 'none') {
+    document.getElementById('topbar').classList.add('visible');
+  }
+});
+
+// ═══════════════════════════════════
+// PLACE CARD
+// ═══════════════════════════════════
+function placeCard(p, size = 'full') {
+  const isFav = favs.includes(p.id);
+  return `
+  <div class="place-card" onclick="openPlace(${p.id})">
+    <div class="pc-img">
+      <div class="pc-img-fallback" style="background:${p.color}">
+        <i class="fas fa-mosque" style="font-size:3rem;color:rgba(255,255,255,.15)"></i>
+        <span style="font-size:4rem">${p.icon}</span>
+      </div>
+      <span class="pc-badge pcb-${p.cat}">${p.badge}</span>
+      <button class="pc-fav ${isFav ? 'faved' : ''}" onclick="toggleFav(event,${p.id})">
+        <i class="fas fa-heart"></i>
+      </button>
+      <div class="pc-rating"><i class="fas fa-star" style="font-size:.72rem"></i> ${p.rating}</div>
+    </div>
+    <div class="pc-body">
+      <div class="pc-cat">${p.badge}</div>
+      <div class="pc-name">${p.name}</div>
+      <div class="pc-desc">${p.desc}</div>
+      <div class="pc-footer">
+        <div class="pc-info"><i class="fas fa-location-dot"></i>${p.location.split('—')[0]}</div>
+        <div class="pc-info"><i class="fas fa-clock"></i>${p.time.split(' ')[0]}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════
+// FAVOURITES
+// ═══════════════════════════════════
+function toggleFav(e, id) {
+  e.stopPropagation();
+  if (favs.includes(id)) {
+    favs = favs.filter(f => f !== id);
+    toast('تم الإزالة من المفضلة');
+  } else {
+    favs.push(id);
+    toast('تمت الإضافة للمفضلة ❤️', 'ok');
+  }
+  localStorage.setItem('baghdad-favs', JSON.stringify(favs));
+  updateFavBadge();
+  // Update all fav buttons
+  document.querySelectorAll('.pc-fav').forEach(btn => {
+    const card = btn.closest('.place-card');
+    if (!card) return;
+  });
+  renderAll();
+}
+window.toggleFav = toggleFav;
+
+function updateFavBadge() {
+  const count = favs.length;
+  ['tb-fav-count', 'nav-fav-count'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (id === 'tb-fav-count') {
+      el.textContent = count || '';
+      el.classList.toggle('show', count > 0);
+    } else {
+      el.textContent = count || '';
+      el.classList.toggle('show', count > 0);
     }
-
-    let currentUser = JSON.parse(sessionStorage.getItem('inpt_user') || 'null');
-    let activityLogs = JSON.parse(localStorage.getItem('inpt_logs') || '[]');
-
-    // ===================================================
-    // AUTH FUNCTIONS
-    // ===================================================
-    function switchAuthTab(tab, btn) {
-      document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('auth' + (tab === 'login' ? 'Login' : 'Register')).classList.add('active');
-    }
-
-    function selectRole(role, el) {
-      document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
-      document.getElementById('regRole').value = role;
-    }
-
-    function doLogin() {
-      const u = document.getElementById('loginUser').value.trim();
-      const p = document.getElementById('loginPass').value;
-      const errEl = document.getElementById('loginError');
-
-      if (!u || !p) { showAuthError(errEl, 'يرجى إدخال اسم المستخدم وكلمة المرور'); return; }
-
-      const acc = accounts.find(a => a.username === u && a.password === p);
-      if (!acc) { showAuthError(errEl, '❌ اسم المستخدم أو كلمة المرور غير صحيحة'); return; }
-      if (!acc.active) { showAuthError(errEl, '⏳ حسابك لم يُفعَّل بعد. انتظر موافقة المدير'); return; }
-
-      errEl.style.display = 'none';
-      currentUser = acc;
-      sessionStorage.setItem('inpt_user', JSON.stringify(acc));
-      addLog(`تسجيل دخول`, acc.name, 'login');
-      initApp();
-    }
-
-    function doRegister() {
-      const name  = document.getElementById('regName').value.trim();
-      const user  = document.getElementById('regUser').value.trim();
-      const pass  = document.getElementById('regPass').value;
-      const role  = document.getElementById('regRole').value;
-      const errEl = document.getElementById('regError');
-
-      if (!name) { showAuthError(errEl, 'يرجى إدخال الاسم الكامل'); return; }
-      if (!user) { showAuthError(errEl, 'يرجى إدخال اسم المستخدم'); return; }
-      if (pass.length < 6) { showAuthError(errEl, 'كلمة المرور يجب أن تكون 6 أحرف على الأقل'); return; }
-      if (!role) { showAuthError(errEl, 'يرجى اختيار الدور الوظيفي'); return; }
-      if (accounts.find(a => a.username === user)) { showAuthError(errEl, '❌ اسم المستخدم مستخدم مسبقاً'); return; }
-
-      const newAcc = {
-        id: Date.now().toString(), username: user, password: pass,
-        name, role, active: false, createdAt: new Date().toISOString()
-      };
-      accounts.push(newAcc);
-      saveAccounts();
-
-      errEl.style.display = 'none';
-      showToast('✅ تم إنشاء الحساب! انتظر موافقة المدير للتفعيل', 'success');
-      // Switch back to login
-      document.querySelectorAll('.auth-tab')[0].click();
-    }
-
-    function showAuthError(el, msg) {
-      el.textContent = msg;
-      el.style.display = 'block';
-    }
-
-    function doLogout() {
-      addLog('تسجيل خروج', currentUser.name, 'logout');
-      currentUser = null;
-      sessionStorage.removeItem('inpt_user');
-      document.getElementById('authScreen').style.display = 'flex';
-      document.getElementById('loginUser').value = '';
-      document.getElementById('loginPass').value = '';
-      toggleUserMenu(true);
-    }
-
-    function saveAccounts() {
-      localStorage.setItem('inpt_accounts', JSON.stringify(accounts));
-    }
-
-    // ===================================================
-    // INIT APP (after login)
-    // ===================================================
-    function initApp() {
-      document.getElementById('authScreen').style.display = 'none';
-
-      // Set header user info
-      const initials = currentUser.name.split(' ').map(w => w[0]).join('').slice(0, 2);
-      document.getElementById('userAvatar').textContent = initials;
-      document.getElementById('userDisplayName').textContent = currentUser.name.split(' ')[0];
-      document.getElementById('ddName').textContent  = currentUser.name;
-      document.getElementById('ddRole').textContent  = ROLE_LABELS[currentUser.role].icon + ' ' + ROLE_LABELS[currentUser.role].label;
-
-      // Admin-only elements
-      const isAdmin = currentUser.role === 'admin';
-      document.getElementById('adminTabBtn').style.display    = isAdmin ? 'flex' : 'none';
-      document.getElementById('adminPanelBtn').style.display  = isAdmin ? 'flex' : 'none';
-
-      // Viewer: hide register tab
-      if (currentUser.role === 'viewer') {
-        document.querySelectorAll('.tab-btn')[1].style.display = 'none';
-      }
-
-      updateHeaderStats();
-      checkNotifications();
-      renderDashboard();
-    }
-
-    // ===================================================
-    // USER MENU
-    // ===================================================
-    function toggleUserMenu(forceClose = false) {
-      const dd = document.getElementById('userDropdown');
-      if (forceClose) { dd.classList.remove('open'); return; }
-      dd.classList.toggle('open');
-    }
-
-    // ===================================================
-    // PROFILE MODAL
-    // ===================================================
-    function openProfileModal() {
-      toggleUserMenu(true);
-      document.getElementById('profName').value = currentUser.name;
-      document.getElementById('profPass').value = '';
-      document.getElementById('profileModal').classList.add('open');
-    }
-
-    function closeProfileModal() {
-      document.getElementById('profileModal').classList.remove('open');
-    }
-
-    function saveProfile() {
-      const name = document.getElementById('profName').value.trim();
-      const pass = document.getElementById('profPass').value;
-      if (!name) { showToast('يرجى إدخال الاسم', 'danger'); return; }
-
-      const acc = accounts.find(a => a.id === currentUser.id);
-      if (acc) {
-        acc.name = name;
-        if (pass && pass.length >= 6) acc.password = pass;
-        else if (pass && pass.length < 6) { showToast('كلمة المرور قصيرة جداً', 'danger'); return; }
-        saveAccounts();
-        currentUser = acc;
-        sessionStorage.setItem('inpt_user', JSON.stringify(acc));
-        const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
-        document.getElementById('userAvatar').textContent = initials;
-        document.getElementById('userDisplayName').textContent = name.split(' ')[0];
-        document.getElementById('ddName').textContent = name;
-        addLog('تعديل بيانات الحساب', name, 'edit');
-        showToast('✅ تم حفظ البيانات', 'success');
-        closeProfileModal();
-      }
-    }
-
-    // ===================================================
-    // ADMIN: STAFF LIST
-    // ===================================================
-    function renderStaffList() {
-      const container = document.getElementById('staffList');
-      const others = accounts.filter(a => a.id !== currentUser.id);
-
-      if (others.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:30px"><div class="empty-icon">👥</div><p>لا يوجد موظفون آخرون</p></div>`;
-        return;
-      }
-
-      container.innerHTML = others.map(a => {
-        const rl = ROLE_LABELS[a.role];
-        const initials = a.name.split(' ').map(w => w[0]).join('').slice(0, 2);
-        const statusColor = a.active ? 'var(--success)' : 'var(--warning)';
-        const statusLabel = a.active ? '✅ مفعّل' : '⏳ بانتظار التفعيل';
-        return `<div class="staff-card">
-          <div class="staff-avatar" style="background:${rl.color};">${initials}</div>
-          <div class="staff-info">
-            <div class="sname">${a.name}</div>
-            <div class="smeta">
-              <span dir="ltr">@${a.username}</span> &nbsp;·&nbsp;
-              <span class="role-badge ${rl.badge}">${rl.icon} ${rl.label}</span> &nbsp;·&nbsp;
-              <span style="color:${statusColor};font-weight:700;font-size:12px;">${statusLabel}</span>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
-            ${!a.active ? `<button class="btn btn-success btn-sm" onclick="activateAccount('${a.id}')">✅ تفعيل</button>` : ''}
-            ${a.active  ? `<button class="btn btn-ghost btn-sm" onclick="toggleAccount('${a.id}')">🔒 تعطيل</button>` : ''}
-            <select onchange="changeRole('${a.id}', this.value)" class="btn btn-ghost btn-sm" style="cursor:pointer;" value="${a.role}">
-              <option value="staff"  ${a.role==='staff'  ? 'selected':''}>👨‍💼 موظف</option>
-              <option value="viewer" ${a.role==='viewer' ? 'selected':''}>👁️ مشاهد</option>
-              <option value="admin"  ${a.role==='admin'  ? 'selected':''}>🛡️ مدير</option>
-            </select>
-            <button class="btn btn-danger btn-sm" onclick="deleteAccount('${a.id}')">🗑️</button>
-          </div>
-        </div>`;
-      }).join('');
-    }
-
-    function activateAccount(id) {
-      const a = accounts.find(x => x.id === id);
-      if (a) { a.active = true; saveAccounts(); addLog(`تفعيل حساب: ${a.name}`, currentUser.name, 'activate'); renderStaffList(); showToast(`✅ تم تفعيل حساب ${a.name}`, 'success'); }
-    }
-
-    function toggleAccount(id) {
-      const a = accounts.find(x => x.id === id);
-      if (a) { a.active = !a.active; saveAccounts(); renderStaffList(); showToast(`${a.active ? '✅ تفعيل' : '🔒 تعطيل'} حساب ${a.name}`, 'warning'); }
-    }
-
-    function changeRole(id, role) {
-      const a = accounts.find(x => x.id === id);
-      if (a) { a.role = role; saveAccounts(); addLog(`تغيير صلاحية ${a.name} إلى ${ROLE_LABELS[role].label}`, currentUser.name, 'role'); showToast(`تم تغيير دور ${a.name}`, 'success'); }
-    }
-
-    function deleteAccount(id) {
-      const a = accounts.find(x => x.id === id);
-      if (!a) return;
-      if (!confirm(`هل تريد حذف حساب ${a.name}؟`)) return;
-      accounts = accounts.filter(x => x.id !== id);
-      saveAccounts();
-      addLog(`حذف حساب: ${a.name}`, currentUser.name, 'delete');
-      renderStaffList();
-      showToast('تم حذف الحساب', 'warning');
-    }
-
-    // ===================================================
-    // ACTIVITY LOG
-    // ===================================================
-    function addLog(action, user, type) {
-      activityLogs.unshift({ action, user, type, time: new Date().toISOString() });
-      if (activityLogs.length > 100) activityLogs = activityLogs.slice(0, 100);
-      localStorage.setItem('inpt_logs', JSON.stringify(activityLogs));
-    }
-
-    function renderActivityLog() {
-      const container = document.getElementById('activityLog');
-      if (activityLogs.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:30px"><div class="empty-icon">📋</div><p>لا توجد نشاطات</p></div>`;
-        return;
-      }
-      const colors = { login: '#10b981', logout: '#6b7280', activate: '#3b82f6', delete: '#ef4444', edit: '#f59e0b', role: '#8b5cf6' };
-      container.innerHTML = activityLogs.slice(0, 30).map(l => {
-        const color = colors[l.type] || '#9ca3af';
-        const time  = new Date(l.time).toLocaleString('ar-IQ');
-        return `<div class="log-item">
-          <div class="log-dot" style="background:${color};"></div>
-          <div style="flex:1;">
-            <span style="font-weight:700;">${l.user}</span> — ${l.action}
-            <div style="font-size:11px;color:var(--gray-400);margin-top:2px;">${time}</div>
-          </div>
-        </div>`;
-      }).join('');
-    }
-
-    // ===================================================
-    // DATA STORE
-    // ===================================================
-    let students = JSON.parse(localStorage.getItem('inpt_students') || '[]');
-    let currentFilter = 'all';
-
-    const EXAM_LABELS = {
-      arabic:   { label: 'اللغة العربية',    icon: '📖', badge: 'badge-arabic' },
-      english:  { label: 'اللغة الإنجليزية', icon: '🌐', badge: 'badge-english' },
-      computer: { label: 'الحاسوب (INCPT)',   icon: '💻', badge: 'badge-computer' }
-    };
-
-    const STATUS_LABELS = {
-      pending:   { label: 'بانتظار الحجز', badge: 'badge-pending',   icon: '⏳' },
-      confirmed: { label: 'تم الحجز',       badge: 'badge-confirmed', icon: '✅' },
-      cancelled: { label: 'ملغي',            badge: 'badge-cancelled', icon: '❌' }
-    };
-
-    function save() { localStorage.setItem('inpt_students', JSON.stringify(students)); }
-
-    // ===================================================
-    // TABS
-    // ===================================================
-    function switchTab(tab, btn) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('page-' + tab).classList.add('active');
-      if (btn) btn.classList.add('active');
-      if (tab === 'students')  renderStudentTable();
-      if (tab === 'schedule')  renderSchedule();
-      if (tab === 'dashboard') renderDashboard();
-      if (tab === 'admin')     { renderStaffList(); renderActivityLog(); }
-    }
-
-    // ===================================================
-    // EXAM SELECT
-    // ===================================================
-    function selectExam(type, el) {
-      document.querySelectorAll('.exam-card').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
-      document.getElementById('fExam').value = type;
-    }
-
-    // ===================================================
-    // REGISTER STUDENT
-    // ===================================================
-    function registerStudent() {
-      if (currentUser && currentUser.role === 'viewer') { showToast('⛔ ليس لديك صلاحية التسجيل', 'danger'); return; }
-      const name  = document.getElementById('fName').value.trim();
-      const phone = document.getElementById('fPhone').value.trim();
-      const nid   = document.getElementById('fNid').value.trim();
-      const email = document.getElementById('fEmail').value.trim();
-      const exam  = document.getElementById('fExam').value;
-      const date  = document.getElementById('fDate').value;
-      const time  = document.getElementById('fTime').value;
-      const notes = document.getElementById('fNotes').value.trim();
-
-      if (!name)  { showToast('يرجى إدخال الاسم الكامل', 'danger'); return; }
-      if (!phone || phone.length < 10) { showToast('يرجى إدخال رقم هاتف صحيح', 'danger'); return; }
-      if (!exam)  { showToast('يرجى اختيار نوع الامتحان', 'danger'); return; }
-      if (!date)  { showToast('يرجى تحديد تاريخ الحجز', 'danger'); return; }
-      if (!time)  { showToast('يرجى تحديد وقت الحجز', 'danger'); return; }
-
-      const student = {
-        id: Date.now().toString(), name, phone, nid, email, exam, date, time, notes,
-        status: 'confirmed', registeredAt: new Date().toISOString(),
-        registeredBy: currentUser ? currentUser.name : 'غير معروف'
-      };
-
-      students.push(student);
-      save();
-      clearForm();
-      updateHeaderStats();
-      checkNotifications();
-      addLog(`تسجيل طالب: ${name}`, currentUser.name, 'edit');
-      showToast(`✅ تم تسجيل ${name} بنجاح!`, 'success');
-    }
-
-    function clearForm() {
-      ['fName','fPhone','fNid','fEmail','fDate','fTime','fNotes'].forEach(id => { document.getElementById(id).value = ''; });
-      document.getElementById('fExam').value = '';
-      document.getElementById('fTime').value = '09:00';
-      document.querySelectorAll('.exam-card').forEach(c => c.classList.remove('selected'));
-    }
-
-    // ===================================================
-    // STUDENT TABLE
-    // ===================================================
-    function filterStudents(type, btn) {
-      currentFilter = type;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderStudentTable();
-    }
-
-    function renderStudentTable() {
-      const q = (document.getElementById('listSearch')?.value || '').toLowerCase();
-      let list = students.filter(s => {
-        const matchFilter =
-          currentFilter === 'all' ? true :
-          currentFilter === 'pending'   ? s.status === 'pending' :
-          currentFilter === 'confirmed' ? s.status === 'confirmed' :
-          s.exam === currentFilter;
-        const matchSearch = !q || s.name.toLowerCase().includes(q) || s.phone.includes(q);
-        return matchFilter && matchSearch;
-      });
-      list.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
-
-      const tbody  = document.getElementById('studentTableBody');
-      const empty  = document.getElementById('studentEmptyState');
-      const countL = document.getElementById('studentCountLabel');
-      countL.textContent = list.length + ' طالب';
-
-      if (list.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
-      empty.style.display = 'none';
-
-      const canEdit = !currentUser || currentUser.role !== 'viewer';
-
-      tbody.innerHTML = list.map((s, i) => {
-        const ex = EXAM_LABELS[s.exam];
-        const st = STATUS_LABELS[s.status];
-        return `<tr>
-          <td style="color:var(--gray-400);font-size:12px;">${i + 1}</td>
-          <td><div style="font-weight:700;">${s.name}</div>${s.nid ? `<div style="font-size:11px;color:var(--gray-400);">${s.nid}</div>` : ''}</td>
-          <td dir="ltr" style="font-size:13px;">${s.phone}</td>
-          <td><span class="badge ${ex.badge}">${ex.icon} ${ex.label}</span></td>
-          <td style="font-size:13px;">${formatDate(s.date)}</td>
-          <td style="font-size:13px;" dir="ltr">${s.time}</td>
-          <td><span class="badge ${st.badge}">${st.icon} ${st.label}</span></td>
-          <td><div style="display:flex;gap:6px;">
-            <button class="btn btn-ghost btn-sm" onclick="viewStudent('${s.id}')">👁️</button>
-            ${canEdit ? `<button class="btn btn-danger btn-sm" onclick="deleteStudent('${s.id}')">🗑️</button>` : ''}
-          </div></td>
-        </tr>`;
-      }).join('');
-    }
-
-    // ===================================================
-    // SCHEDULE
-    // ===================================================
-    function renderSchedule() {
-      const container = document.getElementById('scheduleContent');
-      if (students.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="empty-icon">📅</div><h3>لا توجد حجوزات</h3></div>`;
-        return;
-      }
-      const groups = {};
-      const sorted = [...students].filter(s => s.date).sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
-      sorted.forEach(s => { if (!groups[s.date]) groups[s.date] = []; groups[s.date].push(s); });
-      const today = new Date().toISOString().split('T')[0];
-      let html = '';
-      Object.entries(groups).forEach(([date, list]) => {
-        const isToday = date === today;
-        const isPast  = date < today;
-        html += `<div style="margin-bottom:20px;">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-            <div style="height:2px;flex:1;background:var(--gray-200);"></div>
-            <span style="background:${isToday ? 'var(--primary)' : isPast ? 'var(--gray-300)' : 'var(--success)'};color:white;padding:4px 14px;border-radius:99px;font-size:13px;font-weight:700;">
-              ${isToday ? '📅 اليوم - ' : ''}${formatDate(date)}
-            </span>
-            <div style="height:2px;flex:1;background:var(--gray-200);"></div>
-          </div>
-          <div class="table-wrapper"><table>
-            <thead><tr><th>الوقت</th><th>الاسم</th><th>الهاتف</th><th>الامتحان</th><th>الحالة</th><th>سجّله</th><th></th></tr></thead>
-            <tbody>${list.map(s => {
-              const ex = EXAM_LABELS[s.exam]; const st = STATUS_LABELS[s.status];
-              return `<tr>
-                <td dir="ltr" style="font-weight:700;color:var(--primary);">${s.time||'—'}</td>
-                <td style="font-weight:600;">${s.name}</td>
-                <td dir="ltr" style="font-size:13px;">${s.phone}</td>
-                <td><span class="badge ${ex.badge}">${ex.icon} ${ex.label}</span></td>
-                <td><span class="badge ${st.badge}">${st.icon} ${st.label}</span></td>
-                <td style="font-size:11px;color:var(--gray-400);">${s.registeredBy || '—'}</td>
-                <td><button class="btn btn-ghost btn-sm" onclick="viewStudent('${s.id}')">👁️</button></td>
-              </tr>`;
-            }).join('')}</tbody>
-          </table></div>
-        </div>`;
-      });
-      container.innerHTML = html;
-    }
-
-    // ===================================================
-    // DASHBOARD
-    // ===================================================
-    function renderDashboard() {
-      document.getElementById('statTotal').textContent    = students.length;
-      document.getElementById('statArabic').textContent   = students.filter(s => s.exam === 'arabic').length;
-      document.getElementById('statEnglish').textContent  = students.filter(s => s.exam === 'english').length;
-      document.getElementById('statComputer').textContent = students.filter(s => s.exam === 'computer').length;
-      const now = new Date();
-      const in48 = new Date(now.getTime() + 48 * 3600000);
-      const upcoming = students.filter(s => s.date && s.time).filter(s => { const dt = new Date(s.date + 'T' + s.time); return dt >= now && dt <= in48; }).sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
-      const list = document.getElementById('upcomingList');
-      if (upcoming.length === 0) { list.innerHTML = `<div class="empty-state" style="padding:30px"><div class="empty-icon">📭</div><p>لا توجد مواعيد خلال 48 ساعة</p></div>`; return; }
-      list.innerHTML = upcoming.map(s => {
-        const dt = new Date(s.date + 'T' + s.time);
-        const diffH = Math.round((dt - now) / 3600000);
-        const cls = diffH < 2 ? 'urgent' : diffH < 12 ? 'soon' : '';
-        const ex = EXAM_LABELS[s.exam];
-        return `<div class="upcoming-item ${cls}">
-          <div class="upcoming-time"><div class="day">${dt.getDate()}</div><div class="month">${dt.toLocaleString('ar',{month:'short'})}</div></div>
-          <div class="upcoming-info"><div class="name">${s.name}</div><div class="detail">${ex.icon} ${ex.label} — ${s.time} — ${diffH < 1 ? 'أقل من ساعة' : diffH + ' ساعة'}</div></div>
-          <button class="btn btn-ghost btn-sm" onclick="viewStudent('${s.id}')">تفاصيل</button>
-        </div>`;
-      }).join('');
-    }
-
-    // ===================================================
-    // SEARCH
-    // ===================================================
-    function doSearch() {
-      const q = document.getElementById('mainSearch').value.trim().toLowerCase();
-      const container = document.getElementById('searchResults');
-      if (!q) { container.innerHTML = ''; return; }
-      const results = students.filter(s => s.name.toLowerCase().includes(q) || s.phone.includes(q) || (s.nid && s.nid.includes(q)));
-      if (results.length === 0) { container.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><h3>لا توجد نتائج</h3></div>`; return; }
-      container.innerHTML = `<p style="margin-bottom:12px;color:var(--gray-500);font-size:13px;">تم العثور على ${results.length} نتيجة</p>
-        <div class="table-wrapper"><table>
-          <thead><tr><th>الاسم</th><th>الهاتف</th><th>الامتحان</th><th>تاريخ الحجز</th><th>الوقت</th><th>الحالة</th><th></th></tr></thead>
-          <tbody>${results.map(s => {
-            const ex = EXAM_LABELS[s.exam]; const st = STATUS_LABELS[s.status];
-            return `<tr>
-              <td style="font-weight:700;">${s.name}</td>
-              <td dir="ltr">${s.phone}</td>
-              <td><span class="badge ${ex.badge}">${ex.icon} ${ex.label}</span></td>
-              <td>${formatDate(s.date)}</td>
-              <td dir="ltr">${s.time}</td>
-              <td><span class="badge ${st.badge}">${st.icon} ${st.label}</span></td>
-              <td><button class="btn btn-ghost btn-sm" onclick="viewStudent('${s.id}')">👁️ عرض</button></td>
-            </tr>`;
-          }).join('')}</tbody>
-        </table></div>`;
-    }
-
-    // ===================================================
-    // VIEW / DELETE STUDENT
-    // ===================================================
-    function viewStudent(id) {
-      const s = students.find(x => x.id === id); if (!s) return;
-      const ex = EXAM_LABELS[s.exam]; const st = STATUS_LABELS[s.status];
-      document.getElementById('modalBody').innerHTML = `
-        <div class="detail-row"><span class="detail-key">الاسم الكامل</span><span class="detail-val">${s.name}</span></div>
-        <div class="detail-row"><span class="detail-key">رقم الهاتف</span><span class="detail-val" dir="ltr">${s.phone}</span></div>
-        ${s.nid ? `<div class="detail-row"><span class="detail-key">الرقم الوطني</span><span class="detail-val">${s.nid}</span></div>` : ''}
-        ${s.email ? `<div class="detail-row"><span class="detail-key">البريد الإلكتروني</span><span class="detail-val" dir="ltr">${s.email}</span></div>` : ''}
-        <div class="detail-row"><span class="detail-key">نوع الامتحان</span><span class="detail-val">${ex.icon} ${ex.label}</span></div>
-        <div class="detail-row"><span class="detail-key">تاريخ الحجز</span><span class="detail-val">${formatDate(s.date)}</span></div>
-        <div class="detail-row"><span class="detail-key">الوقت</span><span class="detail-val" dir="ltr">${s.time}</span></div>
-        <div class="detail-row"><span class="detail-key">الحالة</span><span class="detail-val"><span class="badge ${st.badge}">${st.icon} ${st.label}</span></span></div>
-        <div class="detail-row"><span class="detail-key">سجّله</span><span class="detail-val">${s.registeredBy || '—'}</span></div>
-        ${s.notes ? `<div class="detail-row"><span class="detail-key">ملاحظات</span><span class="detail-val">${s.notes}</span></div>` : ''}
-        <div class="detail-row"><span class="detail-key">تاريخ التسجيل</span><span class="detail-val" style="font-size:12px;">${new Date(s.registeredAt).toLocaleString('ar')}</span></div>`;
-      const canEdit = !currentUser || currentUser.role !== 'viewer';
-      document.getElementById('modalFooter').innerHTML = `
-        ${canEdit ? `<button class="btn btn-success btn-sm" onclick="changeStatus('${id}','confirmed'); closeModal();">✅ تأكيد</button>
-        <button class="btn btn-ghost btn-sm" onclick="changeStatus('${id}','pending'); closeModal();">⏳ بانتظار</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteStudent('${id}'); closeModal();">🗑️ حذف</button>` : ''}
-        <button class="btn btn-ghost btn-sm" onclick="closeModal()">إغلاق</button>`;
-      document.getElementById('studentModal').classList.add('open');
-    }
-
-    function closeModal() { document.getElementById('studentModal').classList.remove('open'); }
-
-    function deleteStudent(id) {
-      if (currentUser && currentUser.role === 'viewer') { showToast('⛔ ليس لديك صلاحية الحذف', 'danger'); return; }
-      if (!confirm('هل تريد حذف هذا الطالب؟')) return;
-      const s = students.find(x => x.id === id);
-      students = students.filter(x => x.id !== id);
-      save();
-      if (s) addLog(`حذف طالب: ${s.name}`, currentUser?.name || '—', 'delete');
-      renderStudentTable();
-      updateHeaderStats();
-      showToast('تم حذف الطالب', 'warning');
-    }
-
-    function changeStatus(id, status) {
-      const s = students.find(x => x.id === id);
-      if (s) { s.status = status; save(); renderStudentTable(); renderSchedule(); }
-    }
-
-    // ===================================================
-    // NOTIFICATIONS
-    // ===================================================
-    function checkNotifications() {
-      const now = new Date(); const in24 = new Date(now.getTime() + 24 * 3600000);
-      const soon = students.filter(s => { if (!s.date || !s.time) return false; const dt = new Date(s.date + 'T' + s.time); return dt >= now && dt <= in24; });
-      const badge = document.getElementById('notifBadge'); const list = document.getElementById('notifList');
-      if (soon.length > 0) {
-        badge.style.display = 'flex'; badge.textContent = soon.length;
-        list.innerHTML = soon.map(s => {
-          const dt = new Date(s.date + 'T' + s.time); const diffH = Math.round((dt - now) / 3600000);
-          const ex = EXAM_LABELS[s.exam];
-          return `<div class="notif-item"><div class="notif-dot"></div><div><p><strong>${s.name}</strong> — ${ex.icon} ${ex.label}</p><small>⏰ ${s.date} الساعة ${s.time} (بعد ${diffH} ساعة)</small></div></div>`;
-        }).join('');
-      } else { badge.style.display = 'none'; list.innerHTML = `<div style="padding:20px;text-align:center;color:var(--gray-400);font-size:13px;">لا توجد إشعارات جديدة</div>`; }
-    }
-
-    function toggleNotif() { document.getElementById('notifPanel').classList.toggle('open'); }
-
-    // ===================================================
-    // TOAST / HELPERS
-    // ===================================================
-    function showToast(msg, type = '') {
-      const t = document.createElement('div'); t.className = `toast ${type}`; t.textContent = msg;
-      document.getElementById('toastContainer').appendChild(t);
-      setTimeout(() => t.remove(), 3500);
-    }
-
-    function formatDate(dateStr) {
-      if (!dateStr) return '—';
-      const d = new Date(dateStr + 'T00:00:00');
-      return d.toLocaleDateString('ar-IQ', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
-    }
-
-    function updateHeaderStats() {
-      document.getElementById('hdrTotal').textContent = students.length;
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('hdrToday').textContent = students.filter(s => s.date === today).length;
-    }
-
-    // ===================================================
-    // CLOSE DROPDOWNS ON OUTSIDE CLICK
-    // ===================================================
-    document.addEventListener('click', e => {
-      const notifPanel = document.getElementById('notifPanel');
-      const bellBtn    = document.getElementById('bellBtn');
-      if (notifPanel.classList.contains('open') && !notifPanel.contains(e.target) && !bellBtn.contains(e.target))
-        notifPanel.classList.remove('open');
-
-      const userDrop = document.getElementById('userDropdown');
-      const userBtn  = document.getElementById('userMenuBtn');
-      if (userDrop && userDrop.classList.contains('open') && !userDrop.contains(e.target) && !userBtn.contains(e.target))
-        userDrop.classList.remove('open');
-
-      if (e.target === document.getElementById('studentModal')) closeModal();
-      if (e.target === document.getElementById('profileModal')) closeProfileModal();
-    });
-
-    // ===================================================
-    // INIT
-    // ===================================================
-    document.getElementById('fDate').min = new Date().toISOString().split('T')[0];
-
-    // Auto-login if session exists
-    if (currentUser) {
-      initApp();
-    }
-
-    setInterval(checkNotifications, 5 * 60 * 1000);
+  });
+  const dot = document.getElementById('bn-fav');
+  if (dot) { dot.textContent = count || ''; dot.classList.toggle('on', count > 0); }
+}
+
+function renderFavs() {
+  const grid = document.getElementById('favs-grid');
+  const empty = document.getElementById('favs-empty');
+  const sub = document.getElementById('favs-count');
+  const favPlaces = PLACES.filter(p => favs.includes(p.id));
+  if (!favPlaces.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    sub.textContent = 'لا توجد أماكن في المفضلة بعد';
+  } else {
+    empty.style.display = 'none';
+    sub.textContent = favPlaces.length + ' مكان محفوظ';
+    grid.innerHTML = '<div class="places-grid">' + favPlaces.map(p => placeCard(p)).join('') + '</div>';
+  }
+}
+
+// ═══════════════════════════════════
+// PLACE MODAL
+// ═══════════════════════════════════
+function openPlace(id) {
+  const p = PLACES.find(x => x.id === id);
+  if (!p) return;
+  const isFav = favs.includes(p.id);
+  document.getElementById('modal-hero').style.background = p.color;
+  document.getElementById('modal-hero').innerHTML = `
+    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5.5rem">${p.icon}</div>
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <span style="position:absolute;top:14px;left:60px;padding:5px 13px;border-radius:20px;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);color:white;font-size:.72rem;font-weight:700"><i class="fas fa-star" style="color:#fbbf24;font-size:.68rem"></i> ${p.rating}</span>
+  `;
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-cat">${p.badge}</div>
+    <div class="modal-name">${p.name}</div>
+    <div class="modal-meta">
+      <div class="modal-meta-item"><i class="fas fa-location-dot"></i>${p.location}</div>
+      <div class="modal-meta-item"><i class="fas fa-clock"></i>${p.time}</div>
+      ${p.closed !== '—' ? `<div class="modal-meta-item"><i class="fas fa-calendar-xmark"></i>مغلق: ${p.closed}</div>` : ''}
+    </div>
+    <div class="modal-desc">${p.fullDesc}</div>
+    <div class="modal-section-title"><i class="fas fa-tags" style="color:var(--amber)"></i> الكلمات الدلالية</div>
+    <div class="modal-tags">${p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('')}</div>
+    <div class="modal-actions">
+      <button class="btn btn-gold btn-sm" onclick="window.open('${p.mapUrl}','_blank')"><i class="fas fa-location-dot"></i> عرض على الخريطة</button>
+      <button class="btn btn-ghost btn-sm" id="modal-fav-btn" onclick="toggleFavModal(${p.id})">
+        <i class="fas fa-heart" style="${isFav ? 'color:var(--red)' : ''}"></i> ${isFav ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}
+      </button>
+    </div>
+  `;
+  document.getElementById('modal').classList.add('on');
+}
+window.openPlace = openPlace;
+
+function closeModal() { document.getElementById('modal').classList.remove('on'); }
+window.closeModal = closeModal;
+function closeModalBg(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+window.closeModalBg = closeModalBg;
+
+function toggleFavModal(id) {
+  toggleFav({ stopPropagation: () => {} }, id);
+  const isFav = favs.includes(id);
+  const btn = document.getElementById('modal-fav-btn');
+  if (btn) btn.innerHTML = `<i class="fas fa-heart" style="${isFav ? 'color:var(--red)' : ''}"></i> ${isFav ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}`;
+}
+window.toggleFavModal = toggleFavModal;
+
+// ═══════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════
+function doSearch(q) {
+  const r = document.getElementById('search-results');
+  if (!q.trim()) {
+    r.innerHTML = '<div style="text-align:center;padding:40px;color:var(--mu2)"><i class="fas fa-search" style="font-size:2.5rem;opacity:.3;display:block;margin-bottom:12px"></i>ابحث عن أي مكان في بغداد</div>';
+    return;
+  }
+  const found = PLACES.filter(p => p.name.includes(q) || p.desc.includes(q) || p.location.includes(q) || p.tags.some(t => t.includes(q)));
+  const foodFound = FOODS.filter(f => f.name.includes(q) || f.desc.includes(q));
+  if (!found.length && !foodFound.length) {
+    r.innerHTML = `<div style="text-align:center;padding:40px;color:var(--mu2)"><i class="fas fa-face-frown" style="font-size:2rem;opacity:.3;display:block;margin-bottom:10px"></i>لا نتائج لـ "${q}"</div>`;
+    return;
+  }
+  let html = '';
+  if (found.length) html += `<div style="font-weight:700;font-size:.85rem;color:var(--mu);margin-bottom:10px"><i class="fas fa-map-location-dot" style="color:var(--amber)"></i> معالم (${found.length})</div><div class="places-grid">${found.map(p => placeCard(p)).join('')}</div>`;
+  if (foodFound.length) html += `<div style="font-weight:700;font-size:.85rem;color:var(--mu);margin:14px 0 10px"><i class="fas fa-utensils" style="color:var(--amber)"></i> طعام (${foodFound.length})</div><div class="food-grid">${foodFound.map(foodCardHTML).join('')}</div>`;
+  r.innerHTML = html;
+}
+window.doSearch = doSearch;
+
+// ═══════════════════════════════════
+// FILTER PLACES
+// ═══════════════════════════════════
+function filterPlaces(btn, cat) {
+  currentFilter = cat;
+  btn.closest('.filter-bar').querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  btn.classList.add('on');
+  renderPlaces();
+}
+window.filterPlaces = filterPlaces;
+
+function renderPlaces() {
+  const data = currentFilter === 'all' ? PLACES : PLACES.filter(p => p.cat === currentFilter);
+  document.getElementById('places-grid').innerHTML = data.map(p => placeCard(p)).join('');
+}
+
+// ═══════════════════════════════════
+// FOOD CARDS
+// ═══════════════════════════════════
+function foodCardHTML(f) {
+  return `<div class="food-card">
+    <div class="food-img" style="background:${f.color}">
+      <div style="font-size:4rem">${f.icon}</div>
+    </div>
+    <div class="food-body">
+      <div class="food-name">${f.name}</div>
+      <div class="food-desc">${f.desc}</div>
+      <span class="food-tag"><i class="fas fa-utensils" style="font-size:.62rem"></i> ${f.tag}</span>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════
+// RENDER ALL
+// ═══════════════════════════════════
+function renderAll() {
+  // Home featured
+  const featured = PLACES.filter(p => p.featured);
+  document.getElementById('home-featured').innerHTML = featured.map(p => placeCard(p)).join('');
+
+  // Places
+  renderPlaces();
+
+  // Food
+  document.getElementById('food-grid').innerHTML = FOODS.map(foodCardHTML).join('');
+
+  // History timeline
+  document.getElementById('history-timeline').innerHTML = HISTORY_TIMELINE.map(item => `
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">${item.year}</div>
+      <div class="tl-event">${item.event}</div>
+      <div class="tl-desc">${item.desc}</div>
+    </div>`).join('');
+
+  // History facts
+  document.getElementById('history-facts').innerHTML = HISTORY_FACTS.map(f => `
+    <div class="tip-card">
+      <div class="tip-icon ${f.cls}"><i class="${f.icon}"></i></div>
+      <div class="tip-title">${f.title}</div>
+      <div class="tip-body">${f.body}</div>
+    </div>`).join('');
+
+  // Tips
+  document.getElementById('tips-grid').innerHTML = TIPS.map(t => `
+    <div class="tip-card">
+      <div class="tip-icon ${t.cls}"><i class="${t.icon}"></i></div>
+      <div class="tip-title">${t.title}</div>
+      <div class="tip-body">${t.body}</div>
+    </div>`).join('');
+
+  // Map links
+  document.getElementById('map-links').innerHTML = PLACES.slice(0,8).map(p => `
+    <button class="btn btn-ghost btn-xs" onclick="window.open('${p.mapUrl}','_blank')">
+      <i class="fas fa-location-dot" style="color:var(--amber)"></i> ${p.name}
+    </button>`).join('');
+
+  // Search default
+  doSearch('');
+
+  updateFavBadge();
+}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+document.addEventListener('DOMContentLoaded', renderAll);
 </script>
-</body></html>
+</body>
+</html>
