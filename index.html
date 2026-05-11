@@ -1,1429 +1,863 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="الدليل السياحي الشامل لمحافظة بغداد — اكتشف جمال عاصمة العراق">
-  <meta name="theme-color" content="#b45309">
-  <title>بغداد — الدليل السياحي</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    /* ═══════════════════════════════════════
-       DESIGN SYSTEM — بغداد الذهبية
-       Aesthetic: Rich Iraqi amber + deep navy
-       Warm terracotta, gold, ancient stone
-    ═══════════════════════════════════════ */
-    :root {
-      --gold:      #d97706;
-      --gold-l:    #f59e0b;
-      --gold-p:    #fef3c7;
-      --gold-p2:   #fde68a;
-      --amber:     #b45309;
-      --amber-d:   #92400e;
-      --teal:      #0f766e;
-      --teal-l:    #14b8a6;
-      --teal-p:    #ccfbf1;
-      --navy:      #1e3a5f;
-      --navy-l:    #2563eb;
-      --red:       #dc2626;
-      --green:     #16a34a;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IoT Mid Exam Solutions | الامتحان النصفي | 2025–2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060a12;--bg2:#0b1120;--bg3:#0f1829;--bg4:#141f35;
+  --panel:#0d1726;--border:#1c2d48;--border2:#243a5a;
+  --teal:#00d4c8;--teal-d:rgba(0,212,200,.14);
+  --amber:#f5a623;--amber-d:rgba(245,166,35,.14);
+  --blue:#4a9eff;--blue-d:rgba(74,158,255,.12);
+  --green:#2dd4a0;--green-d:rgba(45,212,160,.12);
+  --red:#ff5e6c;--red-d:rgba(255,94,108,.12);
+  --purple:#a78bfa;--purple-d:rgba(167,139,250,.12);
+  --text:#d8e4f5;--text2:#8ba3c4;--text3:#4d6585;--white:#fff;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(0,212,200,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,212,200,.03) 1px,transparent 1px);
+  background-size:48px 48px;
+}
 
-      --bg:        #fffbf5;
-      --bg2:       #fef9ef;
-      --sur:       #ffffff;
-      --bor:       #e7d7b5;
-      --bor2:      #d4b896;
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(6,10,18,.97);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(10px);padding:0 1.5rem;
+}
+.hdr-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 0;
+}
+.logo{display:flex;align-items:center;gap:11px}
+.logo-icon{
+  width:36px;height:36px;border:2px solid var(--teal);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;color:var(--teal);background:rgba(0,212,200,.06);flex-shrink:0;
+}
+.logo-text h1{font-size:.9rem;font-weight:800;letter-spacing:.05em;color:var(--white);text-transform:uppercase}
+.logo-text p{font-size:.6rem;color:var(--text3);font-family:'Space Mono',monospace;letter-spacing:.07em}
+.nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;flex:1}
+.nav::-webkit-scrollbar{display:none}
+.tb{
+  padding:12px 14px;background:none;border:none;
+  border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;
+  font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;transition:all .2s;
+}
+.tb:hover{color:var(--text);background:rgba(255,255,255,.02)}
+.tb.on{color:var(--teal);border-bottom-color:var(--teal)}
 
-      --tx:        #1c1209;
-      --tx2:       #3d2b0f;
-      --mu:        #78624a;
-      --mu2:       #a08060;
+/* HERO */
+.hero{
+  position:relative;z-index:5;
+  background:linear-gradient(135deg,#070d1a,#0b1528 50%,#070d1a);
+  border-bottom:1px solid var(--border);padding:2.2rem 1.5rem;text-align:center;
+}
+.hero::after{
+  content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:500px;height:260px;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(0,212,200,.07),transparent 70%);
+}
+.hero h2{font-size:clamp(1.4rem,4vw,2.2rem);font-weight:800;color:var(--white);position:relative;z-index:1}
+.hero h2 span{color:var(--teal)}
+.hero-ar{font-family:'Cairo',sans-serif;font-size:.95rem;color:var(--text2);margin-top:.4rem;direction:rtl;position:relative;z-index:1}
+.meta{display:flex;gap:18px;justify-content:center;margin-top:1rem;flex-wrap:wrap;position:relative;z-index:1}
+.mi{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--text3);display:flex;align-items:center;gap:5px}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-      --top:       60px;
-      --bot:       66px;
-      --sb:        270px;
+/* MAIN */
+main{position:relative;z-index:5;max-width:1100px;margin:0 auto;padding:2rem 1.5rem 6rem}
+.sec{display:none;animation:fi .28s ease}
+.sec.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
-      --r:         12px;
-      --rl:        18px;
-      --rxl:       24px;
+/* EXAM HEADER BAR */
+.ehdr{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  background:var(--bg3);border:1px solid var(--border);border-radius:11px;
+  padding:16px 20px;margin-bottom:22px;position:relative;overflow:hidden;
+}
+.ehdr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal)}
+.ehdr-l .en{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--teal);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.ehdr-l .title{font-size:.92rem;font-weight:700;color:var(--white);margin-top:2px}
+.ehdr-r{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--text3);letter-spacing:.05em;text-align:right}
 
-      --sh:        0 2px 8px rgba(180,83,9,.1);
-      --shm:       0 8px 32px rgba(180,83,9,.15);
-    }
+/* QUESTION CARD */
+.qc{background:var(--panel);border:1px solid var(--border);border-radius:9px;margin-bottom:14px;overflow:hidden}
+.qh{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:11px 17px;background:var(--bg4);border-bottom:1px solid var(--border);
+}
+.tag{font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0}
+.tq  {background:rgba(0,212,200,.12);color:var(--teal)}
+.ttf {background:rgba(245,166,35,.12);color:var(--amber)}
+.tmc {background:rgba(167,139,250,.12);color:var(--purple)}
+.tde {background:rgba(45,212,160,.12);color:var(--green)}
+.tcm {background:rgba(74,158,255,.12);color:var(--blue)}
+.qh-t{font-size:.86rem;font-weight:700;color:var(--white);flex:1}
+.qh-ar{font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--text2);direction:rtl}
+.qb{padding:17px 19px}
 
-    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-    html { scroll-behavior:smooth; }
-    body { font-family:'Tajawal',sans-serif; background:var(--bg); color:var(--tx); min-height:100vh; overflow-x:hidden; }
-    ::-webkit-scrollbar { width:4px; height:4px; }
-    ::-webkit-scrollbar-thumb { background:var(--bor2); border-radius:4px; }
+/* DEFINITION CARD */
+.def-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:8px;
+  padding:13px 16px;margin-bottom:9px;
+}
+.def-num{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--blue);font-weight:700;margin-bottom:5px}
+.def-title{font-size:.88rem;font-weight:700;color:var(--teal);margin-bottom:5px}
+.def-en{font-size:.84rem;color:var(--text);line-height:1.6;margin-bottom:5px}
+.def-ar{font-family:'Cairo',sans-serif;font-size:.88rem;color:var(--text2);direction:rtl;line-height:1.6;border-top:1px solid var(--border);padding-top:6px;margin-top:6px}
 
-    /* ══════════════════════
-       HERO — الشاشة الرئيسية
-    ══════════════════════ */
-    .hero {
-      position:relative; min-height:100svh;
-      background:linear-gradient(160deg,#1a0a00 0%,#3b1a08 35%,#7c3a00 65%,#b45309 100%);
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      overflow:hidden; padding:40px 20px 80px;
-    }
-    /* Geometric islamic pattern overlay */
-    .hero-pattern {
-      position:absolute; inset:0;
-      background-image:
-        repeating-linear-gradient(45deg,rgba(255,200,50,.04) 0,rgba(255,200,50,.04) 1px,transparent 0,transparent 50%),
-        repeating-linear-gradient(-45deg,rgba(255,200,50,.04) 0,rgba(255,200,50,.04) 1px,transparent 0,transparent 50%);
-      background-size:24px 24px;
-    }
-    .hero-glow {
-      position:absolute;
-      width:600px; height:600px; border-radius:50%;
-      background:radial-gradient(circle,rgba(245,158,11,.18) 0%,transparent 70%);
-      top:50%; left:50%; transform:translate(-50%,-50%);
-      animation:glowPulse 4s ease-in-out infinite;
-    }
-    @keyframes glowPulse { 0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1);} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.1);} }
+/* COMPARE TABLE */
+.cmp{width:100%;border-collapse:collapse;font-size:.8rem;margin:10px 0;font-family:'Space Mono',monospace}
+.cmp th{background:rgba(0,212,200,.1);color:var(--teal);padding:8px 12px;text-align:left;border:1px solid var(--border);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
+.cmp td{padding:8px 12px;border:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.45}
+.cmp tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.cmp .hl{color:var(--green);font-weight:700}
+.cmp .hl2{color:var(--amber);font-weight:700}
 
-    .hero-content { position:relative;z-index:1;text-align:center;max-width:700px; }
+/* REASON CARD */
+.reason{
+  background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--teal);
+  border-radius:0 8px 8px 0;padding:13px 16px;margin-bottom:10px;
+}
+.reason-num{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--teal);font-weight:700;margin-bottom:4px}
+.reason-q{font-size:.83rem;color:var(--text2);margin-bottom:8px;line-height:1.45;font-style:italic}
+.reason-ans{font-size:.85rem;color:var(--text);line-height:1.6}
+.reason-ans ul{margin:6px 0 0 16px;display:flex;flex-direction:column;gap:4px}
+.reason-ans li{color:var(--text);font-size:.83rem;line-height:1.5}
+.reason-ans li span{color:var(--teal);font-weight:700}
+.reason-ar{font-family:'Cairo',sans-serif;font-size:.86rem;color:var(--text2);direction:rtl;margin-top:7px;padding-top:7px;border-top:1px solid var(--border);line-height:1.6}
 
-    /* Ornamental top */
-    .ornament {
-      display:flex; align-items:center; justify-content:center;
-      gap:12px; margin-bottom:20px;
-      animation:fadeUp .8s ease both;
-    }
-    .orn-line { flex:1; max-width:80px; height:1px; background:linear-gradient(90deg,transparent,rgba(245,158,11,.6)); }
-    .orn-line.r { background:linear-gradient(270deg,transparent,rgba(245,158,11,.6)); }
-    .orn-diamond { width:8px;height:8px;background:var(--gold-l);transform:rotate(45deg); }
+/* MCQ */
+.mcq-list{display:flex;flex-direction:column;gap:12px}
+.mcq{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg3)}
+.mcq-n{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--purple);font-weight:700;margin-bottom:4px}
+.mcq-q{font-size:.84rem;color:var(--text);font-weight:600;margin-bottom:8px;line-height:1.5}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:5px}
+.opt{padding:6px 10px;border-radius:6px;font-size:.78rem;border:1px solid var(--border);color:var(--text2);background:var(--bg4)}
+.opt.ok{background:var(--green-d);border-color:rgba(45,212,160,.4);color:var(--green);font-weight:700}
+.opt.ok::after{content:' ✓';font-weight:900}
+.mcq-note{font-size:.74rem;color:var(--text3);margin-top:7px;line-height:1.4;font-style:italic}
 
-    .hero-badge {
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 18px; border-radius:20px;
-      border:1px solid rgba(245,158,11,.4);
-      background:rgba(245,158,11,.1);
-      color:var(--gold-l); font-size:.78rem; font-weight:700;
-      letter-spacing:2px; text-transform:uppercase;
-      margin-bottom:18px;
-      animation:fadeUp .8s ease .1s both;
-    }
+/* T/F */
+.tf-list{display:flex;flex-direction:column;gap:8px}
+.tfi{
+  display:grid;grid-template-columns:24px 1fr auto;
+  gap:9px;align-items:start;padding:10px 12px;
+  border-radius:7px;border:1px solid var(--border);background:var(--bg3);
+}
+.tf-n{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--teal);font-weight:700;padding-top:1px}
+.tf-q{font-size:.83rem;color:var(--text);line-height:1.5}
+.ans{padding:3px 9px;border-radius:4px;font-size:.7rem;font-weight:700;font-family:'Space Mono',monospace;white-space:nowrap;flex-shrink:0}
+.aT{background:var(--green-d);color:var(--green);border:1px solid rgba(45,212,160,.3)}
+.aF{background:var(--red-d);color:var(--red);border:1px solid rgba(255,94,108,.3)}
+.fix{
+  grid-column:2/-1;font-size:.78rem;color:var(--amber);
+  background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.2);
+  border-right:3px solid var(--amber);border-radius:5px;
+  padding:7px 11px;line-height:1.5;margin-top:3px;
+}
+.strip{
+  display:flex;flex-wrap:wrap;gap:5px;padding:9px 11px;
+  background:var(--bg4);border:1px solid var(--border);border-radius:7px;margin-bottom:11px;
+}
+.chip{padding:2px 8px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;border:1px solid}
+.cT{color:var(--green);border-color:rgba(45,212,160,.3);background:var(--green-d)}
+.cF{color:var(--red);border-color:rgba(255,94,108,.3);background:var(--red-d)}
 
-    .hero-title {
-      font-family:'Amiri',serif;
-      font-size:clamp(2.8rem,8vw,5rem);
-      font-weight:700; color:white;
-      line-height:1.1; letter-spacing:-1px;
-      margin-bottom:8px;
-      animation:fadeUp .8s ease .15s both;
-    }
-    .hero-title .golden { color:var(--gold-l); }
+/* DIVIDER / SECTION LABEL */
+.sdiv{display:flex;align-items:center;gap:9px;margin:18px 0 12px}
+.sl{flex:1;height:1px;background:var(--border)}
+.st{font-family:'Space Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:18px 0}
 
-    .hero-subtitle {
-      font-size:clamp(1rem,3vw,1.3rem);
-      color:rgba(255,255,255,.7);
-      font-weight:300; margin-bottom:28px;
-      animation:fadeUp .8s ease .2s both;
-    }
+/* INFO BOX */
+.info{padding:11px 14px;border-radius:8px;font-size:.82rem;line-height:1.6;margin:9px 0}
+.ig{background:var(--green-d);border:1px solid rgba(45,212,160,.25);border-left:3px solid var(--green);color:var(--text)}
+.ia{background:var(--amber-d);border:1px solid rgba(245,166,35,.25);border-left:3px solid var(--amber);color:var(--text)}
+.ib{background:var(--blue-d);border:1px solid rgba(74,158,255,.25);border-left:3px solid var(--blue);color:var(--text)}
 
-    /* Stats row */
-    .hero-stats {
-      display:flex; gap:0; justify-content:center;
-      background:rgba(255,255,255,.07); backdrop-filter:blur(12px);
-      border:1px solid rgba(245,158,11,.2);
-      border-radius:16px; overflow:hidden;
-      margin-bottom:32px;
-      animation:fadeUp .8s ease .25s both;
-    }
-    .hs { flex:1; padding:14px 16px; text-align:center; }
-    .hs:not(:last-child) { border-left:1px solid rgba(245,158,11,.2); }
-    .hs-num { font-size:1.6rem; font-weight:900; color:var(--gold-l); }
-    .hs-lbl { font-size:.68rem; color:rgba(255,255,255,.6); margin-top:2px; }
+/* FOOTER */
+footer{
+  position:relative;z-index:5;border-top:1px solid var(--border);
+  background:var(--bg2);padding:1.4rem 2rem;text-align:center;
+}
+.ft{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;align-items:center;margin-bottom:.9rem}
+.fsep{width:1px;height:24px;background:var(--border)}
+.fi-lbl{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.fi-val{font-family:'Cairo',sans-serif;font-size:.82rem;color:var(--text2)}
+.fcopy{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--text3);letter-spacing:.04em}
 
-    /* CTA buttons */
-    .hero-btns {
-      display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
-      animation:fadeUp .8s ease .3s both;
-    }
-    .btn-cta {
-      padding:14px 28px; border-radius:14px; border:none;
-      font-family:'Tajawal',sans-serif; font-size:.95rem; font-weight:700;
-      cursor:pointer; transition:all .25s; display:inline-flex; align-items:center; gap:9px;
-    }
-    .btn-cta:active { transform:scale(.97); }
-    .btn-primary-cta { background:linear-gradient(135deg,var(--gold),var(--amber)); color:white; box-shadow:0 4px 20px rgba(180,83,9,.4); }
-    .btn-primary-cta:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(180,83,9,.5); }
-    .btn-ghost-cta { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); color:white; backdrop-filter:blur(10px); }
-    .btn-ghost-cta:hover { background:rgba(255,255,255,.18); }
-
-    /* Scroll hint */
-    .scroll-hint {
-      position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
-      display:flex; flex-direction:column; align-items:center; gap:6px;
-      color:rgba(255,255,255,.5); font-size:.72rem; cursor:pointer;
-      animation:fadeIn 1s ease 1s both;
-    }
-    .scroll-arrow { width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;animation:bounce 2s ease-in-out infinite; }
-    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(22px);} to{opacity:1;transform:translateY(0);} }
-    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-
-    /* ══════════════════════
-       TOPBAR
-    ══════════════════════ */
-    .topbar {
-      position:fixed; top:0; left:0; right:0; z-index:500;
-      height:var(--top);
-      background:rgba(255,251,245,.95); backdrop-filter:blur(16px);
-      border-bottom:1.5px solid var(--bor);
-      display:flex; align-items:center; gap:12px; padding:0 16px;
-      box-shadow:0 2px 12px rgba(180,83,9,.08);
-      transform:translateY(-100%); transition:transform .4s cubic-bezier(.4,0,.2,1);
-    }
-    .topbar.visible { transform:translateY(0); }
-    .tb-logo { display:flex; align-items:center; gap:9px; flex:1; }
-    .tb-logo-icon {
-      width:34px; height:34px; border-radius:10px;
-      background:linear-gradient(135deg,var(--gold),var(--amber));
-      display:flex; align-items:center; justify-content:center;
-      color:white; font-size:.85rem;
-      box-shadow:0 2px 8px rgba(180,83,9,.3);
-    }
-    .tb-logo-name { font-size:.9rem; font-weight:800; color:var(--tx); }
-    .tb-logo-sub { font-size:.62rem; color:var(--mu); }
-    .tb-right { display:flex; align-items:center; gap:8px; }
-    .tb-btn {
-      width:36px; height:36px; border-radius:10px; border:1.5px solid var(--bor);
-      background:var(--sur); color:var(--mu); display:flex; align-items:center;
-      justify-content:center; font-size:.88rem; cursor:pointer; position:relative;
-    }
-    .tb-btn:hover { background:var(--gold-p); border-color:var(--bor2); color:var(--amber); }
-    .menu-btn { background:var(--amber); border-color:var(--amber); color:white; box-shadow:0 2px 8px rgba(180,83,9,.3); }
-    .fav-count {
-      position:absolute; top:-4px; right:-4px;
-      width:16px; height:16px; border-radius:50%; background:var(--red);
-      color:white; font-size:.6rem; font-weight:700;
-      display:none; align-items:center; justify-content:center;
-    }
-    .fav-count.show { display:flex; }
-
-    /* ══════════════════════
-       SIDEBAR
-    ══════════════════════ */
-    .overlay { position:fixed;inset:0;z-index:600;background:rgba(28,18,9,.5);backdrop-filter:blur(3px);display:none; }
-    .overlay.on { display:block; }
-    .sidebar {
-      position:fixed; top:0; right:0; width:var(--sb); height:100vh;
-      background:var(--sur); border-left:1.5px solid var(--bor);
-      display:flex; flex-direction:column; z-index:700;
-      transform:translateX(100%); transition:transform .3s cubic-bezier(.4,0,.2,1);
-      overflow:hidden;
-    }
-    .sidebar.open { transform:translateX(0); }
-
-    .sb-header {
-      padding:18px 16px 14px;
-      background:linear-gradient(135deg,#1a0a00,#3b1a08);
-      border-bottom:1.5px solid rgba(245,158,11,.2);
-    }
-    .sb-logo { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
-    .sb-logo-icon {
-      width:40px; height:40px; border-radius:12px;
-      background:linear-gradient(135deg,var(--gold),var(--amber));
-      display:flex; align-items:center; justify-content:center;
-      color:white; font-size:1rem;
-    }
-    .sb-logo-name { font-size:1rem; font-weight:800; color:white; }
-    .sb-logo-sub { font-size:.65rem; color:rgba(255,255,255,.55); }
-
-    .sb-search {
-      display:flex; align-items:center; gap:8px;
-      padding:9px 13px; border-radius:11px;
-      background:rgba(255,255,255,.1); border:1px solid rgba(245,158,11,.2);
-    }
-    .sb-search input {
-      background:none; border:none; color:white; font-family:'Tajawal',sans-serif;
-      font-size:.86rem; flex:1; outline:none;
-    }
-    .sb-search input::placeholder { color:rgba(255,255,255,.4); }
-    .sb-search i { color:rgba(255,255,255,.4); font-size:.82rem; }
-
-    .sb-nav { flex:1; overflow-y:auto; padding:10px; }
-    .sb-nav::-webkit-scrollbar { width:3px; }
-    .sb-nav::-webkit-scrollbar-thumb { background:var(--bor); border-radius:3px; }
-    .nav-sep { font-size:.62rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--mu2); padding:0 6px; margin:10px 0 4px; }
-    .nav-btn {
-      display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:11px;
-      cursor:pointer; transition:all .18s; color:var(--mu); font-size:.87rem;
-      border:none; background:transparent; width:100%; font-family:'Tajawal',sans-serif; text-align:right;
-    }
-    .nav-btn:hover { background:var(--gold-p); color:var(--amber); }
-    .nav-btn.on { background:var(--gold-p); color:var(--amber-d); font-weight:700; border:1.5px solid var(--gold-p2); }
-    .nav-btn i { width:17px; text-align:center; font-size:.86rem; }
-    .nav-count { margin-right:auto; background:var(--gold); color:white; font-size:.63rem; font-weight:700; padding:1px 7px; border-radius:10px; display:none; }
-    .nav-count.show { display:inline-block; }
-
-    .sb-footer { padding:10px; border-top:1.5px solid var(--bor); }
-    .weather-widget {
-      background:linear-gradient(135deg,#1e3a5f,#2563eb);
-      border-radius:12px; padding:13px; display:flex; align-items:center; gap:11px; color:white;
-    }
-    .ww-temp { font-size:1.8rem; font-weight:900; }
-    .ww-lbl { font-size:.72rem; opacity:.75; }
-    .ww-city { font-size:.82rem; font-weight:700; }
-
-    /* ══════════════════════
-       MAIN CONTENT
-    ══════════════════════ */
-    .main {
-      padding-top:calc(var(--top) + 18px);
-      padding-left:16px; padding-right:16px;
-      padding-bottom:calc(var(--bot) + 18px);
-    }
-    @media(min-width:769px) {
-      .topbar,.overlay { display:none!important; }
-      .sidebar { transform:translateX(0)!important; }
-      .main { margin-right:var(--sb); padding:28px 32px 36px; }
-      .bottom-nav { display:none!important; }
-    }
-
-    /* ══════════════════════
-       BOTTOM NAV
-    ══════════════════════ */
-    .bottom-nav {
-      position:fixed; bottom:0; left:0; right:0; z-index:400;
-      height:var(--bot); background:rgba(255,251,245,.97); backdrop-filter:blur(16px);
-      border-top:1.5px solid var(--bor);
-      display:flex; align-items:center; justify-content:space-around; padding:0 6px;
-      box-shadow:0 -4px 20px rgba(180,83,9,.08);
-    }
-    .bn {
-      display:flex; flex-direction:column; align-items:center; gap:3px;
-      padding:7px 10px; border-radius:11px; border:none; background:none;
-      color:var(--mu2); font-size:.6rem; font-weight:600; font-family:'Tajawal',sans-serif;
-      cursor:pointer; flex:1; transition:all .18s; position:relative;
-    }
-    .bn i { font-size:1.1rem; }
-    .bn.on { color:var(--amber); background:var(--gold-p); }
-    .bn-dot { position:absolute;top:5px;right:calc(50% - 14px);background:var(--red);color:white;font-size:.56rem;font-weight:700;padding:1px 5px;border-radius:10px;display:none; }
-    .bn-dot.on { display:block; }
-
-    /* ══════════════════════
-       SECTIONS
-    ══════════════════════ */
-    .sec { display:none; animation:secFade .35s ease both; }
-    .sec.on { display:block; }
-    @keyframes secFade { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
-
-    /* ══════════════════════
-       CARDS
-    ══════════════════════ */
-    .card {
-      background:var(--sur); border:1.5px solid var(--bor);
-      border-radius:var(--rl); padding:18px; margin-bottom:14px;
-      box-shadow:var(--sh);
-    }
-    .ch {
-      display:flex; align-items:center; justify-content:space-between;
-      margin-bottom:14px; padding-bottom:12px; border-bottom:1.5px solid var(--bor);
-      font-weight:700; font-size:.9rem; color:var(--tx);
-    }
-    .ch-l { display:flex; align-items:center; gap:8px; }
-
-    /* ══════════════════════
-       PLACE CARDS
-    ══════════════════════ */
-    .places-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
-    @media(max-width:480px) { .places-grid { grid-template-columns:1fr; } }
-
-    .place-card {
-      background:var(--sur); border:1.5px solid var(--bor);
-      border-radius:var(--rxl); overflow:hidden;
-      box-shadow:var(--sh); transition:all .25s; cursor:pointer;
-    }
-    .place-card:hover { transform:translateY(-4px); box-shadow:var(--shm); border-color:var(--bor2); }
-    .place-card:active { transform:scale(.98); }
-
-    .pc-img {
-      height:190px; position:relative; overflow:hidden;
-      background:linear-gradient(135deg,#7c3a00,#1a0a00);
-    }
-    .pc-img-inner {
-      width:100%; height:100%; object-fit:cover;
-      transition:transform .4s ease;
-    }
-    .place-card:hover .pc-img-inner { transform:scale(1.06); }
-    .pc-img-fallback {
-      width:100%; height:100%;
-      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
-    }
-    .pc-img-fallback i { font-size:3rem; color:rgba(255,255,255,.3); }
-    .pc-img-fallback span { font-size:.8rem; color:rgba(255,255,255,.25); }
-
-    .pc-badge {
-      position:absolute; top:12px; right:12px;
-      padding:4px 12px; border-radius:20px; font-size:.72rem; font-weight:700;
-      backdrop-filter:blur(10px);
-    }
-    .pcb-history { background:rgba(180,83,9,.85); color:white; }
-    .pcb-nature  { background:rgba(22,163,74,.85); color:white; }
-    .pcb-culture { background:rgba(30,58,95,.85); color:white; }
-    .pcb-food    { background:rgba(220,38,38,.85); color:white; }
-    .pcb-market  { background:rgba(109,40,217,.85); color:white; }
-    .pcb-relig   { background:rgba(15,118,110,.85); color:white; }
-
-    .pc-fav {
-      position:absolute; top:12px; left:12px;
-      width:34px; height:34px; border-radius:50%;
-      background:rgba(255,255,255,.15); backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.25); color:white; font-size:.88rem;
-      display:flex; align-items:center; justify-content:center; cursor:pointer;
-      transition:all .2s;
-    }
-    .pc-fav:hover { background:rgba(220,38,38,.3); }
-    .pc-fav.faved { background:rgba(220,38,38,.8); border-color:transparent; }
-    .pc-fav.faved i { color:white; }
-
-    .pc-rating {
-      position:absolute; bottom:12px; right:12px;
-      display:flex; align-items:center; gap:4px;
-      padding:4px 10px; border-radius:20px;
-      background:rgba(0,0,0,.55); backdrop-filter:blur(6px);
-      color:var(--gold-l); font-size:.78rem; font-weight:700;
-    }
-
-    .pc-body { padding:15px; }
-    .pc-cat { font-size:.7rem; font-weight:700; color:var(--amber); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:5px; }
-    .pc-name { font-size:1.05rem; font-weight:800; color:var(--tx); margin-bottom:6px; line-height:1.3; }
-    .pc-desc { font-size:.82rem; color:var(--mu); line-height:1.65; margin-bottom:12px; }
-    .pc-footer { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-    .pc-info { display:flex; align-items:center; gap:4px; font-size:.75rem; color:var(--mu2); }
-    .pc-info i { font-size:.7rem; color:var(--amber); }
-
-    /* ══════════════════════
-       FILTER CHIPS
-    ══════════════════════ */
-    .filter-bar { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px; }
-    .filter-bar::-webkit-scrollbar { height:0; }
-    .chip {
-      flex-shrink:0; padding:7px 16px; border-radius:20px; font-size:.79rem; font-weight:600;
-      cursor:pointer; background:var(--sur); border:1.5px solid var(--bor); color:var(--mu);
-      font-family:'Tajawal',sans-serif; transition:all .18s; white-space:nowrap;
-    }
-    .chip.on { background:var(--gold-p); border-color:var(--gold-p2); color:var(--amber-d); }
-    .chip:active { transform:scale(.96); }
-
-    /* ══════════════════════
-       MAP SECTION
-    ══════════════════════ */
-    .map-wrap {
-      border-radius:var(--rxl); overflow:hidden;
-      border:1.5px solid var(--bor); box-shadow:var(--sh);
-      margin-bottom:16px; position:relative;
-    }
-    .map-frame { width:100%; height:400px; border:none; display:block; }
-    .map-overlay {
-      position:absolute; top:12px; right:12px;
-      background:var(--sur); border:1.5px solid var(--bor);
-      border-radius:12px; padding:10px 14px;
-      box-shadow:var(--shm); font-size:.8rem; color:var(--tx2);
-    }
-    .map-overlay strong { display:block; color:var(--amber); font-size:.88rem; margin-bottom:2px; }
-
-    /* ══════════════════════
-       FOOD SECTION
-    ══════════════════════ */
-    .food-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
-    .food-card {
-      background:var(--sur); border:1.5px solid var(--bor); border-radius:var(--rl);
-      overflow:hidden; transition:all .2s; cursor:pointer;
-    }
-    .food-card:hover { border-color:var(--bor2); transform:translateY(-2px); box-shadow:var(--shm); }
-    .food-img {
-      height:140px; position:relative;
-      display:flex; align-items:center; justify-content:center;
-      font-size:4rem;
-    }
-    .food-body { padding:13px; }
-    .food-name { font-size:.92rem; font-weight:800; color:var(--tx); margin-bottom:4px; }
-    .food-desc { font-size:.78rem; color:var(--mu); line-height:1.6; }
-    .food-tag { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; font-size:.7rem; font-weight:700; background:var(--gold-p); color:var(--amber-d); margin-top:8px; }
-
-    /* ══════════════════════
-       TIPS & INFO
-    ══════════════════════ */
-    .tips-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
-    .tip-card {
-      background:var(--sur); border:1.5px solid var(--bor); border-radius:var(--rl);
-      padding:16px; display:flex; flex-direction:column; gap:10px; transition:all .2s;
-    }
-    .tip-card:hover { border-color:var(--bor2); }
-    .tip-icon { width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
-    .ti-gold { background:var(--gold-p); color:var(--amber); }
-    .ti-teal { background:var(--teal-p); color:var(--teal); }
-    .ti-navy { background:#dbeafe; color:var(--navy-l); }
-    .ti-red  { background:#fee2e2; color:var(--red); }
-    .ti-green{ background:#dcfce7; color:var(--green); }
-    .ti-gray { background:#f1f5f9; color:#475569; }
-    .tip-title { font-weight:800; font-size:.88rem; color:var(--tx); }
-    .tip-body { font-size:.8rem; color:var(--mu); line-height:1.65; }
-
-    /* ══════════════════════
-       TIMELINE / HISTORY
-    ══════════════════════ */
-    .timeline { padding-right:20px; }
-    .tl-item { position:relative; padding-bottom:22px; padding-right:22px; border-right:2px solid var(--bor2); }
-    .tl-item:last-child { border-color:transparent; padding-bottom:0; }
-    .tl-dot {
-      position:absolute; right:-9px; top:4px;
-      width:16px; height:16px; border-radius:50%;
-      background:var(--gold); border:3px solid var(--sur);
-      box-shadow:0 0 0 2px var(--gold);
-    }
-    .tl-year { font-size:.78rem; font-weight:800; color:var(--amber); margin-bottom:4px; letter-spacing:1px; }
-    .tl-event { font-weight:700; font-size:.9rem; color:var(--tx); margin-bottom:4px; }
-    .tl-desc { font-size:.8rem; color:var(--mu); line-height:1.65; }
-
-    /* ══════════════════════
-       FAVOURITES
-    ══════════════════════ */
-    .fav-empty {
-      text-align:center; padding:50px 20px;
-    }
-    .fav-empty i { font-size:3rem; color:var(--bor2); margin-bottom:12px; display:block; }
-    .fav-empty-t { font-size:.95rem; font-weight:700; color:var(--mu); }
-    .fav-empty-s { font-size:.8rem; color:var(--mu2); margin-top:5px; }
-
-    /* ══════════════════════
-       SEARCH RESULTS
-    ══════════════════════ */
-    .search-box {
-      display:flex; align-items:center; gap:10px;
-      background:var(--sur); border:2px solid var(--bor);
-      border-radius:14px; padding:12px 16px; margin-bottom:16px;
-      transition:border-color .2s;
-    }
-    .search-box:focus-within { border-color:var(--gold); }
-    .search-box input {
-      flex:1; background:none; border:none; color:var(--tx);
-      font-family:'Tajawal',sans-serif; font-size:.95rem; outline:none;
-    }
-    .search-box input::placeholder { color:var(--mu2); }
-    .search-box i { color:var(--amber); font-size:1rem; }
-
-    /* ══════════════════════
-       BUTTONS
-    ══════════════════════ */
-    .btn {
-      display:inline-flex; align-items:center; gap:7px; padding:10px 18px;
-      border:none; border-radius:11px; font-family:'Tajawal',sans-serif;
-      font-size:.87rem; font-weight:700; cursor:pointer; transition:all .2s; white-space:nowrap;
-    }
-    .btn:active { transform:scale(.97); }
-    .btn:disabled { opacity:.6; cursor:not-allowed; }
-    .btn-gold { background:linear-gradient(135deg,var(--gold),var(--amber)); color:white; box-shadow:0 3px 12px rgba(180,83,9,.3); }
-    .btn-gold:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 6px 18px rgba(180,83,9,.4); }
-    .btn-ghost { background:var(--bg); border:1.5px solid var(--bor); color:var(--tx2); }
-    .btn-ghost:hover:not(:disabled) { background:var(--gold-p); border-color:var(--bor2); color:var(--amber); }
-    .btn-sm { padding:7px 14px; font-size:.8rem; }
-    .btn-xs { padding:5px 11px; font-size:.75rem; border-radius:9px; }
-    .btn-full { width:100%; justify-content:center; }
-
-    /* ══════════════════════
-       BADGE
-    ══════════════════════ */
-    .bdg { display:inline-flex; align-items:center; gap:3px; padding:3px 10px; border-radius:20px; font-size:.72rem; font-weight:700; }
-    .bdg-gold { background:var(--gold-p); color:var(--amber-d); }
-    .bdg-teal { background:var(--teal-p); color:var(--teal); }
-    .bdg-navy { background:#dbeafe; color:var(--navy); }
-    .bdg-red  { background:#fee2e2; color:var(--red); }
-
-    /* ══════════════════════
-       MODAL (Place Detail)
-    ══════════════════════ */
-    .modal-bg {
-      position:fixed; inset:0; z-index:800;
-      background:rgba(28,18,9,.6); backdrop-filter:blur(4px);
-      display:none; align-items:flex-end; justify-content:center;
-    }
-    .modal-bg.on { display:flex; }
-    @media(min-width:600px) { .modal-bg { align-items:center; } }
-    .modal {
-      background:var(--sur); border-radius:24px 24px 0 0;
-      width:100%; max-width:640px; max-height:92vh;
-      overflow-y:auto; padding:0 0 24px;
-    }
-    @media(min-width:600px) { .modal { border-radius:20px; } }
-    .modal-hero { height:240px; position:relative; overflow:hidden; }
-    .modal-hero-bg { width:100%;height:100%;object-fit:cover; }
-    .modal-hero-fallback {
-      width:100%;height:100%;
-      display:flex;align-items:center;justify-content:center;
-      font-size:5rem;
-    }
-    .modal-handle { width:40px;height:4px;border-radius:4px;background:rgba(255,255,255,.4);position:absolute;top:12px;left:50%;transform:translateX(-50%); }
-    .modal-close {
-      position:absolute; top:14px; right:14px;
-      width:36px;height:36px;border-radius:50%;
-      background:rgba(0,0,0,.4);backdrop-filter:blur(8px);
-      border:none;color:white;display:flex;align-items:center;justify-content:center;
-      font-size:.9rem;cursor:pointer;
-    }
-    .modal-body { padding:20px 20px 0; }
-    .modal-cat { font-size:.72rem; font-weight:700; color:var(--amber); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:5px; }
-    .modal-name { font-family:'Amiri',serif; font-size:1.7rem; font-weight:700; color:var(--tx); margin-bottom:8px; }
-    .modal-meta { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
-    .modal-meta-item { display:flex; align-items:center; gap:5px; font-size:.8rem; color:var(--mu); }
-    .modal-meta-item i { color:var(--amber); font-size:.75rem; }
-    .modal-desc { font-size:.88rem; color:var(--tx2); line-height:1.8; margin-bottom:16px; }
-    .modal-section-title { font-weight:800; font-size:.88rem; color:var(--tx); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
-    .modal-tags { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:14px; }
-    .modal-tag { padding:5px 13px; border-radius:20px; background:var(--bg2); border:1.5px solid var(--bor); font-size:.78rem; color:var(--mu); font-weight:600; }
-    .modal-actions { display:flex; gap:10px; flex-wrap:wrap; }
-
-    /* ══════════════════════
-       TOAST
-    ══════════════════════ */
-    .toast {
-      position:fixed; bottom:calc(var(--bot) + 12px); left:50%;
-      transform:translateX(-50%) translateY(12px);
-      background:rgba(28,18,9,.95); color:white;
-      padding:11px 20px; border-radius:12px; font-size:.86rem; font-weight:600;
-      z-index:9999; opacity:0; transition:all .3s cubic-bezier(.16,1,.3,1);
-      white-space:nowrap; pointer-events:none;
-    }
-    .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
-    .toast.ok { background:rgba(22,163,74,.95); }
-    .toast.err { background:rgba(220,38,38,.95); }
-
-    /* ══════════════════════
-       PAGE HEADER
-    ══════════════════════ */
-    .pg-header { margin-bottom:18px; }
-    .pg-title { font-family:'Amiri',serif; font-size:1.5rem; font-weight:700; color:var(--tx); display:flex; align-items:center; gap:10px; }
-    .pg-icon { width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--amber));display:flex;align-items:center;justify-content:center;color:white;font-size:.95rem; }
-    .pg-sub { font-size:.82rem; color:var(--mu); margin-top:4px; }
-
-    /* ══════════════════════
-       WEATHER CARD
-    ══════════════════════ */
-    .weather-card {
-      background:linear-gradient(135deg,#1e3a5f,#2563eb);
-      border-radius:var(--rxl); padding:22px; color:white; margin-bottom:14px;
-      position:relative; overflow:hidden;
-    }
-    .weather-card::before {
-      content:''; position:absolute; top:-30px; left:-30px;
-      width:180px; height:180px; border-radius:50%;
-      background:rgba(255,255,255,.06);
-    }
-    .wc-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
-    .wc-temp { font-size:3rem; font-weight:900; }
-    .wc-city { font-size:1rem; font-weight:700; opacity:.9; }
-    .wc-desc { font-size:.8rem; opacity:.65; margin-top:3px; }
-    .wc-icon { font-size:3rem; opacity:.7; }
-    .wc-details { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; border-top:1px solid rgba(255,255,255,.15); padding-top:12px; }
-    .wcd { text-align:center; }
-    .wcd-v { font-size:.95rem; font-weight:800; }
-    .wcd-l { font-size:.65rem; opacity:.6; margin-top:2px; }
-
-    /* Responsive tweaks */
-    @media(max-width:480px) {
-      .places-grid { gap:12px; }
-      .tips-grid { grid-template-columns:1fr 1fr; }
-      .food-grid { grid-template-columns:1fr; }
-    }
-  </style>
+@media(max-width:600px){
+  .opts{grid-template-columns:1fr}
+  .tfi{grid-template-columns:22px 1fr}
+  .ans{grid-column:2;justify-self:start;margin-top:3px}
+  .hdr-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
 </head>
 <body>
 
-<!-- ═══ TOAST ═══ -->
-<div class="toast" id="toast"></div>
-
-<!-- ═══ MODAL ═══ -->
-<div class="modal-bg" id="modal" onclick="closeModalBg(event)">
-  <div class="modal" id="modal-inner">
-    <div class="modal-hero" id="modal-hero">
-      <div class="modal-handle"></div>
-      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="modal-body" id="modal-body"></div>
-  </div>
-</div>
-
-<!-- ═══ OVERLAY ═══ -->
-<div class="overlay" id="overlay" onclick="closeSb()"></div>
-
-<!-- ═══ SIDEBAR ═══ -->
-<aside class="sidebar" id="sb">
-  <div class="sb-header">
-    <div class="sb-logo">
-      <div class="sb-logo-icon"><i class="fas fa-mosque"></i></div>
-      <div>
-        <div class="sb-logo-name">بغداد</div>
-        <div class="sb-logo-sub">الدليل السياحي الشامل</div>
+<!-- HEADER -->
+<header>
+  <div class="hdr-inner">
+    <div class="logo">
+      <div class="logo-icon">📡</div>
+      <div class="logo-text">
+        <h1>IoT — Mid Exam Solutions</h1>
+        <p>TIKRIT UNIVERSITY · CS DEPT · 3RD STAGE · 2025–2026</p>
       </div>
     </div>
-    <div class="sb-search">
-      <i class="fas fa-search"></i>
-      <input type="text" id="sidebar-search" placeholder="ابحث عن مكان..." oninput="doSearch(this.value)">
-    </div>
-  </div>
-  <div class="sb-nav">
-    <div class="nav-sep">التنقل</div>
-    <button class="nav-btn on" onclick="goTo(this,'home')"><i class="fas fa-house"></i> الرئيسية</button>
-    <button class="nav-btn" onclick="goTo(this,'places')"><i class="fas fa-map-location-dot"></i> المعالم السياحية</button>
-    <button class="nav-btn" onclick="goTo(this,'food')"><i class="fas fa-utensils"></i> المطبخ البغدادي</button>
-    <button class="nav-btn" onclick="goTo(this,'map')"><i class="fas fa-map"></i> الخريطة</button>
-    <div class="nav-sep">اكتشاف</div>
-    <button class="nav-btn" onclick="goTo(this,'history')"><i class="fas fa-landmark"></i> التاريخ</button>
-    <button class="nav-btn" onclick="goTo(this,'tips')"><i class="fas fa-circle-info"></i> نصائح السفر</button>
-    <button class="nav-btn" onclick="goTo(this,'favs')">
-      <i class="fas fa-heart"></i> المفضلة
-      <span class="nav-count" id="nav-fav-count"></span>
-    </button>
-    <button class="nav-btn" onclick="goTo(this,'search')"><i class="fas fa-search"></i> البحث</button>
-  </div>
-  <div class="sb-footer">
-    <div class="weather-widget">
-      <i class="fas fa-sun" style="font-size:1.8rem;opacity:.8"></i>
-      <div>
-        <div class="ww-city">بغداد، العراق</div>
-        <div class="ww-temp">38°م</div>
-        <div class="ww-lbl">مشمس — رطوبة 25%</div>
-      </div>
-    </div>
-  </div>
-</aside>
-
-<!-- ═══ TOPBAR ═══ -->
-<header class="topbar" id="topbar">
-  <button class="tb-btn menu-btn" onclick="openSb()"><i class="fas fa-bars"></i></button>
-  <div class="tb-logo">
-    <div class="tb-logo-icon"><i class="fas fa-mosque"></i></div>
-    <div>
-      <div class="tb-logo-name">بغداد</div>
-      <div class="tb-logo-sub">الدليل السياحي</div>
-    </div>
-  </div>
-  <div class="tb-right">
-    <button class="tb-btn" onclick="goTo(null,'search')" title="بحث"><i class="fas fa-search"></i></button>
-    <button class="tb-btn" onclick="goTo(null,'favs')" title="المفضلة" style="position:relative">
-      <i class="fas fa-heart"></i>
-      <div class="fav-count" id="tb-fav-count"></div>
-    </button>
+    <nav class="nav">
+      <button class="tb on" onclick="go('p1')">Page 1 — Q1–Q3</button>
+      <button class="tb"    onclick="go('p2')">Page 2 — Q4–Q5</button>
+      <button class="tb"    onclick="go('ref')">📋 Reference</button>
+    </nav>
   </div>
 </header>
 
-<!-- ═══ MAIN ═══ -->
-<main class="main" id="main-content">
-
-  <!-- ═══════ HOME ═══════ -->
-  <div class="sec on" id="sec-home">
-    <!-- Weather -->
-    <div class="weather-card">
-      <div style="position:relative;z-index:1">
-        <div class="wc-top">
-          <div>
-            <div class="wc-temp">38°</div>
-            <div class="wc-city">بغداد، العراق</div>
-            <div class="wc-desc">مشمس وحار — مناسب للسياحة الداخلية</div>
-          </div>
-          <div class="wc-icon"><i class="fas fa-sun"></i></div>
-        </div>
-        <div class="wc-details">
-          <div class="wcd"><div class="wcd-v">25%</div><div class="wcd-l">رطوبة</div></div>
-          <div class="wcd"><div class="wcd-v">12 كم/س</div><div class="wcd-l">رياح</div></div>
-          <div class="wcd"><div class="wcd-v">22°</div><div class="wcd-l">ليلاً</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick stats -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
-      <div class="card" style="text-align:center;padding:14px;margin-bottom:0">
-        <div style="font-size:1.5rem;font-weight:900;color:var(--amber)">47+</div>
-        <div style="font-size:.72rem;color:var(--mu);margin-top:2px">معلماً سياحياً</div>
-      </div>
-      <div class="card" style="text-align:center;padding:14px;margin-bottom:0">
-        <div style="font-size:1.5rem;font-weight:900;color:var(--teal)">8+</div>
-        <div style="font-size:.72rem;color:var(--mu);margin-top:2px">أحياء تاريخية</div>
-      </div>
-      <div class="card" style="text-align:center;padding:14px;margin-bottom:0">
-        <div style="font-size:1.5rem;font-weight:900;color:var(--navy-l)">5000+</div>
-        <div style="font-size:.72rem;color:var(--mu);margin-top:2px">سنة من التاريخ</div>
-      </div>
-    </div>
-
-    <!-- Featured places -->
-    <div class="card">
-      <div class="ch">
-        <div class="ch-l"><i class="fas fa-star" style="color:var(--gold)"></i> أبرز المعالم</div>
-        <button class="btn btn-ghost btn-xs" onclick="goTo(null,'places')">عرض الكل</button>
-      </div>
-      <div class="places-grid" id="home-featured"></div>
-    </div>
-
-    <!-- Quick access -->
-    <div class="card">
-      <div class="ch"><div class="ch-l"><i class="fas fa-compass" style="color:var(--amber)"></i> استكشاف سريع</div></div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
-        <button class="btn btn-ghost btn-full" style="justify-content:flex-start;gap:10px;padding:14px" onclick="goTo(null,'food')">
-          <div style="width:36px;height:36px;border-radius:10px;background:var(--gold-p);display:flex;align-items:center;justify-content:center;color:var(--amber)"><i class="fas fa-utensils"></i></div>
-          <div style="text-align:right"><div style="font-weight:700;font-size:.86rem;color:var(--tx)">المطبخ البغدادي</div><div style="font-size:.72rem;color:var(--mu)">أشهر الأطباق</div></div>
-        </button>
-        <button class="btn btn-ghost btn-full" style="justify-content:flex-start;gap:10px;padding:14px" onclick="goTo(null,'history')">
-          <div style="width:36px;height:36px;border-radius:10px;background:var(--teal-p);display:flex;align-items:center;justify-content:center;color:var(--teal)"><i class="fas fa-landmark"></i></div>
-          <div style="text-align:right"><div style="font-weight:700;font-size:.86rem;color:var(--tx)">التاريخ العريق</div><div style="font-size:.72rem;color:var(--mu)">5000 سنة</div></div>
-        </button>
-        <button class="btn btn-ghost btn-full" style="justify-content:flex-start;gap:10px;padding:14px" onclick="goTo(null,'map')">
-          <div style="width:36px;height:36px;border-radius:10px;background:#dbeafe;display:flex;align-items:center;justify-content:center;color:var(--navy-l)"><i class="fas fa-map"></i></div>
-          <div style="text-align:right"><div style="font-weight:700;font-size:.86rem;color:var(--tx)">الخريطة</div><div style="font-size:.72rem;color:var(--mu)">ابحث عن أماكن</div></div>
-        </button>
-        <button class="btn btn-ghost btn-full" style="justify-content:flex-start;gap:10px;padding:14px" onclick="goTo(null,'tips')">
-          <div style="width:36px;height:36px;border-radius:10px;background:#dcfce7;display:flex;align-items:center;justify-content:center;color:var(--green)"><i class="fas fa-circle-info"></i></div>
-          <div style="text-align:right"><div style="font-weight:700;font-size:.86rem;color:var(--tx)">نصائح السفر</div><div style="font-size:.72rem;color:var(--mu)">كل ما تحتاج</div></div>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ PLACES ═══════ -->
-  <div class="sec" id="sec-places">
-    <div class="pg-header">
-      <div class="pg-title"><div class="pg-icon"><i class="fas fa-map-location-dot"></i></div> المعالم السياحية</div>
-      <div class="pg-sub">اكتشف أجمل المواقع في عاصمة العراق</div>
-    </div>
-    <div class="filter-bar" id="places-filter">
-      <button class="chip on" onclick="filterPlaces(this,'all')">الكل</button>
-      <button class="chip" onclick="filterPlaces(this,'history')"><i class="fas fa-landmark"></i> تاريخية</button>
-      <button class="chip" onclick="filterPlaces(this,'culture')"><i class="fas fa-palette"></i> ثقافية</button>
-      <button class="chip" onclick="filterPlaces(this,'relig')"><i class="fas fa-mosque"></i> دينية</button>
-      <button class="chip" onclick="filterPlaces(this,'nature')"><i class="fas fa-tree"></i> طبيعية</button>
-      <button class="chip" onclick="filterPlaces(this,'market')"><i class="fas fa-store"></i> أسواق</button>
-      <button class="chip" onclick="filterPlaces(this,'food')"><i class="fas fa-utensils"></i> مطاعم</button>
-    </div>
-    <div class="places-grid" id="places-grid"></div>
-  </div>
-
-  <!-- ═══════ FOOD ═══════ -->
-  <div class="sec" id="sec-food">
-    <div class="pg-header">
-      <div class="pg-title"><div class="pg-icon"><i class="fas fa-utensils"></i></div> المطبخ البغدادي</div>
-      <div class="pg-sub">تذوّق أشهى الأطباق العراقية الأصيلة</div>
-    </div>
-    <div class="card" style="background:linear-gradient(135deg,#7c3a00,#3b1a08);color:white;margin-bottom:14px">
-      <div style="font-size:.75rem;color:rgba(255,255,255,.6);margin-bottom:4px"><i class="fas fa-crown"></i> نصيحة الدليل</div>
-      <div style="font-size:.92rem;font-weight:700;line-height:1.6">المطبخ البغدادي من أقدم وأغنى المطابخ في العالم — مزيج رائع من التوابل والعراقة الأصيلة.</div>
-    </div>
-    <div class="food-grid" id="food-grid"></div>
-  </div>
-
-  <!-- ═══════ MAP ═══════ -->
-  <div class="sec" id="sec-map">
-    <div class="pg-header">
-      <div class="pg-title"><div class="pg-icon"><i class="fas fa-map"></i></div> خريطة بغداد</div>
-      <div class="pg-sub">استعرض مواقع المعالم السياحية تفاعلياً</div>
-    </div>
-    <div class="map-wrap">
-      <iframe class="map-frame" id="map-frame"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110901.36868048217!2d44.27279185!3d33.32060835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15577f67a0a74193%3A0x9deda9d2a3b16f2f!2sBaghdad!5e0!3m2!1sen!2siq!4v1704000000000!5m2!1sen!2siq"
-        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-      <div class="map-overlay">
-        <strong><i class="fas fa-location-dot"></i> بغداد</strong>
-        33.3152° N, 44.3661° E
-      </div>
-    </div>
-    <!-- Quick links to locations -->
-    <div class="card">
-      <div class="ch"><div class="ch-l"><i class="fas fa-map-pin" style="color:var(--amber)"></i> روابط سريعة</div></div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px" id="map-links"></div>
-    </div>
-  </div>
-
-  <!-- ═══════ HISTORY ═══════ -->
-  <div class="sec" id="sec-history">
-    <div class="pg-header">
-      <div class="pg-title"><div class="pg-icon"><i class="fas fa-landmark"></i></div> تاريخ بغداد</div>
-      <div class="pg-sub">رحلة عبر الزمن في أعرق مدن العالم</div>
-    </div>
-    <div class="card" style="background:linear-gradient(135deg,#1a0a00,#3b1a08);color:white;margin-bottom:14px">
-      <div style="font-family:'Amiri',serif;font-size:1.2rem;font-weight:700;color:var(--gold-l);margin-bottom:8px">مدينة السلام — عاصمة الخلافة العباسية</div>
-      <div style="font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.75">بغداد، مدينة أسسها الخليفة المنصور عام 762م على ضفاف نهر دجلة، لتصبح أعظم مدن العالم في عصر الذهب الإسلامي وحاضرة الحضارة الإنسانية.</div>
-    </div>
-    <div class="card">
-      <div class="ch"><div class="ch-l"><i class="fas fa-timeline" style="color:var(--amber)"></i> الخط الزمني</div></div>
-      <div class="timeline" id="history-timeline"></div>
-    </div>
-    <div class="tips-grid" id="history-facts"></div>
-  </div>
-
-  <!-- ═══════ TIPS ═══════ -->
-  <div class="sec" id="sec-tips">
-    <div class="pg-header">
-      <div class="pg-title"><div class="pg-icon"><i class="fas fa-circle-info"></i></div> نصائح السفر</div>
-      <div class="pg-sub">كل ما تحتاج لزيارة ممتعة وآمنة</div>
-    </div>
-    <div class="tips-grid" id="tips-grid"></div>
-  </div>
-
-  <!-- ═══════ FAVOURITES ═══════ -->
-  <div class="sec" id="sec-favs">
-    <div class="pg-header">
-      <div class="pg-title"><div class="pg-icon"><i class="fas fa-heart"></i></div> المفضلة</div>
-      <div class="pg-sub" id="favs-count">لا توجد أماكن في المفضلة بعد</div>
-    </div>
-    <div id="favs-grid"></div>
-    <div class="fav-empty" id="favs-empty">
-      <i class="fas fa-heart"></i>
-      <div class="fav-empty-t">لا توجد أماكن محفوظة</div>
-      <div class="fav-empty-s">اضغط على قلب أي مكان لإضافته للمفضلة</div>
-      <button class="btn btn-gold btn-sm" style="margin-top:14px" onclick="goTo(null,'places')"><i class="fas fa-map-location-dot"></i> استكشف المعالم</button>
-    </div>
-  </div>
-
-  <!-- ═══════ SEARCH ═══════ -->
-  <div class="sec" id="sec-search">
-    <div class="pg-header">
-      <div class="pg-title"><div class="pg-icon"><i class="fas fa-search"></i></div> البحث</div>
-    </div>
-    <div class="search-box">
-      <i class="fas fa-search"></i>
-      <input type="text" id="main-search" placeholder="ابحث عن معلم، حي، طعام..." oninput="doSearch(this.value)">
-      <button onclick="document.getElementById('main-search').value='';doSearch('')" style="background:none;border:none;color:var(--mu2);cursor:pointer;font-size:.85rem"><i class="fas fa-times"></i></button>
-    </div>
-    <div id="search-results"></div>
-  </div>
-
-</main>
-
-<!-- ═══ BOTTOM NAV ═══ -->
-<nav class="bottom-nav">
-  <button class="bn on" onclick="goTo(this,'home')"><i class="fas fa-house"></i><span>الرئيسية</span></button>
-  <button class="bn" onclick="goTo(this,'places')"><i class="fas fa-map-location-dot"></i><span>المعالم</span></button>
-  <button class="bn" onclick="goTo(this,'food')"><i class="fas fa-utensils"></i><span>الطعام</span></button>
-  <button class="bn" onclick="goTo(this,'map')"><i class="fas fa-map"></i><span>الخريطة</span></button>
-  <button class="bn" onclick="goTo(this,'favs')"><i class="fas fa-heart"></i><span>المفضلة</span><span class="bn-dot" id="bn-fav"></span></button>
-</nav>
-
-<!-- ═══ HERO SCREEN ═══ -->
-<div id="hero-screen" style="position:fixed;inset:0;z-index:9999;">
-  <div class="hero">
-    <div class="hero-pattern"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-      <div class="ornament">
-        <div class="orn-line"></div>
-        <div class="orn-diamond"></div>
-        <div class="orn-line r"></div>
-      </div>
-      <div class="hero-badge"><i class="fas fa-mosque"></i> الدليل السياحي الرسمي</div>
-      <h1 class="hero-title">مدينة <span class="golden">السلام</span><br>بغداد</h1>
-      <p class="hero-subtitle">عاصمة الخلافة العباسية وحاضرة الحضارة الإنسانية</p>
-      <div class="hero-stats">
-        <div class="hs"><div class="hs-num">762م</div><div class="hs-lbl">تأسيسها</div></div>
-        <div class="hs"><div class="hs-num">47+</div><div class="hs-lbl">معلم سياحي</div></div>
-        <div class="hs"><div class="hs-num">8M+</div><div class="hs-lbl">نسمة</div></div>
-        <div class="hs"><div class="hs-num">دجلة</div><div class="hs-lbl">يشقها</div></div>
-      </div>
-      <div class="hero-btns">
-        <button class="btn-cta btn-primary-cta" onclick="enterSite()">
-          <i class="fas fa-compass"></i> ابدأ استكشافك
-        </button>
-        <button class="btn-cta btn-ghost-cta" onclick="goToPlaces()">
-          <i class="fas fa-map-location-dot"></i> المعالم
-        </button>
-      </div>
-    </div>
-    <div class="scroll-hint" onclick="enterSite()">
-      <span>اضغط للدخول</span>
-      <div class="scroll-arrow"><i class="fas fa-chevron-down"></i></div>
-    </div>
+<!-- HERO -->
+<div class="hero">
+  <h2>Mid Exam <span>Full Solutions</span></h2>
+  <p class="hero-ar">حلول شاملة للامتحان النصفي — مادة انترنت الأشياء / النظري — 2025/2026</p>
+  <div class="meta">
+    <span class="mi"><span class="dot"></span>Date: 20/04/2026</span>
+    <span class="mi"><span class="dot"></span>Tikrit University · CS Dept · 3rd Stage</span>
+    <span class="mi"><span class="dot"></span>5 Questions · All Answered</span>
   </div>
 </div>
 
+<main>
+
+<!-- ══════════════════════════════════════════
+     PAGE 1 — Q1 · Q2 · Q3
+══════════════════════════════════════════ -->
+<div id="p1" class="sec on">
+  <div class="ehdr">
+    <div class="ehdr-l">
+      <div class="en">Mid Exam — IoT Theory</div>
+      <div class="title">Q1 Definitions · Q2 Comparisons · Q3 Engineering Reasons</div>
+    </div>
+    <div class="ehdr-r">2026 / 04 / 20<br>Semester 2</div>
+  </div>
+
+  <!-- Q1 DEFINITIONS -->
+  <div class="qc">
+    <div class="qh">
+      <span class="tag tq">Q1</span>
+      <span class="qh-t">Definitions — Choose Two only</span>
+      <span class="qh-ar">تعريفات — اختر اثنين فقط</span>
+    </div>
+    <div class="qb">
+      <div class="info ib" style="margin-bottom:14px">
+        <strong>Note:</strong> The exam says "Choose Two only" — all three are answered below for complete study reference.
+      </div>
+
+      <!-- Def 1 -->
+      <div class="def-card">
+        <div class="def-num">Definition 1</div>
+        <div class="def-title">Internet of Things (IoT)</div>
+        <div class="def-en">
+          IoT is a network of physical objects (devices, sensors, machines, appliances) embedded with sensors, software, and connectivity that enables them to collect, exchange, and act on data over the internet — without requiring direct human interaction. The ultimate goal is automation and intelligent decision-making.
+        </div>
+        <div class="def-ar">
+          إنترنت الأشياء هو شبكة من الأجهزة المادية المزوّدة بمستشعرات وبرمجيات واتصال بالإنترنت، تمكّنها من جمع البيانات وتبادلها والتصرف بناءً عليها دون تدخل بشري مباشر. هدفه الأساسي هو الأتمتة واتخاذ القرارات الذكية.
+        </div>
+      </div>
+
+      <!-- Def 2 -->
+      <div class="def-card">
+        <div class="def-num">Definition 2</div>
+        <div class="def-title">Actuators (المحركات)</div>
+        <div class="def-en">
+          Actuators are hardware components that receive digital or electrical signals from a controller and convert them into physical actions in the real world. They are the "output" side of an IoT system — they make things happen physically based on decisions made by the system.
+          <br><br>
+          <strong>Examples:</strong> Electric motor (opens a valve), relay (switches a light on/off), servo motor (moves a robotic arm), buzzer (produces sound), LED (produces light).
+        </div>
+        <div class="def-ar">
+          المحركات هي مكونات مادية تستقبل إشارات رقمية أو كهربائية من وحدة التحكم وتحوّلها إلى أفعال فيزيائية في العالم الحقيقي. وهي الجانب "المُخرَج" في نظام IoT — تُنفّذ الإجراءات الفيزيائية بناءً على قرارات النظام.
+          <br>أمثلة: المحرك الكهربائي (يفتح صمام)، المرحّل (يضيء مصباح)، المحرك السيرفو (يحرك ذراع روبوتية).
+        </div>
+      </div>
+
+      <!-- Def 3 -->
+      <div class="def-card">
+        <div class="def-num">Definition 3</div>
+        <div class="def-title">Perception Layer (طبقة الإدراك)</div>
+        <div class="def-en">
+          The Perception Layer is the first and lowest layer in the IoT 3-Layer Architecture. It is the physical foundation of any IoT system — responsible for interacting directly with the physical environment by collecting data through sensors and performing actions through actuators.
+          <br><br>
+          <strong>Key components:</strong> Sensors (temperature, humidity, ultrasonic, LDR), Actuators (motors, relays), Microcontrollers (Arduino, ESP32), RFID readers, Cameras.
+        </div>
+        <div class="def-ar">
+          طبقة الإدراك هي الطبقة الأولى والأدنى في معمارية IoT ذات الثلاث طبقات. إنها الأساس الفيزيائي لأي نظام IoT — مسؤولة عن التفاعل المباشر مع البيئة المادية عبر جمع البيانات بالمستشعرات وتنفيذ الأفعال بالمحركات.
+          <br>المكونات: المستشعرات (حرارة، رطوبة، موجات فوق صوتية، LDR)، المحركات، وحدات التحكم الصغيرة (Arduino، ESP32)، كاميرات.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 COMPARISONS -->
+  <div class="qc">
+    <div class="qh">
+      <span class="tag tcm">Q2</span>
+      <span class="qh-t">Compare — Choose One only</span>
+      <span class="qh-ar">مقارنة — اختر واحداً فقط</span>
+    </div>
+    <div class="qb">
+      <div class="info ib" style="margin-bottom:14px">
+        <strong>Note:</strong> Both comparisons answered for complete study reference.
+      </div>
+
+      <!-- Compare 1: Wi-Fi vs LoRaWAN -->
+      <div style="margin-bottom:18px">
+        <div class="sdiv"><div class="sl"></div><span class="st">Comparison 1 — Wi-Fi vs LoRaWAN</span><div class="sl"></div></div>
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th>Criterion</th>
+              <th>Wi-Fi</th>
+              <th>LoRaWAN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Range</td>
+              <td>Short–Medium (50–150 m)</td>
+              <td class="hl">Long (up to 15 km in open areas)</td>
+            </tr>
+            <tr>
+              <td>Data Rate</td>
+              <td class="hl">High (Mbps – Gbps)</td>
+              <td>Very Low (bps – Kbps)</td>
+            </tr>
+            <tr>
+              <td>Power Consumption</td>
+              <td>High — not ideal for battery devices</td>
+              <td class="hl">Very Low — years on small battery</td>
+            </tr>
+            <tr>
+              <td>Frequency</td>
+              <td>2.4 GHz / 5 GHz</td>
+              <td class="hl">Sub-GHz (868/915 MHz)</td>
+            </tr>
+            <tr>
+              <td>Infrastructure</td>
+              <td>Requires router/AP</td>
+              <td class="hl">LoRaWAN Gateway (covers km)</td>
+            </tr>
+            <tr>
+              <td>Best Use</td>
+              <td>Cameras, smart TVs, high-data apps</td>
+              <td class="hl">Smart meters, agriculture, rural IoT</td>
+            </tr>
+            <tr>
+              <td style="font-family:'Cairo',sans-serif;font-size:.85rem;direction:rtl">الاستخدام الأمثل</td>
+              <td style="font-family:'Cairo',sans-serif;font-size:.82rem;direction:rtl">الكاميرات، التلفزيون الذكي، التطبيقات عالية البيانات</td>
+              <td class="hl" style="font-family:'Cairo',sans-serif;font-size:.82rem;direction:rtl">العدادات الذكية، الزراعة، إنترنت الأشياء الريفي</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Compare 2: Arduino Mega vs Arduino Nano -->
+      <div>
+        <div class="sdiv"><div class="sl"></div><span class="st">Comparison 2 — Arduino Mega vs Arduino Nano</span><div class="sl"></div></div>
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th>Criterion</th>
+              <th>Arduino Mega</th>
+              <th>Arduino Nano</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Size</td>
+              <td>Large (101.6 × 53.3 mm)</td>
+              <td class="hl">Very Small (45 × 18 mm)</td>
+            </tr>
+            <tr>
+              <td>Microcontroller chip</td>
+              <td class="hl2">ATmega2560</td>
+              <td class="hl">ATmega328P</td>
+            </tr>
+            <tr>
+              <td>Digital I/O Pins</td>
+              <td class="hl2">54 pins</td>
+              <td>14 pins</td>
+            </tr>
+            <tr>
+              <td>Analog Inputs</td>
+              <td class="hl2">16 analog pins</td>
+              <td>8 analog pins</td>
+            </tr>
+            <tr>
+              <td>Flash Memory</td>
+              <td class="hl2">256 KB</td>
+              <td>32 KB</td>
+            </tr>
+            <tr>
+              <td>RAM</td>
+              <td class="hl2">8 KB SRAM</td>
+              <td>2 KB SRAM</td>
+            </tr>
+            <tr>
+              <td>Clock Speed</td>
+              <td>16 MHz</td>
+              <td>16 MHz</td>
+            </tr>
+            <tr>
+              <td>Best Use</td>
+              <td class="hl2">Complex projects (3D printers, CNC, robotics)</td>
+              <td class="hl">Compact/wearable projects, small sensors</td>
+            </tr>
+            <tr>
+              <td style="font-family:'Cairo',sans-serif;font-size:.85rem;direction:rtl">الاستخدام الأمثل</td>
+              <td class="hl2" style="font-family:'Cairo',sans-serif;font-size:.82rem;direction:rtl">المشاريع المعقدة (طابعات ثلاثية الأبعاد، الروبوتات)</td>
+              <td class="hl" style="font-family:'Cairo',sans-serif;font-size:.82rem;direction:rtl">المشاريع المدمجة، أجهزة الاستشعار الصغيرة</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 ENGINEERING REASONS -->
+  <div class="qc">
+    <div class="qh">
+      <span class="tag tde">Q3</span>
+      <span class="qh-t">Engineering Reasons — Choose One only</span>
+      <span class="qh-ar">مبررات هندسية — اختر واحداً فقط</span>
+    </div>
+    <div class="qb">
+      <div class="info ib" style="margin-bottom:14px">
+        <strong>Note:</strong> Both reasons answered for complete study reference.
+      </div>
+
+      <!-- Reason 1 -->
+      <div class="reason">
+        <div class="reason-num">Question 3.1</div>
+        <div class="reason-q">Why is the ESP32 preferred over the Arduino Uno for IoT projects?</div>
+        <div class="reason-ans">
+          The ESP32 is the superior choice for IoT because:
+          <ul>
+            <li><span>Built-in Wi-Fi (2.4 GHz 802.11 b/g/n):</span> No external shield needed — connects directly to the internet out of the box. Arduino Uno has no wireless capability.</li>
+            <li><span>Built-in Bluetooth (Classic + BLE):</span> Enables direct device-to-device communication without extra hardware.</li>
+            <li><span>Dual-core 32-bit processor (240 MHz):</span> Much faster than Arduino Uno's ATmega328P (8-bit, 16 MHz) — handles complex IoT tasks, JSON parsing, HTTPS requests in real time.</li>
+            <li><span>More memory:</span> 520 KB RAM vs 2 KB on Arduino Uno — essential for network stacks and data processing.</li>
+            <li><span>More GPIO &amp; peripherals:</span> 34 GPIO pins, multiple SPI/I2C/UART interfaces, built-in ADC, DAC, Touch sensors.</li>
+            <li><span>Low power modes:</span> Deep sleep draws only ~10 μA — critical for battery-powered IoT sensors.</li>
+          </ul>
+        </div>
+        <div class="reason-ar">
+          يُفضَّل ESP32 على Arduino Uno في مشاريع إنترنت الأشياء لأنه يحتوي على: Wi-Fi وBluetooth مدمجَين (لا حاجة لدرع إضافي)، معالج ثنائي النواة 32-بت بسرعة 240 ميغاهرتز (أسرع بكثير من ATmega328P ذي 8-بت)، ذاكرة RAM تبلغ 520 كيلوبايت (مقابل 2 كيلوبايت فقط)، وأوضاع طاقة منخفضة جداً (Deep Sleep ~10 μA) مثالية للمستشعرات التي تعمل بالبطارية.
+        </div>
+      </div>
+
+      <!-- Reason 2 -->
+      <div class="reason">
+        <div class="reason-num">Question 3.2</div>
+        <div class="reason-q">Why is the Arduino IDE popular for both Arduino and ESP boards?</div>
+        <div class="reason-ans">
+          The Arduino IDE is popular for both board families because:
+          <ul>
+            <li><span>Unified environment:</span> One IDE supports hundreds of boards — Arduino Uno, Mega, Nano AND ESP8266, ESP32 — via the Board Manager. Developers don't need to learn multiple tools.</li>
+            <li><span>Simple, beginner-friendly syntax:</span> Based on C/C++ with simplified setup()/loop() structure — very low learning curve compared to raw MCU programming in assembly or bare C.</li>
+            <li><span>Massive library ecosystem:</span> Thousands of free, community-maintained libraries (sensors, displays, protocols) work across all supported boards.</li>
+            <li><span>Serial Monitor:</span> Built-in debugging tool to monitor data from both Arduino and ESP boards in real time.</li>
+            <li><span>Free &amp; open source:</span> No licensing cost — widely adopted in universities, hobbyist projects, and professional prototyping worldwide.</li>
+            <li><span>Active community:</span> Millions of examples, tutorials, and forum answers available — shortens development time dramatically.</li>
+          </ul>
+        </div>
+        <div class="reason-ar">
+          يحظى Arduino IDE بشعبية واسعة مع لوحات Arduino وESP لأنه: بيئة موحدة تدعم مئات اللوحات عبر مدير اللوحات، تستخدم بناء جملة C/C++ مبسطاً (setup/loop) سهل التعلم، تحتوي على آلاف المكتبات المجانية، وتأتي مع مراقب تسلسلي للتصحيح، وهي مجانية ومفتوحة المصدر مع مجتمع ضخم من المطورين والمتعلمين.
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /p1 -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 2 — Q4 MCQ · Q5 T/F
+══════════════════════════════════════════ -->
+<div id="p2" class="sec">
+  <div class="ehdr">
+    <div class="ehdr-l">
+      <div class="en">Mid Exam — IoT Theory</div>
+      <div class="title">Q4 Multiple Choice · Q5 True or False</div>
+    </div>
+    <div class="ehdr-r">2026 / 04 / 20<br>Semester 2</div>
+  </div>
+
+  <!-- Q4 MCQ -->
+  <div class="qc">
+    <div class="qh">
+      <span class="tag tmc">Q4</span>
+      <span class="qh-t">Choose the correct answer — Choose Six only</span>
+      <span class="qh-ar">اختر الإجابة الصحيحة — اختر ستة فقط</span>
+    </div>
+    <div class="qb">
+      <div class="info ib" style="margin-bottom:14px">
+        All questions answered for complete study reference.
+      </div>
+      <div class="mcq-list">
+
+        <div class="mcq">
+          <div class="mcq-n">Q4.1</div>
+          <div class="mcq-q">If you're looking for a web-like language that's highly agile and works in closed, resource-constrained environments, ___ is the smarter option.</div>
+          <div class="opts">
+            <div class="opt">a) HTTP</div>
+            <div class="opt">b) MQTT</div>
+            <div class="opt">c) TCP</div>
+            <div class="opt ok">d) CoAP</div>
+          </div>
+          <div class="mcq-note">CoAP (Constrained Application Protocol) is a RESTful web-like protocol (GET/POST just like HTTP) but designed specifically for constrained/resource-limited IoT devices. It runs over UDP (not TCP) to reduce overhead. It's the "smart HTTP" for tiny devices.</div>
+        </div>
+
+        <div class="mcq">
+          <div class="mcq-n">Q4.2</div>
+          <div class="mcq-q">A system reading sensors to perform an action but without internet access is called:</div>
+          <div class="opts">
+            <div class="opt">a) IoT System</div>
+            <div class="opt">b) Cloud System</div>
+            <div class="opt ok">c) Embedded System</div>
+            <div class="opt">d) Business System</div>
+          </div>
+          <div class="mcq-note">An Embedded System performs specific tasks using sensors/actuators but has NO internet connectivity. When you add internet → it becomes an IoT system. Example: traditional microwave = embedded system; smart microwave with Wi-Fi = IoT system.</div>
+        </div>
+
+        <div class="mcq">
+          <div class="mcq-n">Q4.3</div>
+          <div class="mcq-q">Which layer is responsible for routing and addressing data?</div>
+          <div class="opts">
+            <div class="opt">a) Sensing</div>
+            <div class="opt ok">b) Network</div>
+            <div class="opt">c) Application</div>
+            <div class="opt">d) Business</div>
+          </div>
+          <div class="mcq-note">The Network Layer handles data transmission, routing, and addressing — it is the "bridge" that moves data from the Perception Layer to the Application Layer. Uses technologies like Wi-Fi, Zigbee, LoRaWAN, and protocols like IP, TCP/UDP.</div>
+        </div>
+
+        <div class="mcq">
+          <div class="mcq-n">Q4.4</div>
+          <div class="mcq-q">Which protocol uses a Broker to manage messages?</div>
+          <div class="opts">
+            <div class="opt">a) HTTP</div>
+            <div class="opt ok">b) MQTT</div>
+            <div class="opt">c) CoAP</div>
+            <div class="opt">d) SPI</div>
+          </div>
+          <div class="mcq-note">MQTT (Message Queuing Telemetry Transport) uses a Publish/Subscribe model with a central Broker server. Publishers send messages to the Broker by topic; the Broker distributes them to all matching subscribers. HTTP uses request/response; CoAP uses GET/POST; SPI is a hardware interface, not a messaging protocol.</div>
+        </div>
+
+        <div class="mcq">
+          <div class="mcq-n">Q4.5 (from image — MCQ continues)</div>
+          <div class="mcq-q">The main processor chip on a standard Arduino Uno is:</div>
+          <div class="opts">
+            <div class="opt">a) ESP32</div>
+            <div class="opt ok">b) ATmega328P</div>
+            <div class="opt">c) ARM Cortex</div>
+            <div class="opt">d) Intel i7</div>
+          </div>
+          <div class="mcq-note">The Arduino Uno uses the ATmega328P microcontroller (8-bit AVR, 16 MHz, 32 KB Flash, 2 KB RAM). ESP32 is used on ESP boards; ARM Cortex is used on Arduino Due/STM32; Intel i7 is a desktop CPU — not a microcontroller.</div>
+        </div>
+
+        <div class="mcq">
+          <div class="mcq-n">Q4.6</div>
+          <div class="mcq-q">Which technology is the only option for remote surgery or self-driving cars due to its ultra-low latency?</div>
+          <div class="opts">
+            <div class="opt">a) Wi-Fi</div>
+            <div class="opt">b) LoRaWAN</div>
+            <div class="opt ok">c) Cellular (5G)</div>
+            <div class="opt">d) Zigbee</div>
+          </div>
+          <div class="mcq-note">5G Cellular provides ultra-low latency (~1 ms), extremely high data rates, and wide-area coverage — the only technology capable of supporting time-critical applications like remote surgery and autonomous vehicles where any delay is dangerous. LoRaWAN is low-power but very slow; Wi-Fi has higher latency; Zigbee is short-range only.</div>
+        </div>
+
+        <div class="mcq">
+          <div class="mcq-n">Q4.7</div>
+          <div class="mcq-q">A standard Arduino Uno has how many built-in Wi-Fi modules?</div>
+          <div class="opts">
+            <div class="opt">a) One</div>
+            <div class="opt">b) Two</div>
+            <div class="opt ok">c) Zero</div>
+            <div class="opt">d) Three</div>
+          </div>
+          <div class="mcq-note">The standard Arduino Uno has ZERO built-in Wi-Fi. To add Wi-Fi you need an external module such as the ESP8266 (via AT commands or directly) or use an Arduino Uno WiFi Rev2 which has a built-in Wi-Fi chip. The ESP32/ESP8266 boards have Wi-Fi built in by default.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 T/F -->
+  <div class="qc">
+    <div class="qh">
+      <span class="tag ttf">Q5</span>
+      <span class="qh-t">True or False — Correct the False ones — Choose Six only</span>
+      <span class="qh-ar">صح أم خطأ — صحّح الخاطئة — اختر ستة فقط</span>
+    </div>
+    <div class="qb">
+      <div class="strip">
+        <span class="chip cF">1-F</span>
+        <span class="chip cF">2-F</span>
+        <span class="chip cT">3-T</span>
+        <span class="chip cT">4-T</span>
+        <span class="chip cT">5-T</span>
+        <span class="chip cF">6-F</span>
+        <span class="chip cT">7-T</span>
+      </div>
+      <div class="tf-list">
+
+        <div class="tfi">
+          <span class="tf-n">1</span>
+          <span class="tf-q">UART is a synchronous communication interface.</span>
+          <span class="ans aF">FALSE</span>
+          <div class="fix">✎ UART stands for Universal <strong>Asynchronous</strong> Receiver-Transmitter. It does NOT use a shared clock signal — both devices agree on a baud rate (speed) instead. Synchronous interfaces (SPI, I2C) share a clock line. — التصحيح: UART هو واجهة تواصل غير متزامنة لا تستخدم خط ساعة مشترك.</div>
+        </div>
+
+        <div class="tfi">
+          <span class="tf-n">2</span>
+          <span class="tf-q">Device-to-Device (D2D) communication requires the global internet to operate.</span>
+          <span class="ans aF">FALSE</span>
+          <div class="fix">✎ D2D communication is <strong>local and direct</strong> — devices communicate with each other without needing the global internet. Common protocols: Bluetooth, Zigbee, Wi-Fi Direct. Example: smartwatch communicating directly with a phone. — التصحيح: D2D اتصال محلي مباشر بين الأجهزة دون الحاجة للإنترنت.</div>
+        </div>
+
+        <div class="tfi">
+          <span class="tf-n">3</span>
+          <span class="tf-q">SPI communication uses a shared clock line (Synchronous).</span>
+          <span class="ans aT">TRUE</span>
+        </div>
+
+        <div class="tfi">
+          <span class="tf-n">4</span>
+          <span class="tf-q">The ESP32 microchip features a dual-core 32-bit processor.</span>
+          <span class="ans aT">TRUE</span>
+        </div>
+
+        <div class="tfi">
+          <span class="tf-n">5</span>
+          <span class="tf-q">CoAP is designed specifically to work over the UDP transport protocol to reduce overhead.</span>
+          <span class="ans aT">TRUE</span>
+        </div>
+
+        <div class="tfi">
+          <span class="tf-n">6</span>
+          <span class="tf-q">Cellular networks (like 5G) consume less power than LoRaWAN.</span>
+          <span class="ans aF">FALSE</span>
+          <div class="fix">✎ Cellular 5G consumes <strong>significantly MORE power</strong> than LoRaWAN. LoRaWAN is designed for ultra-low power consumption — sensors can run for years on a small battery. 5G requires high power for continuous transmission at high data rates. — التصحيح: شبكات الخلوي 5G تستهلك طاقة أكثر بكثير من LoRaWAN. LoRaWAN مصمم لاستهلاك الحد الأدنى من الطاقة والعمل لسنوات بالبطارية.</div>
+        </div>
+
+        <div class="tfi">
+          <span class="tf-n">7</span>
+          <span class="tf-q">The Arduino Nano has the exact same processing capabilities as the Arduino Uno but in a smaller size.</span>
+          <span class="ans aT">TRUE</span>
+        </div>
+
+      </div>
+
+      <div class="info ig" style="margin-top:14px">
+        <strong>Note on Statement 7:</strong> Both Arduino Nano and Uno use the <strong>ATmega328P</strong> microcontroller running at 16 MHz with 32 KB Flash and 2 KB RAM — identical processing capabilities. The Nano is simply a smaller form factor (45×18 mm vs 69×53 mm) for compact project designs.
+        <br><br>
+        <span style="font-family:'Cairo',sans-serif;direction:rtl;display:block;margin-top:5px">كلا اللوحتين (Nano وUno) تستخدمان نفس المعالج ATmega328P بنفس السرعة والذاكرة — الفرق الوحيد هو الحجم الأصغر للـ Nano.</span>
+      </div>
+    </div>
+  </div>
+</div><!-- /p2 -->
+
+
+<!-- ══════════════════════════════════════════
+     REFERENCE CARD
+══════════════════════════════════════════ -->
+<div id="ref" class="sec">
+  <div class="ehdr">
+    <div class="ehdr-l">
+      <div class="en">Quick Reference</div>
+      <div class="title">All Key Facts for This Exam — Cheat Sheet</div>
+    </div>
+    <div class="ehdr-r">Mid Exam<br>2025–2026</div>
+  </div>
+
+  <!-- Arduino Boards -->
+  <div class="qc">
+    <div class="qh"><span class="tag tq">BOARDS</span><span class="qh-t">Arduino &amp; ESP Boards Comparison</span></div>
+    <div class="qb">
+      <table class="cmp">
+        <thead><tr><th>Property</th><th>Arduino Uno</th><th>Arduino Nano</th><th>Arduino Mega</th><th>ESP32</th></tr></thead>
+        <tbody>
+          <tr><td>Chip</td><td>ATmega328P</td><td>ATmega328P</td><td class="hl2">ATmega2560</td><td class="hl">Xtensa LX6 (dual-core)</td></tr>
+          <tr><td>Architecture</td><td>8-bit AVR</td><td>8-bit AVR</td><td>8-bit AVR</td><td class="hl">32-bit, 240 MHz</td></tr>
+          <tr><td>Flash</td><td>32 KB</td><td>32 KB</td><td class="hl2">256 KB</td><td class="hl">4 MB (external SPI)</td></tr>
+          <tr><td>RAM</td><td>2 KB</td><td>2 KB</td><td class="hl2">8 KB</td><td class="hl">520 KB SRAM</td></tr>
+          <tr><td>Wi-Fi</td><td style="color:var(--red)">None</td><td style="color:var(--red)">None</td><td style="color:var(--red)">None</td><td class="hl">Built-in 2.4 GHz</td></tr>
+          <tr><td>Bluetooth</td><td style="color:var(--red)">None</td><td style="color:var(--red)">None</td><td style="color:var(--red)">None</td><td class="hl">BT Classic + BLE</td></tr>
+          <tr><td>Digital I/O</td><td>14</td><td>14</td><td class="hl2">54</td><td class="hl">34</td></tr>
+          <tr><td>Size</td><td>69×53 mm</td><td class="hl">45×18 mm</td><td>101×53 mm</td><td>~55×28 mm</td></tr>
+          <tr><td>Best For</td><td>Learning, basic</td><td>Compact projects</td><td class="hl2">Complex / many pins</td><td class="hl">IoT projects</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Protocols -->
+  <div class="qc">
+    <div class="qh"><span class="tag ttf">PROTO</span><span class="qh-t">IoT Protocols — HTTP vs MQTT vs CoAP</span></div>
+    <div class="qb">
+      <table class="cmp">
+        <thead><tr><th>Protocol</th><th>Model</th><th>Transport</th><th>Weight</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--red);font-weight:700">HTTP</td><td>Request/Response</td><td>TCP</td><td style="color:var(--red)">Heavy</td><td>Web APIs, non-battery</td></tr>
+          <tr><td style="color:var(--teal);font-weight:700">MQTT</td><td class="hl">Publish/Subscribe (via Broker)</td><td>TCP</td><td class="hl">Light</td><td>Battery sensors, telemetry</td></tr>
+          <tr><td style="color:var(--amber);font-weight:700">CoAP</td><td>GET/POST (RESTful)</td><td class="hl">UDP</td><td class="hl">Very Light</td><td>Constrained devices</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Wireless -->
+  <div class="qc">
+    <div class="qh"><span class="tag tde">WIRELESS</span><span class="qh-t">Wireless Technologies — Range, Power, Data Rate</span></div>
+    <div class="qb">
+      <table class="cmp">
+        <thead><tr><th>Technology</th><th>Range</th><th>Power</th><th>Data Rate</th><th>Latency</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--teal);font-weight:700">Wi-Fi</td><td>~100 m</td><td style="color:var(--red)">High</td><td class="hl">High (Mbps)</td><td>Medium</td><td>Cameras, smart home</td></tr>
+          <tr><td style="color:var(--blue);font-weight:700">Bluetooth BLE</td><td>~50 m</td><td class="hl">Very Low</td><td>Low (Kbps)</td><td>Low</td><td>Wearables, medical</td></tr>
+          <tr><td style="color:var(--amber);font-weight:700">Zigbee</td><td>~100 m</td><td class="hl">Very Low</td><td>Low (250Kbps)</td><td>Low</td><td>Smart home mesh</td></tr>
+          <tr><td style="color:var(--purple);font-weight:700">LoRaWAN</td><td class="hl">15 km+</td><td class="hl">Very Low</td><td>Very Low (bps)</td><td>High</td><td>Agriculture, smart meters</td></tr>
+          <tr><td style="color:var(--red);font-weight:700">5G Cellular</td><td class="hl">km+</td><td style="color:var(--red)">High</td><td class="hl">Very High (Gbps)</td><td class="hl" style="color:var(--teal)">Ultra-Low (~1ms)</td><td>Surgery, self-driving cars</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Interfaces -->
+  <div class="qc">
+    <div class="qh"><span class="tag tcm">COMM</span><span class="qh-t">Communication Interfaces — UART · SPI · I2C</span></div>
+    <div class="qb">
+      <table class="cmp">
+        <thead><tr><th>Interface</th><th>Type</th><th>Wires</th><th>Speed</th><th>Multi-device</th><th>Best Use</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--teal);font-weight:700">UART</td><td style="color:var(--amber)">Asynchronous</td><td>2 (TX,RX)</td><td>Medium</td><td>No</td><td>GPS, Bluetooth serial, debug</td></tr>
+          <tr><td style="color:var(--blue);font-weight:700">SPI</td><td class="hl">Synchronous</td><td>4 (MOSI,MISO,SCK,SS)</td><td class="hl">Fast</td><td>Yes (SS per device)</td><td>SD card, TFT, Flash</td></tr>
+          <tr><td style="color:var(--purple);font-weight:700">I2C</td><td class="hl">Synchronous</td><td class="hl">2 (SDA,SCL)</td><td>Slow–Med</td><td class="hl">Yes (address-based)</td><td>OLED, sensors, multi-bus</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Key Facts for Exam -->
+  <div class="qc">
+    <div class="qh"><span class="tag tq">KEY FACTS</span><span class="qh-t">Critical Facts — Must Know for Exam</span></div>
+    <div class="qb">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">
+        <div style="background:var(--bg3);border:1px solid rgba(0,212,200,.2);border-radius:8px;padding:12px 14px">
+          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--teal);font-weight:700;margin-bottom:6px">Arduino Uno</div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
+            Chip: <span style="color:var(--green)">ATmega328P</span><br>
+            Wi-Fi: <span style="color:var(--red)">None (Zero)</span><br>
+            Speed: 16 MHz, 8-bit<br>
+            Flash: 32 KB / RAM: 2 KB
+          </div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid rgba(74,158,255,.2);border-radius:8px;padding:12px 14px">
+          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--blue);font-weight:700;margin-bottom:6px">ESP32</div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
+            Chip: <span style="color:var(--green)">Xtensa LX6 (dual-core 32-bit)</span><br>
+            Wi-Fi: <span style="color:var(--green)">Built-in 2.4 GHz</span><br>
+            Bluetooth: <span style="color:var(--green)">Classic + BLE</span><br>
+            Speed: 240 MHz / RAM: 520 KB
+          </div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid rgba(245,166,35,.2);border-radius:8px;padding:12px 14px">
+          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--amber);font-weight:700;margin-bottom:6px">UART vs SPI vs I2C</div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
+            UART = <span style="color:var(--red)">Asynchronous</span> (no clock)<br>
+            SPI = <span style="color:var(--green)">Synchronous</span> + 4 wires<br>
+            I2C = <span style="color:var(--green)">Synchronous</span> + 2 wires<br>
+            I2C → multi-device on 1 bus
+          </div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid rgba(167,139,250,.2);border-radius:8px;padding:12px 14px">
+          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--purple);font-weight:700;margin-bottom:6px">5G vs LoRaWAN Power</div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
+            5G: <span style="color:var(--red)">High power</span>, ultra-low latency<br>
+            LoRaWAN: <span style="color:var(--green)">Very low power</span>, slow data<br>
+            5G → surgery, autonomous cars<br>
+            LoRaWAN → agriculture, meters
+          </div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid rgba(45,212,160,.2);border-radius:8px;padding:12px 14px">
+          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--green);font-weight:700;margin-bottom:6px">D2D / D2C / D2G</div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
+            D2D = <span style="color:var(--teal)">Local, no internet</span> (BT/Zigbee)<br>
+            D2C = <span style="color:var(--blue)">Direct to cloud</span> (Wi-Fi/Cellular)<br>
+            D2G = <span style="color:var(--amber)">Via gateway</span> (BT → phone → cloud)
+          </div>
+        </div>
+        <div style="background:var(--bg3);border:1px solid rgba(0,212,200,.2);border-radius:8px;padding:12px 14px">
+          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--teal);font-weight:700;margin-bottom:6px">MQTT Broker Concept</div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
+            Publisher → <span style="color:var(--teal)">Broker (server)</span> → Subscriber<br>
+            Devices never talk directly<br>
+            Broker routes by Topic<br>
+            <span style="font-family:'Cairo',sans-serif;font-size:.8rem;direction:rtl">الناشر → الوسيط → المشترك</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /ref -->
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div><div class="fi-lbl">University</div><div class="fi-val">جامعة تكريت</div></div>
+    <div class="fsep"></div>
+    <div><div class="fi-lbl">Course</div><div class="fi-val" style="font-family:'Syne',sans-serif;font-size:.82rem">Internet of Things — Theory</div></div>
+    <div class="fsep"></div>
+    <div><div class="fi-lbl">Exam</div><div class="fi-val" style="font-family:'Space Mono',monospace;font-size:.78rem">Mid Exam · 20/04/2026</div></div>
+    <div class="fsep"></div>
+    <div><div class="fi-lbl">Stage</div><div class="fi-val" style="font-family:'Space Mono',monospace;font-size:.78rem">3rd · Semester 2 · 2025–2026</div></div>
+  </div>
+  <div style="height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:.9rem"></div>
+  <p class="fcopy">Q1 Definitions · Q2 Comparisons · Q3 Engineering Reasons · Q4 MCQ · Q5 True/False — All Answered</p>
+</footer>
+
 <script>
-// ═══════════════════════════════════
-// DATA — بيانات المعالم السياحية
-// ═══════════════════════════════════
-const PLACES = [
-  {
-    id:1, name:"المتحف العراقي", cat:"culture", badge:"ثقافي",
-    desc:"أحد أعظم المتاحف في العالم يضم آثاراً تعود لآلاف السنين من حضارات سومر وبابل وآشور وأكد.",
-    fullDesc:"تأسس المتحف العراقي عام 1923م ويُعدّ من أهم المتاحف الأثرية في العالم. يضم أكثر من 170,000 قطعة أثرية تمثل حضارات وادي الرافدين عبر العصور المختلفة. من أبرز محتوياته تمثال الملك شولجي ورأس المرأة من الوركاء والألواح المسمارية.",
-    location:"الكرخ — شارع المتحف", time:"9:00 - 16:00", closed:"الاثنين",
-    rating:"4.8", icon:"🏛️",
-    color:"linear-gradient(135deg,#1e3a5f,#2563eb)",
-    tags:["حضارة بابل","آثار سومرية","مخطوطات","تماثيل قديمة"],
-    mapUrl:"https://maps.google.com/?q=Iraq+Museum+Baghdad",
-    featured:true
-  },
-  {
-    id:2, name:"الجامع الكبير — أبو حنيفة", cat:"relig", badge:"ديني",
-    desc:"أحد أشهر المساجد في العالم الإسلامي ويضم ضريح الإمام أبي حنيفة النعمان مؤسس المذهب الحنفي.",
-    fullDesc:"الجامع الكبير في الأعظمية يُعدّ من أبرز المعالم الإسلامية في بغداد. يضم ضريح الإمام أبي حنيفة النعمان إمام أهل الرأي ومؤسس المذهب الحنفي. يقصده الزوار من جميع أنحاء العالم الإسلامي. المسجد مبني بالطراز العثماني مع إضافات عصرية.",
-    location:"الأعظمية — شارع الإمام أبي حنيفة", time:"طوال اليوم", closed:"—",
-    rating:"4.9", icon:"🕌",
-    color:"linear-gradient(135deg,#0f766e,#14b8a6)",
-    tags:["مسجد","تراث إسلامي","ضريح","معمار عثماني"],
-    mapUrl:"https://maps.google.com/?q=Abu+Hanifa+Mosque+Baghdad",
-    featured:true
-  },
-  {
-    id:3, name:"شارع المتنبي", cat:"culture", badge:"ثقافي",
-    desc:"روح بغداد الثقافية — شارع الكتب والمثقفين الأشهر في الوطن العربي، يُقام فيه سوق الكتب كل جمعة.",
-    fullDesc:"شارع المتنبي هو رمز بغداد الثقافي والأدبي، سُمّي بهذا الاسم تيمناً بالشاعر العربي الكبير المتنبي. يُقام فيه سوق الكتب كل يوم جمعة منذ عقود، ويُعدّ ملتقى المثقفين والمفكرين والأدباء. تجد فيه الكتب القديمة والحديثة والمخطوطات النادرة والمجلات والصحف.",
-    location:"الرصافة — قرب جسر الشهداء", time:"الجمعة 8:00 - 14:00 ويومياً", closed:"—",
-    rating:"4.7", icon:"📚",
-    color:"linear-gradient(135deg,#7c3a00,#b45309)",
-    tags:["كتب","ثقافة","سوق","أدب عربي"],
-    mapUrl:"https://maps.google.com/?q=Al-Mutanabbi+Street+Baghdad",
-    featured:true
-  },
-  {
-    id:4, name:"قوس كسرى — طاق كسرى", cat:"history", badge:"تاريخي",
-    desc:"أعظم قوس بناه الإنسان في التاريخ القديم — قاعة العروش الساسانية التي بُنيت قبل 1500 سنة في المدائن.",
-    fullDesc:"طاق كسرى أو إيوان كسرى هو بقايا القصر الملكي الساساني في المدائن (سلمان باك) جنوب بغداد. يُعدّ من أعظم الآثار المعمارية في العالم القديم؛ فقوسه القائم حتى اليوم يبلغ ارتفاعه 37 متراً وعرضه 26 متراً، بُني في القرن الثالث الميلادي دون استخدام داعمات.",
-    location:"المدائن — 35 كم جنوب بغداد", time:"8:00 - 17:00", closed:"الاثنين",
-    rating:"4.9", icon:"🏰",
-    color:"linear-gradient(135deg,#78350f,#92400e)",
-    tags:["حضارة فارسية","معمار قديم","آثار","المدائن"],
-    mapUrl:"https://maps.google.com/?q=Taq+Kasra+Iraq",
-    featured:true
-  },
-  {
-    id:5, name:"سوق الصفافير", cat:"market", badge:"سوق",
-    desc:"السوق التاريخي الأشهر في بغداد لصناعة الأواني النحاسية والتحف اليدوية بأسلوب الآباء والأجداد.",
-    fullDesc:"سوق الصفافير في قلب بغداد القديمة هو أحد أعتق الأسواق في المدينة. يشتهر بحرفيي الصفر والنحاس الذين يصنعون الأواني والتحف بأساليب تقليدية توارثوها عن أجدادهم. تسمع في ممراته رنين المطارق على النحاس وتشم روائح المعادن الأصيلة.",
-    location:"الرصافة — بين سوق الذهب والشورجة", time:"9:00 - 18:00", closed:"الجمعة",
-    rating:"4.6", icon:"🔨",
-    color:"linear-gradient(135deg,#5b21b6,#7c3aed)",
-    tags:["حرف يدوية","نحاس","تراث","تسوق"],
-    mapUrl:"https://maps.google.com/?q=Al-Safafeer+Market+Baghdad",
-    featured:false
-  },
-  {
-    id:6, name:"جزيرة الأعراس", cat:"nature", badge:"طبيعي",
-    desc:"جزيرة رومانسية في قلب نهر دجلة تضم حدائق خضراء ومطاعم ومقاهٍ بإطلالة مذهلة على النهر.",
-    fullDesc:"جزيرة الأعراس واحدة من أجمل المناطق الترفيهية في بغداد، تقع في قلب نهر دجلة وتضم حدائق وملاعب ومطاعم ومقاهٍ. تُشتهر بأجواء الربيع الخلابة حين تتفتح الأزهار وتخضر الحدائق. يزورها البغداديون للاسترخاء والتمتع بمنظر النهر الرائع.",
-    location:"الكرادة — نهر دجلة", time:"9:00 - 23:00", closed:"—",
-    rating:"4.5", icon:"🌿",
-    color:"linear-gradient(135deg,#166534,#16a34a)",
-    tags:["طبيعة","نهر دجلة","ترفيه","مطاعم"],
-    mapUrl:"https://maps.google.com/?q=Al+Aras+Island+Baghdad",
-    featured:false
-  },
-  {
-    id:7, name:"برج الشهيد", cat:"history", badge:"تاريخي",
-    desc:"أبرز معالم بغداد الحديثة — نصب تذكاري ضخم يُخلّد ذكرى شهداء العراق بتصميم معماري رائع للمعمار جعفر علاوي.",
-    fullDesc:"برج الشهيد أو نصب الشهيد أحد أيقونات بغداد الحديثة. صممه المعمار العراقي سمير علي وأشرف على بنائه عام 1983. يتكون من قبة لازوردية مشقوقة ترمز إلى شعلة الأمل. يضم متحفاً يوثق تاريخ العراق وشهداءه، ومن أعلاه تستمتع بمنظر بانورامي رائع لبغداد.",
-    location:"ساحة الشهداء — الكرخ", time:"9:00 - 21:00", closed:"الاثنين",
-    rating:"4.7", icon:"🏯",
-    color:"linear-gradient(135deg,#1e3a5f,#0f766e)",
-    tags:["نصب تذكاري","معمار حديث","متحف","بانوراما"],
-    mapUrl:"https://maps.google.com/?q=Shaheed+Monument+Baghdad",
-    featured:false
-  },
-  {
-    id:8, name:"الشارع التجاري — الرشيد", cat:"culture", badge:"ثقافي",
-    desc:"شريان بغداد التجاري والتاريخي الذي بُني في العهد العثماني وشهد أحداثاً محورية في تاريخ العراق الحديث.",
-    fullDesc:"شارع الرشيد أحد أعرق شوارع بغداد، امتد على طول الضفة اليمنى لنهر دجلة. بُني بأمر العثمانيين وأكمل تطويره في العهد الملكي. كان قلب الحياة التجارية والاجتماعية في بغداد لعقود طويلة. تجد فيه المباني ذات الطراز العثماني والملكي التي تروي قصة المدينة.",
-    location:"الرصافة — على طول دجلة", time:"يومياً", closed:"—",
-    rating:"4.4", icon:"🏪",
-    color:"linear-gradient(135deg,#7c3a00,#b45309)",
-    tags:["تجارة","تراث عثماني","تاريخ حديث","مشي"],
-    mapUrl:"https://maps.google.com/?q=Al-Rashid+Street+Baghdad",
-    featured:false
-  },
-  {
-    id:9, name:"مرقد الإمام موسى الكاظم", cat:"relig", badge:"ديني",
-    desc:"أحد أقدس البقاع في العالم الإسلامي — ضريح الإمام موسى الكاظم السابع وحفيده محمد الجواد في الكاظمية.",
-    fullDesc:"مرقد الإمامين الكاظمين في الكاظمية يُعدّ من أقدس المراقد في العالم الإسلامي. يضم ضريحي الإمام موسى الكاظم والإمام محمد الجواد. يقصده الملايين من زوار المراقد سنوياً من مختلف الدول. القبتان الذهبيتان ومنارتاه الأربع تُشكّل معلماً معمارياً استثنائياً.",
-    location:"الكاظمية — شمال غرب بغداد", time:"طوال اليوم", closed:"—",
-    rating:"5.0", icon:"⭐",
-    color:"linear-gradient(135deg,#78350f,#d97706)",
-    tags:["مرقد","إسلامي","قبة ذهبية","زيارة دينية"],
-    mapUrl:"https://maps.google.com/?q=Al-Kadhimain+Baghdad",
-    featured:true
-  },
-  {
-    id:10, name:"منطقة الأعظمية", cat:"culture", badge:"ثقافي",
-    desc:"قلب بغداد التاريخي على الضفة الشرقية لدجلة — حي عريق يمزج بين الموروث الثقافي والحيوية المعاصرة.",
-    fullDesc:"الأعظمية حي تاريخي عريق على الضفة الشرقية لنهر دجلة، يُعدّ من أقدم أحياء بغداد وأكثرها حيوية. يشتهر بمقاهيه التراثية وطعامه الأصيل ومسجد أبي حنيفة الشهير. كان تاريخياً مقراً للعلماء والأدباء والمثقفين.",
-    location:"الأعظمية — الضفة الشرقية", time:"يومياً", closed:"—",
-    rating:"4.6", icon:"🕌",
-    color:"linear-gradient(135deg,#1e3a5f,#2563eb)",
-    tags:["حي تاريخي","مقاهي","تراث","طعام"],
-    mapUrl:"https://maps.google.com/?q=Al-Adhamiyah+Baghdad",
-    featured:false
-  },
-  {
-    id:11, name:"متحف بغداد للتاريخ الطبيعي", cat:"culture", badge:"ثقافي",
-    desc:"وجهة رائعة للتعلم عن الطبيعة والبيئة العراقية والحيوانات القديمة التي عاشت في بلاد الرافدين.",
-    fullDesc:"متحف بغداد للتاريخ الطبيعي يضم مجموعة نادرة من المستحاثات وعينات الحيوانات والنباتات التي تُجسّد ثراء البيئة العراقية عبر العصور. من أبرز معروضاته هياكل الديناصورات وأشجار بلاد الرافدين وعينات من الحياة البرية العراقية.",
-    location:"شارع الجامعة — الكرخ", time:"9:00 - 15:00", closed:"الجمعة والسبت",
-    rating:"4.3", icon:"🦕",
-    color:"linear-gradient(135deg,#166534,#15803d)",
-    tags:["علوم","طبيعة","متحف","تعليم"],
-    mapUrl:"https://maps.google.com/?q=Baghdad+Natural+History+Museum",
-    featured:false
-  },
-  {
-    id:12, name:"بيت الحكمة الجديد", cat:"culture", badge:"ثقافي",
-    desc:"إحياء لأعظم مؤسسة علمية في التاريخ الإسلامي — مركز ثقافي وأكاديمي على أرض مدينة السلام.",
-    fullDesc:"بيت الحكمة في بغداد يستلهم روح المؤسسة التاريخية العظيمة التي أسسها الخليفة هارون الرشيد وازدهرت في عهد المأمون. يضم اليوم مكتبة ضخمة وقاعات للمحاضرات والأبحاث، ويستضيف ندوات ومؤتمرات علمية وثقافية يشارك فيها علماء من العالم.",
-    location:"وسط بغداد — شارع العرصات", time:"9:00 - 17:00", closed:"الجمعة",
-    rating:"4.5", icon:"📖",
-    color:"linear-gradient(135deg,#1e3a5f,#7c3aed)",
-    tags:["علم","ثقافة","مكتبة","تراث عباسي"],
-    mapUrl:"https://maps.google.com/?q=Bayt+Al-Hikmah+Baghdad",
-    featured:false
-  },
-];
-
-const FOODS = [
-  { name:"التكة البغدادية", desc:"لحم مشوي متبّل بالتوابل العراقية الأصيلة، يُقدّم مع الأرز والطماطم المشوية.", icon:"🥩", tag:"أكلة شعبية", color:"linear-gradient(135deg,#7c3a00,#b45309)" },
-  { name:"السمك المسكوف", desc:"الطبق الوطني العراقي — سمك شبّوط مشوي على النار المكشوفة بطريقة الحفرة منذ آلاف السنين.", icon:"🐟", tag:"طبق وطني", color:"linear-gradient(135deg,#1e3a5f,#2563eb)" },
-  { name:"القيمة البغدادية", desc:"يخنة اللحم مع الحمص الأصفر والمشمش الحامض، تُقدّم مع الأرز الأبيض.", icon:"🍲", tag:"أكلة تقليدية", color:"linear-gradient(135deg,#166534,#16a34a)" },
-  { name:"الكبة الموصلية", desc:"كرات اللحم المحشوّة المطبوخة بالمرق العراقي — وصفة توارثتها الأجيال منذ عهد الخلافة.", icon:"🥙", tag:"حرفة يدوية", color:"linear-gradient(135deg,#5b21b6,#7c3aed)" },
-  { name:"البقلاوة العراقية", desc:"حلوى العيد والمناسبات — طبقات من العجين الرقيق مع الفستق والشيرة العطرية.", icon:"🍯", tag:"حلويات", color:"linear-gradient(135deg,#78350f,#d97706)" },
-  { name:"الدولمة العراقية", desc:"ورق العنب المحشو باللحم والأرز والتوابل — طبق يجمع كل العائلة على مائدة واحدة.", icon:"🌿", tag:"طبق عائلي", color:"linear-gradient(135deg,#166534,#15803d)" },
-  { name:"عيش الكلي", desc:"خبز التنور العراقي الطازج — الرفيق الأصيل لكل وجبة بغدادية.", icon:"🫓", tag:"خبز أصيل", color:"linear-gradient(135deg,#7c3a00,#92400e)" },
-  { name:"الرشتة العراقية", desc:"شوربة المعكرونة اليدوية مع العدس الأحمر والتمر الهندي — طعام الشتاء والدفء.", icon:"🍜", tag:"شوربة تقليدية", color:"linear-gradient(135deg,#1e3a5f,#0f766e)" },
-];
-
-const HISTORY_TIMELINE = [
-  { year:"762 م", event:"تأسيس بغداد", desc:"الخليفة المنصور يُؤسّس مدينة السلام المستديرة على ضفة دجلة لتكون عاصمة الخلافة العباسية." },
-  { year:"786-809 م", event:"عصر هارون الرشيد", desc:"بغداد تبلغ ذروة ازدهارها وتصبح أكبر مدن العالم بمليون نسمة، وتزدهر في عهده ألف ليلة وليلة." },
-  { year:"830 م", event:"بيت الحكمة", desc:"المأمون يُنشئ بيت الحكمة فتصبح بغداد مركز العالم للعلوم والترجمة والفلسفة والطب." },
-  { year:"1258 م", event:"الغزو المغولي", desc:"هولاكو خان يُحاصر بغداد ويُدمّر الحضارة العباسية في واحدة من أكبر المآسي الإنسانية في التاريخ." },
-  { year:"1534 م", event:"الحكم العثماني", desc:"السلطان سليمان القانوني يدخل بغداد وتبدأ حقبة جديدة في ظل الحكم العثماني الذي دام قروناً." },
-  { year:"1921 م", event:"تأسيس المملكة", desc:"تُعلن المملكة العراقية وتصبح بغداد عاصمتها مع تتويج الملك فيصل الأول ملكاً على العراق." },
-  { year:"1932 م", event:"الاستقلال", desc:"العراق يحصل على استقلاله الكامل وعضوية عصبة الأمم، وبغداد تنطلق في مسيرة البناء الحديث." },
-  { year:"اليوم", event:"بغداد تتجدد", desc:"عاصمة العراق تستعيد نهضتها وتفتح أبوابها للزوار من كل أنحاء العالم لاكتشاف كنوزها الحضارية." },
-];
-
-const HISTORY_FACTS = [
-  { icon:"fas fa-city", cls:"ti-gold", title:"أكبر مدن العالم", body:"في القرن التاسع الميلادي كانت بغداد أكبر مدينة في العالم بتعداد تجاوز مليون نسمة." },
-  { icon:"fas fa-book", cls:"ti-teal", title:"مركز العلم العالمي", body:"ضمّت بغداد العباسية أعظم المكتبات والعلماء في الرياضيات والفلك والطب والفلسفة." },
-  { icon:"fas fa-circle", cls:"ti-navy", title:"المدينة المستديرة", body:"بُنيت بغداد الأولى بشكل دائري مثالي — وهو نظام معماري فريد من نوعه في التاريخ القديم." },
-  { icon:"fas fa-water", cls:"ti-green", title:"نهر دجلة", body:"يشق دجلة قلب بغداد ليمنحها الحياة منذ آلاف السنين — أحد نهري بلاد الرافدين العريقة." },
-];
-
-const TIPS = [
-  { icon:"fas fa-calendar", cls:"ti-gold", title:"أفضل وقت للزيارة", body:"أكتوبر حتى أبريل — الطقس معتدل وممتع. تجنّب الصيف (يونيو-أغسطس) حيث الحرارة تتجاوز 45 درجة." },
-  { icon:"fas fa-shirt", cls:"ti-teal", title:"اللباس المناسب", body:"ارتدِ ملابس محتشمة عند زيارة المواقع الدينية. المرأة تضع غطاء الرأس في المراقد والمساجد." },
-  { icon:"fas fa-money-bill", cls:"ti-gold", title:"العملة والدفع", body:"الدينار العراقي هو العملة الرسمية. معظم المحلات نقد فقط. الصرف متاح في البنوك والصرافين." },
-  { icon:"fas fa-taxi", cls:"ti-navy", title:"التنقل الداخلي", body:"تاكسي التطبيقات (Careem, SnApp) الأفضل والأآمن. تجنّب التنقل ليلاً في المناطق غير المألوفة." },
-  { icon:"fas fa-language", cls:"ti-teal", title:"اللغة", body:"العربية هي اللغة الرسمية. الكردية شائعة في الشمال. كثير من الشباب يتحدث الإنجليزية." },
-  { icon:"fas fa-utensils", cls:"ti-gold", title:"آداب الطعام", body:"جرّب الأكل في المطاعم الشعبية لتجربة أصيلة. الضيافة العراقية كريمة — لا ترفض الدعوات." },
-  { icon:"fas fa-camera", cls:"ti-navy", title:"التصوير", body:"استأذن قبل تصوير الأشخاص. يُمنع التصوير في بعض المباني الحكومية والعسكرية." },
-  { icon:"fas fa-heart-pulse", cls:"ti-green", title:"الصحة والأمان", body:"اشترِ تأمين سفر قبل الزيارة. اشرب المياه المعبأة فقط. احفظ رقم السفارة والطوارئ." },
-  { icon:"fas fa-sun", cls:"ti-gold", title:"الحماية من الشمس", body:"احمل معك واقي شمس وقبعة وزجاجة ماء دائماً. الجفاف خطر حقيقي في الصيف." },
-  { icon:"fas fa-phone", cls:"ti-teal", title:"الاتصالات", body:"شريحة Zain أو Korek للزوار متاحة. الإنترنت جيد في المدن. WiFi في معظم المطاعم والفنادق." },
-  { icon:"fas fa-mosque", cls:"ti-navy", title:"الاحترام الديني", body:"تجنّب الأكل والشرب في الأماكن العامة خلال رمضان. احترم أوقات الصلاة وأجواء المراقد." },
-  { icon:"fas fa-suitcase", cls:"ti-gray", title:"ماذا تحمل معك؟", body:"وثائق السفر، أدوية الإسعافات الأولية، بطاقة بنكية دولية، خريطة أوفلاين، ترجمة بسيطة." },
-];
-
-// ═══════════════════════════════════
-// STATE
-// ═══════════════════════════════════
-let favs = JSON.parse(localStorage.getItem('baghdad-favs') || '[]');
-let currentFilter = 'all';
-
-// ═══════════════════════════════════
-// UTILITIES
-// ═══════════════════════════════════
-let toastT;
-function toast(m, t='') {
-  const el = document.getElementById('toast');
-  el.textContent = m;
-  el.className = 'toast on' + (t ? ' ' + t : '');
-  clearTimeout(toastT);
-  toastT = setTimeout(() => el.className = 'toast', 3e3);
+function go(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.tb').forEach(b=>{
+    if((b.getAttribute('onclick')||'').includes("'"+id+"'")) b.classList.add('on');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function openSb() { document.getElementById('sb').classList.add('open'); document.getElementById('overlay').classList.add('on'); }
-function closeSb() { document.getElementById('sb').classList.remove('open'); document.getElementById('overlay').classList.remove('on'); }
-
-function goTo(btn, sec) {
-  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
-  document.querySelectorAll('.nav-btn, .bn').forEach(b => b.classList.remove('on'));
-  document.getElementById('sec-' + sec).classList.add('on');
-  document.querySelectorAll(`[onclick*="'${sec}'"]`).forEach(b => b.classList.add('on'));
-  closeSb();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (sec === 'favs') renderFavs();
-  if (sec === 'search') setTimeout(() => document.getElementById('main-search').focus(), 300);
-}
-
-// ═══════════════════════════════════
-// HERO
-// ═══════════════════════════════════
-function enterSite() {
-  const hero = document.getElementById('hero-screen');
-  hero.style.transition = 'opacity .6s ease, transform .6s ease';
-  hero.style.opacity = '0';
-  hero.style.transform = 'scale(1.03)';
-  setTimeout(() => { hero.style.display = 'none'; document.getElementById('topbar').classList.add('visible'); }, 650);
-}
-function goToPlaces() { enterSite(); setTimeout(() => goTo(null, 'places'), 700); }
-window.enterSite = enterSite;
-window.goToPlaces = goToPlaces;
-
-// Show topbar on scroll
-window.addEventListener('scroll', () => {
-  const hero = document.getElementById('hero-screen');
-  if (hero.style.display === 'none') {
-    document.getElementById('topbar').classList.add('visible');
-  }
+document.addEventListener('keydown',e=>{
+  if(!e.altKey)return;
+  const m={'1':'p1','2':'p2','3':'ref'};
+  if(m[e.key]){e.preventDefault();go(m[e.key]);}
 });
-
-// ═══════════════════════════════════
-// PLACE CARD
-// ═══════════════════════════════════
-function placeCard(p, size = 'full') {
-  const isFav = favs.includes(p.id);
-  return `
-  <div class="place-card" onclick="openPlace(${p.id})">
-    <div class="pc-img">
-      <div class="pc-img-fallback" style="background:${p.color}">
-        <i class="fas fa-mosque" style="font-size:3rem;color:rgba(255,255,255,.15)"></i>
-        <span style="font-size:4rem">${p.icon}</span>
-      </div>
-      <span class="pc-badge pcb-${p.cat}">${p.badge}</span>
-      <button class="pc-fav ${isFav ? 'faved' : ''}" onclick="toggleFav(event,${p.id})">
-        <i class="fas fa-heart"></i>
-      </button>
-      <div class="pc-rating"><i class="fas fa-star" style="font-size:.72rem"></i> ${p.rating}</div>
-    </div>
-    <div class="pc-body">
-      <div class="pc-cat">${p.badge}</div>
-      <div class="pc-name">${p.name}</div>
-      <div class="pc-desc">${p.desc}</div>
-      <div class="pc-footer">
-        <div class="pc-info"><i class="fas fa-location-dot"></i>${p.location.split('—')[0]}</div>
-        <div class="pc-info"><i class="fas fa-clock"></i>${p.time.split(' ')[0]}</div>
-      </div>
-    </div>
-  </div>`;
-}
-
-// ═══════════════════════════════════
-// FAVOURITES
-// ═══════════════════════════════════
-function toggleFav(e, id) {
-  e.stopPropagation();
-  if (favs.includes(id)) {
-    favs = favs.filter(f => f !== id);
-    toast('تم الإزالة من المفضلة');
-  } else {
-    favs.push(id);
-    toast('تمت الإضافة للمفضلة ❤️', 'ok');
-  }
-  localStorage.setItem('baghdad-favs', JSON.stringify(favs));
-  updateFavBadge();
-  // Update all fav buttons
-  document.querySelectorAll('.pc-fav').forEach(btn => {
-    const card = btn.closest('.place-card');
-    if (!card) return;
-  });
-  renderAll();
-}
-window.toggleFav = toggleFav;
-
-function updateFavBadge() {
-  const count = favs.length;
-  ['tb-fav-count', 'nav-fav-count'].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (id === 'tb-fav-count') {
-      el.textContent = count || '';
-      el.classList.toggle('show', count > 0);
-    } else {
-      el.textContent = count || '';
-      el.classList.toggle('show', count > 0);
-    }
-  });
-  const dot = document.getElementById('bn-fav');
-  if (dot) { dot.textContent = count || ''; dot.classList.toggle('on', count > 0); }
-}
-
-function renderFavs() {
-  const grid = document.getElementById('favs-grid');
-  const empty = document.getElementById('favs-empty');
-  const sub = document.getElementById('favs-count');
-  const favPlaces = PLACES.filter(p => favs.includes(p.id));
-  if (!favPlaces.length) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    sub.textContent = 'لا توجد أماكن في المفضلة بعد';
-  } else {
-    empty.style.display = 'none';
-    sub.textContent = favPlaces.length + ' مكان محفوظ';
-    grid.innerHTML = '<div class="places-grid">' + favPlaces.map(p => placeCard(p)).join('') + '</div>';
-  }
-}
-
-// ═══════════════════════════════════
-// PLACE MODAL
-// ═══════════════════════════════════
-function openPlace(id) {
-  const p = PLACES.find(x => x.id === id);
-  if (!p) return;
-  const isFav = favs.includes(p.id);
-  document.getElementById('modal-hero').style.background = p.color;
-  document.getElementById('modal-hero').innerHTML = `
-    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5.5rem">${p.icon}</div>
-    <div class="modal-handle"></div>
-    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
-    <span style="position:absolute;top:14px;left:60px;padding:5px 13px;border-radius:20px;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);color:white;font-size:.72rem;font-weight:700"><i class="fas fa-star" style="color:#fbbf24;font-size:.68rem"></i> ${p.rating}</span>
-  `;
-  document.getElementById('modal-body').innerHTML = `
-    <div class="modal-cat">${p.badge}</div>
-    <div class="modal-name">${p.name}</div>
-    <div class="modal-meta">
-      <div class="modal-meta-item"><i class="fas fa-location-dot"></i>${p.location}</div>
-      <div class="modal-meta-item"><i class="fas fa-clock"></i>${p.time}</div>
-      ${p.closed !== '—' ? `<div class="modal-meta-item"><i class="fas fa-calendar-xmark"></i>مغلق: ${p.closed}</div>` : ''}
-    </div>
-    <div class="modal-desc">${p.fullDesc}</div>
-    <div class="modal-section-title"><i class="fas fa-tags" style="color:var(--amber)"></i> الكلمات الدلالية</div>
-    <div class="modal-tags">${p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('')}</div>
-    <div class="modal-actions">
-      <button class="btn btn-gold btn-sm" onclick="window.open('${p.mapUrl}','_blank')"><i class="fas fa-location-dot"></i> عرض على الخريطة</button>
-      <button class="btn btn-ghost btn-sm" id="modal-fav-btn" onclick="toggleFavModal(${p.id})">
-        <i class="fas fa-heart" style="${isFav ? 'color:var(--red)' : ''}"></i> ${isFav ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}
-      </button>
-    </div>
-  `;
-  document.getElementById('modal').classList.add('on');
-}
-window.openPlace = openPlace;
-
-function closeModal() { document.getElementById('modal').classList.remove('on'); }
-window.closeModal = closeModal;
-function closeModalBg(e) { if (e.target === document.getElementById('modal')) closeModal(); }
-window.closeModalBg = closeModalBg;
-
-function toggleFavModal(id) {
-  toggleFav({ stopPropagation: () => {} }, id);
-  const isFav = favs.includes(id);
-  const btn = document.getElementById('modal-fav-btn');
-  if (btn) btn.innerHTML = `<i class="fas fa-heart" style="${isFav ? 'color:var(--red)' : ''}"></i> ${isFav ? 'إزالة من المفضلة' : 'إضافة للمفضلة'}`;
-}
-window.toggleFavModal = toggleFavModal;
-
-// ═══════════════════════════════════
-// SEARCH
-// ═══════════════════════════════════
-function doSearch(q) {
-  const r = document.getElementById('search-results');
-  if (!q.trim()) {
-    r.innerHTML = '<div style="text-align:center;padding:40px;color:var(--mu2)"><i class="fas fa-search" style="font-size:2.5rem;opacity:.3;display:block;margin-bottom:12px"></i>ابحث عن أي مكان في بغداد</div>';
-    return;
-  }
-  const found = PLACES.filter(p => p.name.includes(q) || p.desc.includes(q) || p.location.includes(q) || p.tags.some(t => t.includes(q)));
-  const foodFound = FOODS.filter(f => f.name.includes(q) || f.desc.includes(q));
-  if (!found.length && !foodFound.length) {
-    r.innerHTML = `<div style="text-align:center;padding:40px;color:var(--mu2)"><i class="fas fa-face-frown" style="font-size:2rem;opacity:.3;display:block;margin-bottom:10px"></i>لا نتائج لـ "${q}"</div>`;
-    return;
-  }
-  let html = '';
-  if (found.length) html += `<div style="font-weight:700;font-size:.85rem;color:var(--mu);margin-bottom:10px"><i class="fas fa-map-location-dot" style="color:var(--amber)"></i> معالم (${found.length})</div><div class="places-grid">${found.map(p => placeCard(p)).join('')}</div>`;
-  if (foodFound.length) html += `<div style="font-weight:700;font-size:.85rem;color:var(--mu);margin:14px 0 10px"><i class="fas fa-utensils" style="color:var(--amber)"></i> طعام (${foodFound.length})</div><div class="food-grid">${foodFound.map(foodCardHTML).join('')}</div>`;
-  r.innerHTML = html;
-}
-window.doSearch = doSearch;
-
-// ═══════════════════════════════════
-// FILTER PLACES
-// ═══════════════════════════════════
-function filterPlaces(btn, cat) {
-  currentFilter = cat;
-  btn.closest('.filter-bar').querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
-  btn.classList.add('on');
-  renderPlaces();
-}
-window.filterPlaces = filterPlaces;
-
-function renderPlaces() {
-  const data = currentFilter === 'all' ? PLACES : PLACES.filter(p => p.cat === currentFilter);
-  document.getElementById('places-grid').innerHTML = data.map(p => placeCard(p)).join('');
-}
-
-// ═══════════════════════════════════
-// FOOD CARDS
-// ═══════════════════════════════════
-function foodCardHTML(f) {
-  return `<div class="food-card">
-    <div class="food-img" style="background:${f.color}">
-      <div style="font-size:4rem">${f.icon}</div>
-    </div>
-    <div class="food-body">
-      <div class="food-name">${f.name}</div>
-      <div class="food-desc">${f.desc}</div>
-      <span class="food-tag"><i class="fas fa-utensils" style="font-size:.62rem"></i> ${f.tag}</span>
-    </div>
-  </div>`;
-}
-
-// ═══════════════════════════════════
-// RENDER ALL
-// ═══════════════════════════════════
-function renderAll() {
-  // Home featured
-  const featured = PLACES.filter(p => p.featured);
-  document.getElementById('home-featured').innerHTML = featured.map(p => placeCard(p)).join('');
-
-  // Places
-  renderPlaces();
-
-  // Food
-  document.getElementById('food-grid').innerHTML = FOODS.map(foodCardHTML).join('');
-
-  // History timeline
-  document.getElementById('history-timeline').innerHTML = HISTORY_TIMELINE.map(item => `
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-year">${item.year}</div>
-      <div class="tl-event">${item.event}</div>
-      <div class="tl-desc">${item.desc}</div>
-    </div>`).join('');
-
-  // History facts
-  document.getElementById('history-facts').innerHTML = HISTORY_FACTS.map(f => `
-    <div class="tip-card">
-      <div class="tip-icon ${f.cls}"><i class="${f.icon}"></i></div>
-      <div class="tip-title">${f.title}</div>
-      <div class="tip-body">${f.body}</div>
-    </div>`).join('');
-
-  // Tips
-  document.getElementById('tips-grid').innerHTML = TIPS.map(t => `
-    <div class="tip-card">
-      <div class="tip-icon ${t.cls}"><i class="${t.icon}"></i></div>
-      <div class="tip-title">${t.title}</div>
-      <div class="tip-body">${t.body}</div>
-    </div>`).join('');
-
-  // Map links
-  document.getElementById('map-links').innerHTML = PLACES.slice(0,8).map(p => `
-    <button class="btn btn-ghost btn-xs" onclick="window.open('${p.mapUrl}','_blank')">
-      <i class="fas fa-location-dot" style="color:var(--amber)"></i> ${p.name}
-    </button>`).join('');
-
-  // Search default
-  doSearch('');
-
-  updateFavBadge();
-}
-
-// ═══════════════════════════════════
-// INIT
-// ═══════════════════════════════════
-document.addEventListener('DOMContentLoaded', renderAll);
 </script>
 </body>
 </html>
