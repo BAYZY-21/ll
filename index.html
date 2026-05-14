@@ -2,212 +2,263 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IoT Mid Exam Solutions | الامتحان النصفي | 2025–2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Machine Learning — Quiz + Lecture Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#060a12;--bg2:#0b1120;--bg3:#0f1829;--bg4:#141f35;
-  --panel:#0d1726;--border:#1c2d48;--border2:#243a5a;
-  --teal:#00d4c8;--teal-d:rgba(0,212,200,.14);
-  --amber:#f5a623;--amber-d:rgba(245,166,35,.14);
-  --blue:#4a9eff;--blue-d:rgba(74,158,255,.12);
-  --green:#2dd4a0;--green-d:rgba(45,212,160,.12);
-  --red:#ff5e6c;--red-d:rgba(255,94,108,.12);
+  --bg:#05080f;--bg2:#080d18;--bg3:#0c1220;--bg4:#101828;
+  --panel:#09111f;--border:#172236;--border2:#1e3048;
+  --teal:#00bfb3;--teal-d:rgba(0,191,179,.13);
+  --amber:#f59e0b;--amber-d:rgba(245,158,11,.13);
+  --blue:#3b82f6;--blue-d:rgba(59,130,246,.12);
+  --green:#10b981;--green-d:rgba(16,185,129,.12);
+  --red:#f87171;--red-d:rgba(248,113,113,.12);
   --purple:#a78bfa;--purple-d:rgba(167,139,250,.12);
-  --text:#d8e4f5;--text2:#8ba3c4;--text3:#4d6585;--white:#fff;
+  --pink:#ec4899;--pink-d:rgba(236,72,153,.12);
+  --text:#c5d9f0;--text2:#6e90b4;--text3:#334e6e;--white:#fff;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   background:var(--bg);color:var(--text);
-  font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;
+  font-family:'Inter',sans-serif;font-size:15px;
+  line-height:1.7;overflow-x:hidden;
 }
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:
-    linear-gradient(rgba(0,212,200,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,212,200,.03) 1px,transparent 1px);
-  background-size:48px 48px;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(0,191,179,.04) 0%, transparent 100%),
+    radial-gradient(ellipse 50% 40% at 80% 80%, rgba(59,130,246,.04) 0%, transparent 100%);
 }
 
-/* HEADER */
+/* ── HEADER ── */
 header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(6,10,18,.97);border-bottom:1px solid var(--border);
-  backdrop-filter:blur(10px);padding:0 1.5rem;
+  position:sticky;top:0;z-index:200;
+  background:rgba(5,8,15,.97);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(16px);
 }
-.hdr-inner{
-  max-width:1100px;margin:0 auto;
-  display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 0;
+.hdr{
+  max-width:900px;margin:0 auto;
+  display:flex;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap;
 }
-.logo{display:flex;align-items:center;gap:11px}
+.logo{display:flex;align-items:center;gap:9px}
 .logo-icon{
-  width:36px;height:36px;border:2px solid var(--teal);border-radius:7px;
+  width:34px;height:34px;border:2px solid var(--teal);border-radius:8px;
   display:flex;align-items:center;justify-content:center;
-  font-size:1rem;color:var(--teal);background:rgba(0,212,200,.06);flex-shrink:0;
+  font-size:.95rem;background:var(--teal-d);flex-shrink:0;
 }
-.logo-text h1{font-size:.9rem;font-weight:800;letter-spacing:.05em;color:var(--white);text-transform:uppercase}
-.logo-text p{font-size:.6rem;color:var(--text3);font-family:'Space Mono',monospace;letter-spacing:.07em}
-.nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;flex:1}
+.logo-text h1{
+  font-size:.82rem;font-weight:700;color:var(--white);
+  letter-spacing:.03em;text-transform:uppercase;line-height:1.2;
+}
+.logo-text p{font-size:.58rem;color:var(--text3);font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
+.nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
 .nav::-webkit-scrollbar{display:none}
 .tb{
-  padding:12px 14px;background:none;border:none;
+  padding:10px 12px;background:none;border:none;
   border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;
-  font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;
-  letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;transition:all .2s;
+  font-family:'Inter',sans-serif;font-size:.73rem;font-weight:600;
+  white-space:nowrap;transition:all .18s;
 }
 .tb:hover{color:var(--text);background:rgba(255,255,255,.02)}
 .tb.on{color:var(--teal);border-bottom-color:var(--teal)}
 
-/* HERO */
+/* ── HERO ── */
 .hero{
   position:relative;z-index:5;
-  background:linear-gradient(135deg,#070d1a,#0b1528 50%,#070d1a);
-  border-bottom:1px solid var(--border);padding:2.2rem 1.5rem;text-align:center;
+  background:linear-gradient(135deg,#04070d,#081220 60%,#04070d);
+  border-bottom:1px solid var(--border);padding:1.8rem 1rem;text-align:center;overflow:hidden;
 }
 .hero::after{
-  content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:500px;height:260px;pointer-events:none;
-  background:radial-gradient(ellipse,rgba(0,212,200,.07),transparent 70%);
+  content:'';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);width:360px;height:180px;
+  background:radial-gradient(ellipse,rgba(0,191,179,.07),transparent 70%);
+  pointer-events:none;
 }
-.hero h2{font-size:clamp(1.4rem,4vw,2.2rem);font-weight:800;color:var(--white);position:relative;z-index:1}
+.hero h2{
+  font-size:clamp(1.25rem,5vw,1.9rem);font-weight:800;color:var(--white);
+  line-height:1.2;position:relative;z-index:1;letter-spacing:-.02em;
+}
 .hero h2 span{color:var(--teal)}
-.hero-ar{font-family:'Cairo',sans-serif;font-size:.95rem;color:var(--text2);margin-top:.4rem;direction:rtl;position:relative;z-index:1}
-.meta{display:flex;gap:18px;justify-content:center;margin-top:1rem;flex-wrap:wrap;position:relative;z-index:1}
-.mi{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--text3);display:flex;align-items:center;gap:5px}
-.dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-sub{font-size:.85rem;color:var(--text2);margin-top:.35rem;position:relative;z-index:1}
+.pills{display:flex;gap:7px;justify-content:center;margin-top:.9rem;flex-wrap:wrap;position:relative;z-index:1}
+.pill{
+  padding:3px 11px;border-radius:999px;font-size:.67rem;font-weight:600;
+  border:1px solid;font-family:'JetBrains Mono',monospace;letter-spacing:.03em;
+}
+.p-t{color:var(--teal); border-color:rgba(0,191,179,.4); background:var(--teal-d)}
+.p-a{color:var(--amber);border-color:rgba(245,158,11,.4);background:var(--amber-d)}
+.p-b{color:var(--blue); border-color:rgba(59,130,246,.4); background:var(--blue-d)}
+.p-g{color:var(--green);border-color:rgba(16,185,129,.4);background:var(--green-d)}
 
-/* MAIN */
-main{position:relative;z-index:5;max-width:1100px;margin:0 auto;padding:2rem 1.5rem 6rem}
-.sec{display:none;animation:fi .28s ease}
+/* ── MAIN ── */
+main{position:relative;z-index:5;max-width:900px;margin:0 auto;padding:1.4rem 1rem 5rem}
+.sec{display:none;animation:fi .22s ease}
 .sec.on{display:block}
-@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-/* EXAM HEADER BAR */
-.ehdr{
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
-  background:var(--bg3);border:1px solid var(--border);border-radius:11px;
-  padding:16px 20px;margin-bottom:22px;position:relative;overflow:hidden;
+/* ── QUIZ HEADER ── */
+.qhdr{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:13px 16px;margin-bottom:16px;position:relative;overflow:hidden;
 }
-.ehdr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal)}
-.ehdr-l .en{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--teal);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.ehdr-l .title{font-size:.92rem;font-weight:700;color:var(--white);margin-top:2px}
-.ehdr-r{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--text3);letter-spacing:.05em;text-align:right}
+.qhdr::before{content:'';position:absolute;right:0;top:0;bottom:0;width:3px;background:var(--teal)}
+.qhdr-t{font-size:.9rem;font-weight:700;color:var(--white)}
+.qhdr-s{font-size:.74rem;color:var(--text2);margin-top:1px}
+.qhdr-d{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3)}
 
-/* QUESTION CARD */
-.qc{background:var(--panel);border:1px solid var(--border);border-radius:9px;margin-bottom:14px;overflow:hidden}
-.qh{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  padding:11px 17px;background:var(--bg4);border-bottom:1px solid var(--border);
+/* ── CARDS ── */
+.card{background:var(--panel);border:1px solid var(--border);border-radius:9px;margin-bottom:13px;overflow:hidden}
+.ch{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  padding:10px 15px;background:var(--bg4);border-bottom:1px solid var(--border);
 }
-.tag{font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:4px;flex-shrink:0}
-.tq  {background:rgba(0,212,200,.12);color:var(--teal)}
-.ttf {background:rgba(245,166,35,.12);color:var(--amber)}
-.tmc {background:rgba(167,139,250,.12);color:var(--purple)}
-.tde {background:rgba(45,212,160,.12);color:var(--green)}
-.tcm {background:rgba(74,158,255,.12);color:var(--blue)}
-.qh-t{font-size:.86rem;font-weight:700;color:var(--white);flex:1}
-.qh-ar{font-family:'Cairo',sans-serif;font-size:.8rem;color:var(--text2);direction:rtl}
-.qb{padding:17px 19px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;letter-spacing:.03em}
+.t-t{background:rgba(0,191,179,.12);color:var(--teal)}
+.t-a{background:rgba(245,158,11,.12);color:var(--amber)}
+.t-b{background:rgba(59,130,246,.12);color:var(--blue)}
+.t-g{background:rgba(16,185,129,.12);color:var(--green)}
+.t-p{background:rgba(167,139,250,.12);color:var(--purple)}
+.t-r{background:rgba(248,113,113,.12);color:var(--red)}
+.t-pk{background:rgba(236,72,153,.12);color:var(--pink)}
+.ch-t{font-size:.86rem;font-weight:600;color:var(--white);flex:1}
+.cb{padding:15px 17px}
 
-/* DEFINITION CARD */
-.def-card{
+/* ── MCQ ── */
+.mcq-list{display:flex;flex-direction:column;gap:11px}
+.mcq{padding:11px 13px;border-radius:8px;border:1px solid var(--border);background:var(--bg3)}
+.mn{font-family:'JetBrains Mono',monospace;font-size:.67rem;color:var(--purple);font-weight:600;margin-bottom:4px}
+.mq{font-size:.84rem;color:var(--text);font-weight:500;margin-bottom:8px;line-height:1.55}
+.opts{display:flex;flex-direction:column;gap:4px}
+.opt{padding:6px 11px;border-radius:6px;font-size:.8rem;border:1px solid var(--border);color:var(--text2);background:var(--bg4)}
+.opt.ok{background:var(--green-d);border-color:rgba(16,185,129,.4);color:var(--green);font-weight:600}
+.opt.ok::before{content:'✓ ';font-weight:800}
+.opt.wrong{background:var(--red-d);border-color:rgba(248,113,113,.2);color:var(--red);text-decoration:line-through;opacity:.7}
+.mnote{font-size:.75rem;color:var(--text3);margin-top:7px;line-height:1.45;padding:7px 10px;background:rgba(255,255,255,.02);border-radius:5px;border-right:2px solid var(--teal)}
+
+/* ── NORMALIZATION CALC ── */
+.calc-box{
+  background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  padding:13px 15px;margin:10px 0;font-family:'JetBrains Mono',monospace;
+  font-size:.8rem;direction:ltr;
+}
+.calc-title{color:var(--teal);font-weight:600;font-size:.77rem;margin-bottom:9px;letter-spacing:.04em}
+.formula{
+  background:rgba(0,191,179,.07);border:1px solid rgba(0,191,179,.2);
+  border-radius:6px;padding:8px 12px;font-size:.85rem;color:var(--teal);
+  text-align:center;margin:8px 0;font-weight:600;
+}
+.step{display:flex;gap:10px;align-items:baseline;padding:4px 0}
+.step-n{color:var(--amber);font-weight:700;min-width:20px;font-size:.72rem}
+.step-c{color:var(--text);font-size:.78rem;line-height:1.5}
+.step-r{color:var(--green);font-weight:700}
+.result-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;
+}
+.r-card{
+  background:var(--bg3);border:1px solid var(--border);border-radius:7px;
+  padding:9px 10px;text-align:center;
+}
+.r-label{font-size:.65rem;color:var(--text3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.r-val{font-size:.88rem;color:var(--teal);font-weight:700}
+
+/* ── LIMITATIONS TEXT ── */
+.lim-list{display:flex;flex-direction:column;gap:8px}
+.lim-item{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:10px 12px;border-radius:8px;
+  border:1px solid var(--border);background:var(--bg3);
+}
+.lim-num{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;
+  color:var(--red);font-weight:700;padding-top:1px;min-width:22px;
+}
+.lim-body{font-size:.84rem;color:var(--text);line-height:1.6}
+.lim-body strong{color:var(--amber)}
+.example-box{
+  background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.15);
+  border-right:3px solid var(--red);border-radius:5px;
+  padding:8px 11px;font-size:.78rem;color:var(--text2);margin-top:6px;line-height:1.55;
+}
+
+/* ── THEORY CARDS ── */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.th-card{
   background:var(--bg3);border:1px solid var(--border);border-radius:8px;
-  padding:13px 16px;margin-bottom:9px;
+  padding:12px 13px;
 }
-.def-num{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--blue);font-weight:700;margin-bottom:5px}
-.def-title{font-size:.88rem;font-weight:700;color:var(--teal);margin-bottom:5px}
-.def-en{font-size:.84rem;color:var(--text);line-height:1.6;margin-bottom:5px}
-.def-ar{font-family:'Cairo',sans-serif;font-size:.88rem;color:var(--text2);direction:rtl;line-height:1.6;border-top:1px solid var(--border);padding-top:6px;margin-top:6px}
+.th-icon{font-size:1.3rem;margin-bottom:6px}
+.th-title{font-size:.82rem;font-weight:700;color:var(--white);margin-bottom:5px}
+.th-body{font-size:.77rem;color:var(--text2);line-height:1.55}
+.th-body ul{margin:5px 0 0 14px;display:flex;flex-direction:column;gap:3px}
 
-/* COMPARE TABLE */
-.cmp{width:100%;border-collapse:collapse;font-size:.8rem;margin:10px 0;font-family:'Space Mono',monospace}
-.cmp th{background:rgba(0,212,200,.1);color:var(--teal);padding:8px 12px;text-align:left;border:1px solid var(--border);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700}
-.cmp td{padding:8px 12px;border:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.45}
-.cmp tr:nth-child(even) td{background:rgba(255,255,255,.02)}
-.cmp .hl{color:var(--green);font-weight:700}
-.cmp .hl2{color:var(--amber);font-weight:700}
-
-/* REASON CARD */
-.reason{
-  background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--teal);
-  border-radius:0 8px 8px 0;padding:13px 16px;margin-bottom:10px;
+/* ── COMPARE TABLE ── */
+.cmp{width:100%;border-collapse:collapse;font-size:.79rem;margin:10px 0}
+.cmp th{
+  background:rgba(0,191,179,.1);color:var(--teal);
+  padding:8px 11px;text-align:left;border:1px solid var(--border);
+  font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;font-weight:600;
 }
-.reason-num{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--teal);font-weight:700;margin-bottom:4px}
-.reason-q{font-size:.83rem;color:var(--text2);margin-bottom:8px;line-height:1.45;font-style:italic}
-.reason-ans{font-size:.85rem;color:var(--text);line-height:1.6}
-.reason-ans ul{margin:6px 0 0 16px;display:flex;flex-direction:column;gap:4px}
-.reason-ans li{color:var(--text);font-size:.83rem;line-height:1.5}
-.reason-ans li span{color:var(--teal);font-weight:700}
-.reason-ar{font-family:'Cairo',sans-serif;font-size:.86rem;color:var(--text2);direction:rtl;margin-top:7px;padding-top:7px;border-top:1px solid var(--border);line-height:1.6}
+.cmp td{padding:7px 11px;border:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
+.cmp tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+.cmp .hl{color:var(--green);font-weight:600}
+.cmp .hl2{color:var(--amber);font-weight:600}
 
-/* MCQ */
-.mcq-list{display:flex;flex-direction:column;gap:12px}
-.mcq{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg3)}
-.mcq-n{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--purple);font-weight:700;margin-bottom:4px}
-.mcq-q{font-size:.84rem;color:var(--text);font-weight:600;margin-bottom:8px;line-height:1.5}
-.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:5px}
-.opt{padding:6px 10px;border-radius:6px;font-size:.78rem;border:1px solid var(--border);color:var(--text2);background:var(--bg4)}
-.opt.ok{background:var(--green-d);border-color:rgba(45,212,160,.4);color:var(--green);font-weight:700}
-.opt.ok::after{content:' ✓';font-weight:900}
-.mcq-note{font-size:.74rem;color:var(--text3);margin-top:7px;line-height:1.4;font-style:italic}
+/* ── INFO BOX ── */
+.info{padding:9px 13px;border-radius:7px;font-size:.81rem;line-height:1.6;margin:9px 0}
+.ig{background:var(--green-d);border:1px solid rgba(16,185,129,.2);border-right:3px solid var(--green);color:var(--text)}
+.ia{background:var(--amber-d);border:1px solid rgba(245,158,11,.2);border-right:3px solid var(--amber);color:var(--text)}
+.ib{background:var(--blue-d);border:1px solid rgba(59,130,246,.2);border-right:3px solid var(--blue);color:var(--text)}
+.ip{background:var(--purple-d);border:1px solid rgba(167,139,250,.2);border-right:3px solid var(--purple);color:var(--text)}
+.ir{background:var(--red-d);border:1px solid rgba(248,113,113,.2);border-right:3px solid var(--red);color:var(--text)}
 
-/* T/F */
-.tf-list{display:flex;flex-direction:column;gap:8px}
-.tfi{
-  display:grid;grid-template-columns:24px 1fr auto;
-  gap:9px;align-items:start;padding:10px 12px;
-  border-radius:7px;border:1px solid var(--border);background:var(--bg3);
+/* ── DIVIDER ── */
+.div{display:flex;align-items:center;gap:8px;margin:15px 0 11px}
+.dl{flex:1;height:1px;background:var(--border)}
+.dt{font-family:'JetBrains Mono',monospace;font-size:.61rem;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+
+/* ── BADGE STRIP ── */
+.strip{display:flex;flex-wrap:wrap;gap:5px;padding:8px 10px;background:var(--bg4);border:1px solid var(--border);border-radius:7px;margin-bottom:11px}
+.chip{padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;border:1px solid}
+.cT{color:var(--green);border-color:rgba(16,185,129,.3);background:var(--green-d)}
+.cF{color:var(--red);  border-color:rgba(248,113,113,.3);background:var(--red-d)}
+
+/* ── STEPS FLOW ── */
+.steps{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.step-flow{
+  display:flex;gap:11px;align-items:flex-start;
+  padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);
 }
-.tf-n{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--teal);font-weight:700;padding-top:1px}
-.tf-q{font-size:.83rem;color:var(--text);line-height:1.5}
-.ans{padding:3px 9px;border-radius:4px;font-size:.7rem;font-weight:700;font-family:'Space Mono',monospace;white-space:nowrap;flex-shrink:0}
-.aT{background:var(--green-d);color:var(--green);border:1px solid rgba(45,212,160,.3)}
-.aF{background:var(--red-d);color:var(--red);border:1px solid rgba(255,94,108,.3)}
-.fix{
-  grid-column:2/-1;font-size:.78rem;color:var(--amber);
-  background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.2);
-  border-right:3px solid var(--amber);border-radius:5px;
-  padding:7px 11px;line-height:1.5;margin-top:3px;
+.sf-num{
+  width:26px;height:26px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:800;font-family:'JetBrains Mono',monospace;
 }
-.strip{
-  display:flex;flex-wrap:wrap;gap:5px;padding:9px 11px;
-  background:var(--bg4);border:1px solid var(--border);border-radius:7px;margin-bottom:11px;
-}
-.chip{padding:2px 8px;border-radius:4px;font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;border:1px solid}
-.cT{color:var(--green);border-color:rgba(45,212,160,.3);background:var(--green-d)}
-.cF{color:var(--red);border-color:rgba(255,94,108,.3);background:var(--red-d)}
+.sf-body{}
+.sf-title{font-size:.84rem;font-weight:700;color:var(--white);margin-bottom:2px}
+.sf-desc{font-size:.77rem;color:var(--text2);line-height:1.5}
 
-/* DIVIDER / SECTION LABEL */
-.sdiv{display:flex;align-items:center;gap:9px;margin:18px 0 12px}
-.sl{flex:1;height:1px;background:var(--border)}
-.st{font-family:'Space Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:18px 0}
-
-/* INFO BOX */
-.info{padding:11px 14px;border-radius:8px;font-size:.82rem;line-height:1.6;margin:9px 0}
-.ig{background:var(--green-d);border:1px solid rgba(45,212,160,.25);border-left:3px solid var(--green);color:var(--text)}
-.ia{background:var(--amber-d);border:1px solid rgba(245,166,35,.25);border-left:3px solid var(--amber);color:var(--text)}
-.ib{background:var(--blue-d);border:1px solid rgba(74,158,255,.25);border-left:3px solid var(--blue);color:var(--text)}
-
-/* FOOTER */
+/* ── FOOTER ── */
 footer{
   position:relative;z-index:5;border-top:1px solid var(--border);
-  background:var(--bg2);padding:1.4rem 2rem;text-align:center;
+  background:var(--bg2);padding:1.1rem 1rem;text-align:center;
 }
-.ft{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;align-items:center;margin-bottom:.9rem}
-.fsep{width:1px;height:24px;background:var(--border)}
-.fi-lbl{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
-.fi-val{font-family:'Cairo',sans-serif;font-size:.82rem;color:var(--text2)}
-.fcopy{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--text3);letter-spacing:.04em}
+.ft{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;margin-bottom:.7rem}
+.fsep{width:1px;height:20px;background:var(--border);flex-shrink:0}
+.fi-l{font-size:.58rem;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:1px;font-family:'JetBrains Mono',monospace}
+.fi-v{font-size:.78rem;color:var(--text2)}
+.fcopy{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text3)}
 
-@media(max-width:600px){
-  .opts{grid-template-columns:1fr}
-  .tfi{grid-template-columns:22px 1fr}
-  .ans{grid-column:2;justify-self:start;margin-top:3px}
-  .hdr-inner{flex-direction:column;align-items:flex-start}
+/* ── MOBILE ── */
+@media(max-width:480px){
+  .result-row{grid-template-columns:1fr}
+  .theory-grid{grid-template-columns:1fr}
+  .hdr{gap:6px}
+  .logo-text h1{font-size:.74rem}
+  .cmp{font-size:.72rem}
+  .cmp th,.cmp td{padding:6px 8px}
 }
 </style>
 </head>
@@ -215,615 +266,856 @@ footer{
 
 <!-- HEADER -->
 <header>
-  <div class="hdr-inner">
+  <div class="hdr">
     <div class="logo">
-      <div class="logo-icon">📡</div>
+      <div class="logo-icon">🧠</div>
       <div class="logo-text">
-        <h1>IoT — Mid Exam Solutions</h1>
-        <p>TIKRIT UNIVERSITY · CS DEPT · 3RD STAGE · 2025–2026</p>
+        <h1>Machine Learning — Quiz &amp; Summary</h1>
+        <p>TIKRIT UNIV · CS DEPT · 3RD STAGE · 2025–2026</p>
       </div>
     </div>
     <nav class="nav">
-      <button class="tb on" onclick="go('p1')">Page 1 — Q1–Q3</button>
-      <button class="tb"    onclick="go('p2')">Page 2 — Q4–Q5</button>
-      <button class="tb"    onclick="go('ref')">📋 Reference</button>
+      <button class="tb on"  onclick="go('quiz')">📝 Quiz Solutions</button>
+      <button class="tb"     onclick="go('lec1')">📖 Lec 1 — Intro</button>
+      <button class="tb"     onclick="go('lec2')">📖 Lec 2 — Data Prep</button>
+      <button class="tb"     onclick="go('ref')">⚡ Exam Focus</button>
     </nav>
   </div>
 </header>
 
 <!-- HERO -->
 <div class="hero">
-  <h2>Mid Exam <span>Full Solutions</span></h2>
-  <p class="hero-ar">حلول شاملة للامتحان النصفي — مادة انترنت الأشياء / النظري — 2025/2026</p>
-  <div class="meta">
-    <span class="mi"><span class="dot"></span>Date: 20/04/2026</span>
-    <span class="mi"><span class="dot"></span>Tikrit University · CS Dept · 3rd Stage</span>
-    <span class="mi"><span class="dot"></span>5 Questions · All Answered</span>
+  <h2>ML Quiz <span>Full Solutions</span> + Smart Summary</h2>
+  <p class="hero-sub">First Quiz · Machine Learning · 3rd Class Group-A</p>
+  <div class="pills">
+    <span class="pill p-t">Q1 Normalization Calc</span>
+    <span class="pill p-a">Q2 Limitations</span>
+    <span class="pill p-b">Q3 MCQ × 4</span>
+    <span class="pill p-g">Lecture Notes</span>
   </div>
 </div>
 
 <main>
 
-<!-- ══════════════════════════════════════════
-     PAGE 1 — Q1 · Q2 · Q3
-══════════════════════════════════════════ -->
-<div id="p1" class="sec on">
-  <div class="ehdr">
-    <div class="ehdr-l">
-      <div class="en">Mid Exam — IoT Theory</div>
-      <div class="title">Q1 Definitions · Q2 Comparisons · Q3 Engineering Reasons</div>
+<!-- ════════════════════════════════════════
+     QUIZ SOLUTIONS
+════════════════════════════════════════ -->
+<div id="quiz" class="sec on">
+  <div class="qhdr">
+    <div>
+      <div class="qhdr-t">First Quiz — Machine Learning</div>
+      <div class="qhdr-s">3rd Class · Group-A · Tikrit University</div>
     </div>
-    <div class="ehdr-r">2026 / 04 / 20<br>Semester 2</div>
+    <div class="qhdr-d">Total: 10 marks</div>
   </div>
 
-  <!-- Q1 DEFINITIONS -->
-  <div class="qc">
-    <div class="qh">
-      <span class="tag tq">Q1</span>
-      <span class="qh-t">Definitions — Choose Two only</span>
-      <span class="qh-ar">تعريفات — اختر اثنين فقط</span>
+  <!-- ─── Q1 Normalization ─── -->
+  <div class="card">
+    <div class="ch">
+      <span class="tag t-t">Q1</span>
+      <span class="ch-t">Calculate the Normalized value — Min-Max Normalization</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--amber);background:var(--amber-d);padding:2px 8px;border-radius:4px;border:1px solid rgba(245,158,11,.3)">3 marks</span>
     </div>
-    <div class="qb">
-      <div class="info ib" style="margin-bottom:14px">
-        <strong>Note:</strong> The exam says "Choose Two only" — all three are answered below for complete study reference.
+    <div class="cb">
+
+      <div class="info ib" style="margin-bottom:13px">
+        <strong>Target values to normalize:</strong>
+        Sepal length = <strong style="color:var(--teal)">4.7</strong> &nbsp;|&nbsp;
+        Sepal width = <strong style="color:var(--teal)">3.5</strong> &nbsp;|&nbsp;
+        Petal length = <strong style="color:var(--teal)">1.4</strong>
+        <br>Using the dataset of 5 rows (index 0–4)
       </div>
 
-      <!-- Def 1 -->
-      <div class="def-card">
-        <div class="def-num">Definition 1</div>
-        <div class="def-title">Internet of Things (IoT)</div>
-        <div class="def-en">
-          IoT is a network of physical objects (devices, sensors, machines, appliances) embedded with sensors, software, and connectivity that enables them to collect, exchange, and act on data over the internet — without requiring direct human interaction. The ultimate goal is automation and intelligent decision-making.
-        </div>
-        <div class="def-ar">
-          إنترنت الأشياء هو شبكة من الأجهزة المادية المزوّدة بمستشعرات وبرمجيات واتصال بالإنترنت، تمكّنها من جمع البيانات وتبادلها والتصرف بناءً عليها دون تدخل بشري مباشر. هدفه الأساسي هو الأتمتة واتخاذ القرارات الذكية.
-        </div>
-      </div>
+      <!-- Formula -->
+      <div class="formula">X′ = (X − X<sub>min</sub>) / (X<sub>max</sub> − X<sub>min</sub>)</div>
 
-      <!-- Def 2 -->
-      <div class="def-card">
-        <div class="def-num">Definition 2</div>
-        <div class="def-title">Actuators (المحركات)</div>
-        <div class="def-en">
-          Actuators are hardware components that receive digital or electrical signals from a controller and convert them into physical actions in the real world. They are the "output" side of an IoT system — they make things happen physically based on decisions made by the system.
-          <br><br>
-          <strong>Examples:</strong> Electric motor (opens a valve), relay (switches a light on/off), servo motor (moves a robotic arm), buzzer (produces sound), LED (produces light).
-        </div>
-        <div class="def-ar">
-          المحركات هي مكونات مادية تستقبل إشارات رقمية أو كهربائية من وحدة التحكم وتحوّلها إلى أفعال فيزيائية في العالم الحقيقي. وهي الجانب "المُخرَج" في نظام IoT — تُنفّذ الإجراءات الفيزيائية بناءً على قرارات النظام.
-          <br>أمثلة: المحرك الكهربائي (يفتح صمام)، المرحّل (يضيء مصباح)، المحرك السيرفو (يحرك ذراع روبوتية).
-        </div>
-      </div>
-
-      <!-- Def 3 -->
-      <div class="def-card">
-        <div class="def-num">Definition 3</div>
-        <div class="def-title">Perception Layer (طبقة الإدراك)</div>
-        <div class="def-en">
-          The Perception Layer is the first and lowest layer in the IoT 3-Layer Architecture. It is the physical foundation of any IoT system — responsible for interacting directly with the physical environment by collecting data through sensors and performing actions through actuators.
-          <br><br>
-          <strong>Key components:</strong> Sensors (temperature, humidity, ultrasonic, LDR), Actuators (motors, relays), Microcontrollers (Arduino, ESP32), RFID readers, Cameras.
-        </div>
-        <div class="def-ar">
-          طبقة الإدراك هي الطبقة الأولى والأدنى في معمارية IoT ذات الثلاث طبقات. إنها الأساس الفيزيائي لأي نظام IoT — مسؤولة عن التفاعل المباشر مع البيئة المادية عبر جمع البيانات بالمستشعرات وتنفيذ الأفعال بالمحركات.
-          <br>المكونات: المستشعرات (حرارة، رطوبة، موجات فوق صوتية، LDR)، المحركات، وحدات التحكم الصغيرة (Arduino، ESP32)، كاميرات.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Q2 COMPARISONS -->
-  <div class="qc">
-    <div class="qh">
-      <span class="tag tcm">Q2</span>
-      <span class="qh-t">Compare — Choose One only</span>
-      <span class="qh-ar">مقارنة — اختر واحداً فقط</span>
-    </div>
-    <div class="qb">
-      <div class="info ib" style="margin-bottom:14px">
-        <strong>Note:</strong> Both comparisons answered for complete study reference.
-      </div>
-
-      <!-- Compare 1: Wi-Fi vs LoRaWAN -->
-      <div style="margin-bottom:18px">
-        <div class="sdiv"><div class="sl"></div><span class="st">Comparison 1 — Wi-Fi vs LoRaWAN</span><div class="sl"></div></div>
-        <table class="cmp">
+      <!-- Dataset quick view -->
+      <div class="div"><div class="dl"></div><span class="dt">Dataset Values</span><div class="dl"></div></div>
+      <div class="calc-box">
+        <div class="calc-title">📊 Dataset used for Min/Max calculation</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.74rem">
           <thead>
-            <tr>
-              <th>Criterion</th>
-              <th>Wi-Fi</th>
-              <th>LoRaWAN</th>
+            <tr style="background:rgba(0,191,179,.08)">
+              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal);text-align:center">#</th>
+              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Sepal Length</th>
+              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Sepal Width</th>
+              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Petal Length</th>
+              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Petal Width</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Range</td>
-              <td>Short–Medium (50–150 m)</td>
-              <td class="hl">Long (up to 15 km in open areas)</td>
-            </tr>
-            <tr>
-              <td>Data Rate</td>
-              <td class="hl">High (Mbps – Gbps)</td>
-              <td>Very Low (bps – Kbps)</td>
-            </tr>
-            <tr>
-              <td>Power Consumption</td>
-              <td>High — not ideal for battery devices</td>
-              <td class="hl">Very Low — years on small battery</td>
-            </tr>
-            <tr>
-              <td>Frequency</td>
-              <td>2.4 GHz / 5 GHz</td>
-              <td class="hl">Sub-GHz (868/915 MHz)</td>
-            </tr>
-            <tr>
-              <td>Infrastructure</td>
-              <td>Requires router/AP</td>
-              <td class="hl">LoRaWAN Gateway (covers km)</td>
-            </tr>
-            <tr>
-              <td>Best Use</td>
-              <td>Cameras, smart TVs, high-data apps</td>
-              <td class="hl">Smart meters, agriculture, rural IoT</td>
-            </tr>
-            <tr>
-              <td style="font-family:'Cairo',sans-serif;font-size:.85rem;direction:rtl">الاستخدام الأمثل</td>
-              <td style="font-family:'Cairo',sans-serif;font-size:.82rem;direction:rtl">الكاميرات، التلفزيون الذكي، التطبيقات عالية البيانات</td>
-              <td class="hl" style="font-family:'Cairo',sans-serif;font-size:.82rem;direction:rtl">العدادات الذكية، الزراعة، إنترنت الأشياء الريفي</td>
-            </tr>
+            <tr><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">0</td><td style="padding:4px 8px;border:1px solid var(--border)">5.1</td><td style="padding:4px 8px;border:1px solid var(--border)">3.5</td><td style="padding:4px 8px;border:1px solid var(--border)">1.4</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
+            <tr style="background:rgba(255,255,255,.02)"><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">1</td><td style="padding:4px 8px;border:1px solid var(--border)">4.9</td><td style="padding:4px 8px;border:1px solid var(--border)">3.0</td><td style="padding:4px 8px;border:1px solid var(--border)">1.4</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
+            <tr style="background:rgba(0,191,179,.05)"><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">2</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--teal);font-weight:700">4.7 ★</td><td style="padding:4px 8px;border:1px solid var(--border)">3.2</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--teal);font-weight:700">1.3</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
+            <tr style="background:rgba(255,255,255,.02)"><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">3</td><td style="padding:4px 8px;border:1px solid var(--border)">4.6</td><td style="padding:4px 8px;border:1px solid var(--border)">3.1</td><td style="padding:4px 8px;border:1px solid var(--border)">1.5</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
+            <tr><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">4</td><td style="padding:4px 8px;border:1px solid var(--border)">5.0</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--teal);font-weight:700">3.6</td><td style="padding:4px 8px;border:1px solid var(--border)">1.4</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Compare 2: Arduino Mega vs Arduino Nano -->
-      <div>
-        <div class="sdiv"><div class="sl"></div><span class="st">Comparison 2 — Arduino Mega vs Arduino Nano</span><div class="sl"></div></div>
-        <table class="cmp">
-          <thead>
-            <tr>
-              <th>Criterion</th>
-              <th>Arduino Mega</th>
-              <th>Arduino Nano</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Size</td>
-              <td>Large (101.6 × 53.3 mm)</td>
-              <td class="hl">Very Small (45 × 18 mm)</td>
-            </tr>
-            <tr>
-              <td>Microcontroller chip</td>
-              <td class="hl2">ATmega2560</td>
-              <td class="hl">ATmega328P</td>
-            </tr>
-            <tr>
-              <td>Digital I/O Pins</td>
-              <td class="hl2">54 pins</td>
-              <td>14 pins</td>
-            </tr>
-            <tr>
-              <td>Analog Inputs</td>
-              <td class="hl2">16 analog pins</td>
-              <td>8 analog pins</td>
-            </tr>
-            <tr>
-              <td>Flash Memory</td>
-              <td class="hl2">256 KB</td>
-              <td>32 KB</td>
-            </tr>
-            <tr>
-              <td>RAM</td>
-              <td class="hl2">8 KB SRAM</td>
-              <td>2 KB SRAM</td>
-            </tr>
-            <tr>
-              <td>Clock Speed</td>
-              <td>16 MHz</td>
-              <td>16 MHz</td>
-            </tr>
-            <tr>
-              <td>Best Use</td>
-              <td class="hl2">Complex projects (3D printers, CNC, robotics)</td>
-              <td class="hl">Compact/wearable projects, small sensors</td>
-            </tr>
-            <tr>
-              <td style="font-family:'Cairo',sans-serif;font-size:.85rem;direction:rtl">الاستخدام الأمثل</td>
-              <td class="hl2" style="font-family:'Cairo',sans-serif;font-size:.82rem;direction:rtl">المشاريع المعقدة (طابعات ثلاثية الأبعاد، الروبوتات)</td>
-              <td class="hl" style="font-family:'Cairo',sans-serif;font-size:.82rem;direction:rtl">المشاريع المدمجة، أجهزة الاستشعار الصغيرة</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Feature 1: Sepal Length = 4.7 -->
+      <div class="div"><div class="dl"></div><span class="dt">Feature 1 — Sepal Length (X = 4.7)</span><div class="dl"></div></div>
+      <div class="calc-box">
+        <div class="calc-title">Sepal Length: values = {5.1, 4.9, 4.7, 4.6, 5.0}</div>
+        <div class="step"><span class="step-n">①</span><span class="step-c">X<sub>min</sub> = <span class="step-r">4.6</span> &nbsp; X<sub>max</sub> = <span class="step-r">5.1</span> &nbsp; Range = 5.1 − 4.6 = <span class="step-r">0.5</span></span></div>
+        <div class="step"><span class="step-n">②</span><span class="step-c">X = 4.7, so: X′ = (4.7 − 4.6) / (5.1 − 4.6)</span></div>
+        <div class="step"><span class="step-n">③</span><span class="step-c">X′ = 0.1 / 0.5 = <strong class="step-r" style="font-size:.95rem">0.2</strong></span></div>
+        <div class="formula" style="margin-top:8px">Normalized Sepal Length = <strong>0.2</strong></div>
+      </div>
+
+      <!-- Feature 2: Sepal Width = 3.5 -->
+      <div class="div"><div class="dl"></div><span class="dt">Feature 2 — Sepal Width (X = 3.5)</span><div class="dl"></div></div>
+      <div class="calc-box">
+        <div class="calc-title">Sepal Width: values = {3.5, 3.0, 3.2, 3.1, 3.6}</div>
+        <div class="step"><span class="step-n">①</span><span class="step-c">X<sub>min</sub> = <span class="step-r">3.0</span> &nbsp; X<sub>max</sub> = <span class="step-r">3.6</span> &nbsp; Range = 3.6 − 3.0 = <span class="step-r">0.6</span></span></div>
+        <div class="step"><span class="step-n">②</span><span class="step-c">X = 3.5, so: X′ = (3.5 − 3.0) / (3.6 − 3.0)</span></div>
+        <div class="step"><span class="step-n">③</span><span class="step-c">X′ = 0.5 / 0.6 = <strong class="step-r" style="font-size:.95rem">0.8333</strong></span></div>
+        <div class="formula" style="margin-top:8px">Normalized Sepal Width ≈ <strong>0.833</strong></div>
+      </div>
+
+      <!-- Feature 3: Petal Length = 1.4 -->
+      <div class="div"><div class="dl"></div><span class="dt">Feature 3 — Petal Length (X = 1.4)</span><div class="dl"></div></div>
+      <div class="calc-box">
+        <div class="calc-title">Petal Length: values = {1.4, 1.4, 1.3, 1.5, 1.4}</div>
+        <div class="step"><span class="step-n">①</span><span class="step-c">X<sub>min</sub> = <span class="step-r">1.3</span> &nbsp; X<sub>max</sub> = <span class="step-r">1.5</span> &nbsp; Range = 1.5 − 1.3 = <span class="step-r">0.2</span></span></div>
+        <div class="step"><span class="step-n">②</span><span class="step-c">X = 1.4, so: X′ = (1.4 − 1.3) / (1.5 − 1.3)</span></div>
+        <div class="step"><span class="step-n">③</span><span class="step-c">X′ = 0.1 / 0.2 = <strong class="step-r" style="font-size:.95rem">0.5</strong></span></div>
+        <div class="formula" style="margin-top:8px">Normalized Petal Length = <strong>0.5</strong></div>
+      </div>
+
+      <!-- Final Summary -->
+      <div class="div"><div class="dl"></div><span class="dt">Final Answers Summary</span><div class="dl"></div></div>
+      <div class="result-row">
+        <div class="r-card">
+          <div class="r-label">Sepal Length (4.7)</div>
+          <div class="r-val">0.2000</div>
+          <div style="font-size:.65rem;color:var(--text3);margin-top:3px">(4.7−4.6)/(5.1−4.6)</div>
+        </div>
+        <div class="r-card">
+          <div class="r-label">Sepal Width (3.5)</div>
+          <div class="r-val">0.8333</div>
+          <div style="font-size:.65rem;color:var(--text3);margin-top:3px">(3.5−3.0)/(3.6−3.0)</div>
+        </div>
+        <div class="r-card">
+          <div class="r-label">Petal Length (1.4)</div>
+          <div class="r-val">0.5000</div>
+          <div style="font-size:.65rem;color:var(--text3);margin-top:3px">(1.4−1.3)/(1.5−1.3)</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Q2 Limitations ─── -->
+  <div class="card">
+    <div class="ch">
+      <span class="tag t-a">Q2</span>
+      <span class="ch-t">Limitations of Normalization in Feature Scaling</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--amber);background:var(--amber-d);padding:2px 8px;border-radius:4px;border:1px solid rgba(245,158,11,.3)">3 marks</span>
+    </div>
+    <div class="cb">
+      <div class="lim-list">
+
+        <div class="lim-item">
+          <span class="lim-num">①</span>
+          <div class="lim-body">
+            <strong>Sensitive to Outliers (Main Limitation)</strong><br>
+            Normalization compresses all values into [0, 1] based on the min and max. If the dataset contains outliers, these extreme values become the new min/max, causing all other values to be squeezed into a very narrow range — severely distorting the data distribution.
+            <div class="example-box">
+              📌 Example: Marks = {26, 27, 30, 35, 38, 39, 40, 48, 50}<br>
+              Without outlier → 50 maps to 1.0 → 26 maps to 0.0<br>
+              Add outlier 90 → now 90 maps to 1.0, and 50 maps to only ≈ <strong>0.375</strong><br>
+              The value 50 (previously max) is now compressed significantly just by adding one outlier!
+            </div>
+          </div>
+        </div>
+
+        <div class="lim-item">
+          <span class="lim-num">②</span>
+          <div class="lim-body">
+            <strong>Does NOT produce a standard distribution</strong><br>
+            Normalization only scales the range — it does not reshape the distribution. If your data is skewed or non-Gaussian, normalization will not fix that. In contrast, Standardization centers data around mean=0 with std=1, which many ML algorithms prefer.
+          </div>
+        </div>
+
+        <div class="lim-item">
+          <span class="lim-num">③</span>
+          <div class="lim-body">
+            <strong>Range is fixed only for training data</strong><br>
+            If new test data contains values outside the training min/max range, the normalized values will fall outside [0, 1], which is unexpected and can cause model errors.
+          </div>
+        </div>
+
+        <div class="lim-item">
+          <span class="lim-num">④</span>
+          <div class="lim-body">
+            <strong>Solution → Use Standardization (Z-score) instead</strong><br>
+            When outliers exist in the dataset, use Standardization: <strong>X′ = (X − μ) / σ</strong><br>
+            Standardization is not affected by outliers because it uses the mean (μ) and standard deviation (σ) rather than absolute min/max values.
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <!-- Q3 ENGINEERING REASONS -->
-  <div class="qc">
-    <div class="qh">
-      <span class="tag tde">Q3</span>
-      <span class="qh-t">Engineering Reasons — Choose One only</span>
-      <span class="qh-ar">مبررات هندسية — اختر واحداً فقط</span>
+  <!-- ─── Q3 MCQ ─── -->
+  <div class="card">
+    <div class="ch">
+      <span class="tag t-p">Q3</span>
+      <span class="ch-t">Select the Correct Answer — MCQ</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--amber);background:var(--amber-d);padding:2px 8px;border-radius:4px;border:1px solid rgba(245,158,11,.3)">4 marks</span>
     </div>
-    <div class="qb">
-      <div class="info ib" style="margin-bottom:14px">
-        <strong>Note:</strong> Both reasons answered for complete study reference.
-      </div>
-
-      <!-- Reason 1 -->
-      <div class="reason">
-        <div class="reason-num">Question 3.1</div>
-        <div class="reason-q">Why is the ESP32 preferred over the Arduino Uno for IoT projects?</div>
-        <div class="reason-ans">
-          The ESP32 is the superior choice for IoT because:
-          <ul>
-            <li><span>Built-in Wi-Fi (2.4 GHz 802.11 b/g/n):</span> No external shield needed — connects directly to the internet out of the box. Arduino Uno has no wireless capability.</li>
-            <li><span>Built-in Bluetooth (Classic + BLE):</span> Enables direct device-to-device communication without extra hardware.</li>
-            <li><span>Dual-core 32-bit processor (240 MHz):</span> Much faster than Arduino Uno's ATmega328P (8-bit, 16 MHz) — handles complex IoT tasks, JSON parsing, HTTPS requests in real time.</li>
-            <li><span>More memory:</span> 520 KB RAM vs 2 KB on Arduino Uno — essential for network stacks and data processing.</li>
-            <li><span>More GPIO &amp; peripherals:</span> 34 GPIO pins, multiple SPI/I2C/UART interfaces, built-in ADC, DAC, Touch sensors.</li>
-            <li><span>Low power modes:</span> Deep sleep draws only ~10 μA — critical for battery-powered IoT sensors.</li>
-          </ul>
-        </div>
-        <div class="reason-ar">
-          يُفضَّل ESP32 على Arduino Uno في مشاريع إنترنت الأشياء لأنه يحتوي على: Wi-Fi وBluetooth مدمجَين (لا حاجة لدرع إضافي)، معالج ثنائي النواة 32-بت بسرعة 240 ميغاهرتز (أسرع بكثير من ATmega328P ذي 8-بت)، ذاكرة RAM تبلغ 520 كيلوبايت (مقابل 2 كيلوبايت فقط)، وأوضاع طاقة منخفضة جداً (Deep Sleep ~10 μA) مثالية للمستشعرات التي تعمل بالبطارية.
-        </div>
-      </div>
-
-      <!-- Reason 2 -->
-      <div class="reason">
-        <div class="reason-num">Question 3.2</div>
-        <div class="reason-q">Why is the Arduino IDE popular for both Arduino and ESP boards?</div>
-        <div class="reason-ans">
-          The Arduino IDE is popular for both board families because:
-          <ul>
-            <li><span>Unified environment:</span> One IDE supports hundreds of boards — Arduino Uno, Mega, Nano AND ESP8266, ESP32 — via the Board Manager. Developers don't need to learn multiple tools.</li>
-            <li><span>Simple, beginner-friendly syntax:</span> Based on C/C++ with simplified setup()/loop() structure — very low learning curve compared to raw MCU programming in assembly or bare C.</li>
-            <li><span>Massive library ecosystem:</span> Thousands of free, community-maintained libraries (sensors, displays, protocols) work across all supported boards.</li>
-            <li><span>Serial Monitor:</span> Built-in debugging tool to monitor data from both Arduino and ESP boards in real time.</li>
-            <li><span>Free &amp; open source:</span> No licensing cost — widely adopted in universities, hobbyist projects, and professional prototyping worldwide.</li>
-            <li><span>Active community:</span> Millions of examples, tutorials, and forum answers available — shortens development time dramatically.</li>
-          </ul>
-        </div>
-        <div class="reason-ar">
-          يحظى Arduino IDE بشعبية واسعة مع لوحات Arduino وESP لأنه: بيئة موحدة تدعم مئات اللوحات عبر مدير اللوحات، تستخدم بناء جملة C/C++ مبسطاً (setup/loop) سهل التعلم، تحتوي على آلاف المكتبات المجانية، وتأتي مع مراقب تسلسلي للتصحيح، وهي مجانية ومفتوحة المصدر مع مجتمع ضخم من المطورين والمتعلمين.
-        </div>
-      </div>
-    </div>
-  </div>
-</div><!-- /p1 -->
-
-
-<!-- ══════════════════════════════════════════
-     PAGE 2 — Q4 MCQ · Q5 T/F
-══════════════════════════════════════════ -->
-<div id="p2" class="sec">
-  <div class="ehdr">
-    <div class="ehdr-l">
-      <div class="en">Mid Exam — IoT Theory</div>
-      <div class="title">Q4 Multiple Choice · Q5 True or False</div>
-    </div>
-    <div class="ehdr-r">2026 / 04 / 20<br>Semester 2</div>
-  </div>
-
-  <!-- Q4 MCQ -->
-  <div class="qc">
-    <div class="qh">
-      <span class="tag tmc">Q4</span>
-      <span class="qh-t">Choose the correct answer — Choose Six only</span>
-      <span class="qh-ar">اختر الإجابة الصحيحة — اختر ستة فقط</span>
-    </div>
-    <div class="qb">
-      <div class="info ib" style="margin-bottom:14px">
-        All questions answered for complete study reference.
+    <div class="cb">
+      <div class="strip">
+        <span class="chip cT">1-d</span>
+        <span class="chip cT">2-a</span>
+        <span class="chip cT">3-c</span>
+        <span class="chip cT">4-a</span>
       </div>
       <div class="mcq-list">
 
         <div class="mcq">
-          <div class="mcq-n">Q4.1</div>
-          <div class="mcq-q">If you're looking for a web-like language that's highly agile and works in closed, resource-constrained environments, ___ is the smarter option.</div>
+          <div class="mn">Q3 — 1</div>
+          <div class="mq">How do you handle missing values in a data set?</div>
           <div class="opts">
-            <div class="opt">a) HTTP</div>
-            <div class="opt">b) MQTT</div>
-            <div class="opt">c) TCP</div>
-            <div class="opt ok">d) CoAP</div>
+            <div class="opt">a) Drop missing rows and columns</div>
+            <div class="opt">b) Replace missing values with mean/mode/median</div>
+            <div class="opt">c) Assign a unique category to missing values</div>
+            <div class="opt ok">d) All of the above</div>
           </div>
-          <div class="mcq-note">CoAP (Constrained Application Protocol) is a RESTful web-like protocol (GET/POST just like HTTP) but designed specifically for constrained/resource-limited IoT devices. It runs over UDP (not TCP) to reduce overhead. It's the "smart HTTP" for tiny devices.</div>
+          <div class="mnote">All three strategies are valid. (a) Drop rows — when missing data is minimal. (b) Impute with mean/median (numerical) or mode (categorical). (c) Assign special category — for categorical features. The choice depends on data size and % of missing values.</div>
         </div>
 
         <div class="mcq">
-          <div class="mcq-n">Q4.2</div>
-          <div class="mcq-q">A system reading sensors to perform an action but without internet access is called:</div>
+          <div class="mn">Q3 — 2</div>
+          <div class="mq">Feature scaling helps to increase the accuracy of the model.</div>
           <div class="opts">
-            <div class="opt">a) IoT System</div>
-            <div class="opt">b) Cloud System</div>
-            <div class="opt ok">c) Embedded System</div>
-            <div class="opt">d) Business System</div>
+            <div class="opt ok">a) True</div>
+            <div class="opt">b) False</div>
           </div>
-          <div class="mcq-note">An Embedded System performs specific tasks using sensors/actuators but has NO internet connectivity. When you add internet → it becomes an IoT system. Example: traditional microwave = embedded system; smart microwave with Wi-Fi = IoT system.</div>
+          <div class="mnote">TRUE. Feature scaling normalizes the range of features so that no single feature dominates due to its scale. This speeds up convergence in gradient-based algorithms (like neural networks, SVM) and improves accuracy by ensuring fair contribution of all features.</div>
         </div>
 
         <div class="mcq">
-          <div class="mcq-n">Q4.3</div>
-          <div class="mcq-q">Which layer is responsible for routing and addressing data?</div>
+          <div class="mn">Q3 — 3</div>
+          <div class="mq">What is the use of the LabelEncoder class?</div>
           <div class="opts">
-            <div class="opt">a) Sensing</div>
-            <div class="opt ok">b) Network</div>
-            <div class="opt">c) Application</div>
-            <div class="opt">d) Business</div>
+            <div class="opt wrong">a) It encodes labels with a value between 0 and n_classes</div>
+            <div class="opt wrong">b) It encodes labels with a value between 0 and n_classes-2</div>
+            <div class="opt ok">c) It encodes labels with a value between 0 and n_classes-1</div>
+            <div class="opt">d) None</div>
           </div>
-          <div class="mcq-note">The Network Layer handles data transmission, routing, and addressing — it is the "bridge" that moves data from the Perception Layer to the Application Layer. Uses technologies like Wi-Fi, Zigbee, LoRaWAN, and protocols like IP, TCP/UDP.</div>
+          <div class="mnote">LabelEncoder assigns integer labels from <strong>0 to n_classes−1</strong>. For example, if you have 3 classes {cat, dog, fish}, they become {0, 1, 2} — that's n_classes−1 = 3−1 = 2 as the maximum value. Use it ONLY for ordered/ordinal categories, not for nominal (unordered) ones like city names.</div>
         </div>
 
         <div class="mcq">
-          <div class="mcq-n">Q4.4</div>
-          <div class="mcq-q">Which protocol uses a Broker to manage messages?</div>
+          <div class="mn">Q3 — 4</div>
+          <div class="mq">One-hot encoding transforms:</div>
           <div class="opts">
-            <div class="opt">a) HTTP</div>
-            <div class="opt ok">b) MQTT</div>
-            <div class="opt">c) CoAP</div>
-            <div class="opt">d) SPI</div>
+            <div class="opt ok">a) each categorical feature with n possible values into n binary features, with only one active</div>
+            <div class="opt">b) each categorical feature with n possible values into n binary features, with a maximum of two active</div>
+            <div class="opt">c) each categorical feature with n possible values into n-1 binary features, with only one active</div>
+            <div class="opt">d) each categorical feature with n possible values into n+1 binary features, with only one active</div>
           </div>
-          <div class="mcq-note">MQTT (Message Queuing Telemetry Transport) uses a Publish/Subscribe model with a central Broker server. Publishers send messages to the Broker by topic; the Broker distributes them to all matching subscribers. HTTP uses request/response; CoAP uses GET/POST; SPI is a hardware interface, not a messaging protocol.</div>
-        </div>
-
-        <div class="mcq">
-          <div class="mcq-n">Q4.5 (from image — MCQ continues)</div>
-          <div class="mcq-q">The main processor chip on a standard Arduino Uno is:</div>
-          <div class="opts">
-            <div class="opt">a) ESP32</div>
-            <div class="opt ok">b) ATmega328P</div>
-            <div class="opt">c) ARM Cortex</div>
-            <div class="opt">d) Intel i7</div>
-          </div>
-          <div class="mcq-note">The Arduino Uno uses the ATmega328P microcontroller (8-bit AVR, 16 MHz, 32 KB Flash, 2 KB RAM). ESP32 is used on ESP boards; ARM Cortex is used on Arduino Due/STM32; Intel i7 is a desktop CPU — not a microcontroller.</div>
-        </div>
-
-        <div class="mcq">
-          <div class="mcq-n">Q4.6</div>
-          <div class="mcq-q">Which technology is the only option for remote surgery or self-driving cars due to its ultra-low latency?</div>
-          <div class="opts">
-            <div class="opt">a) Wi-Fi</div>
-            <div class="opt">b) LoRaWAN</div>
-            <div class="opt ok">c) Cellular (5G)</div>
-            <div class="opt">d) Zigbee</div>
-          </div>
-          <div class="mcq-note">5G Cellular provides ultra-low latency (~1 ms), extremely high data rates, and wide-area coverage — the only technology capable of supporting time-critical applications like remote surgery and autonomous vehicles where any delay is dangerous. LoRaWAN is low-power but very slow; Wi-Fi has higher latency; Zigbee is short-range only.</div>
-        </div>
-
-        <div class="mcq">
-          <div class="mcq-n">Q4.7</div>
-          <div class="mcq-q">A standard Arduino Uno has how many built-in Wi-Fi modules?</div>
-          <div class="opts">
-            <div class="opt">a) One</div>
-            <div class="opt">b) Two</div>
-            <div class="opt ok">c) Zero</div>
-            <div class="opt">d) Three</div>
-          </div>
-          <div class="mcq-note">The standard Arduino Uno has ZERO built-in Wi-Fi. To add Wi-Fi you need an external module such as the ESP8266 (via AT commands or directly) or use an Arduino Uno WiFi Rev2 which has a built-in Wi-Fi chip. The ESP32/ESP8266 boards have Wi-Fi built in by default.</div>
+          <div class="mnote">One-Hot Encoding creates exactly <strong>n binary columns</strong> for n categories — and exactly <strong>one column is 1</strong> (active) per row, all others are 0. Example: Color {Red, Blue, Green} → 3 columns: [1,0,0], [0,1,0], [0,0,1]. Used for unordered (nominal) categories.</div>
         </div>
 
       </div>
     </div>
   </div>
+</div><!-- /quiz -->
 
-  <!-- Q5 T/F -->
-  <div class="qc">
-    <div class="qh">
-      <span class="tag ttf">Q5</span>
-      <span class="qh-t">True or False — Correct the False ones — Choose Six only</span>
-      <span class="qh-ar">صح أم خطأ — صحّح الخاطئة — اختر ستة فقط</span>
+
+<!-- ════════════════════════════════════════
+     LECTURE 1 SUMMARY
+════════════════════════════════════════ -->
+<div id="lec1" class="sec">
+  <div class="qhdr">
+    <div>
+      <div class="qhdr-t">Lecture 1 — Introduction to Machine Learning</div>
+      <div class="qhdr-s">Smart Summary · Focused on Exam Patterns</div>
     </div>
-    <div class="qb">
-      <div class="strip">
-        <span class="chip cF">1-F</span>
-        <span class="chip cF">2-F</span>
-        <span class="chip cT">3-T</span>
-        <span class="chip cT">4-T</span>
-        <span class="chip cT">5-T</span>
-        <span class="chip cF">6-F</span>
-        <span class="chip cT">7-T</span>
+    <div class="qhdr-d">Lec 1</div>
+  </div>
+
+  <!-- What is ML -->
+  <div class="card">
+    <div class="ch"><span class="tag t-b">DEF</span><span class="ch-t">What is Machine Learning?</span></div>
+    <div class="cb">
+      <div class="info ib" style="margin-bottom:12px">
+        <strong>Arthur Samuel (1959):</strong> "Machine learning is the science of getting computers to act without being explicitly programmed."
       </div>
-      <div class="tf-list">
-
-        <div class="tfi">
-          <span class="tf-n">1</span>
-          <span class="tf-q">UART is a synchronous communication interface.</span>
-          <span class="ans aF">FALSE</span>
-          <div class="fix">✎ UART stands for Universal <strong>Asynchronous</strong> Receiver-Transmitter. It does NOT use a shared clock signal — both devices agree on a baud rate (speed) instead. Synchronous interfaces (SPI, I2C) share a clock line. — التصحيح: UART هو واجهة تواصل غير متزامنة لا تستخدم خط ساعة مشترك.</div>
-        </div>
-
-        <div class="tfi">
-          <span class="tf-n">2</span>
-          <span class="tf-q">Device-to-Device (D2D) communication requires the global internet to operate.</span>
-          <span class="ans aF">FALSE</span>
-          <div class="fix">✎ D2D communication is <strong>local and direct</strong> — devices communicate with each other without needing the global internet. Common protocols: Bluetooth, Zigbee, Wi-Fi Direct. Example: smartwatch communicating directly with a phone. — التصحيح: D2D اتصال محلي مباشر بين الأجهزة دون الحاجة للإنترنت.</div>
-        </div>
-
-        <div class="tfi">
-          <span class="tf-n">3</span>
-          <span class="tf-q">SPI communication uses a shared clock line (Synchronous).</span>
-          <span class="ans aT">TRUE</span>
-        </div>
-
-        <div class="tfi">
-          <span class="tf-n">4</span>
-          <span class="tf-q">The ESP32 microchip features a dual-core 32-bit processor.</span>
-          <span class="ans aT">TRUE</span>
-        </div>
-
-        <div class="tfi">
-          <span class="tf-n">5</span>
-          <span class="tf-q">CoAP is designed specifically to work over the UDP transport protocol to reduce overhead.</span>
-          <span class="ans aT">TRUE</span>
-        </div>
-
-        <div class="tfi">
-          <span class="tf-n">6</span>
-          <span class="tf-q">Cellular networks (like 5G) consume less power than LoRaWAN.</span>
-          <span class="ans aF">FALSE</span>
-          <div class="fix">✎ Cellular 5G consumes <strong>significantly MORE power</strong> than LoRaWAN. LoRaWAN is designed for ultra-low power consumption — sensors can run for years on a small battery. 5G requires high power for continuous transmission at high data rates. — التصحيح: شبكات الخلوي 5G تستهلك طاقة أكثر بكثير من LoRaWAN. LoRaWAN مصمم لاستهلاك الحد الأدنى من الطاقة والعمل لسنوات بالبطارية.</div>
-        </div>
-
-        <div class="tfi">
-          <span class="tf-n">7</span>
-          <span class="tf-q">The Arduino Nano has the exact same processing capabilities as the Arduino Uno but in a smaller size.</span>
-          <span class="ans aT">TRUE</span>
-        </div>
-
+      <div class="info ig">
+        <strong>Simple definition:</strong> ML is about <em>predicting the future</em> based on the <em>past</em>. Or: predicting the <em>unseen</em> based on the <em>already-seen</em>.
       </div>
-
-      <div class="info ig" style="margin-top:14px">
-        <strong>Note on Statement 7:</strong> Both Arduino Nano and Uno use the <strong>ATmega328P</strong> microcontroller running at 16 MHz with 32 KB Flash and 2 KB RAM — identical processing capabilities. The Nano is simply a smaller form factor (45×18 mm vs 69×53 mm) for compact project designs.
-        <br><br>
-        <span style="font-family:'Cairo',sans-serif;direction:rtl;display:block;margin-top:5px">كلا اللوحتين (Nano وUno) تستخدمان نفس المعالج ATmega328P بنفس السرعة والذاكرة — الفرق الوحيد هو الحجم الأصغر للـ Nano.</span>
+      <div class="info ia" style="margin-top:8px">
+        <strong>ML is a subfield of Artificial Intelligence (AI).</strong> Instead of writing explicit rules, the machine learns the rules from data.
       </div>
     </div>
   </div>
-</div><!-- /p2 -->
+
+  <!-- Types of ML -->
+  <div class="card">
+    <div class="ch"><span class="tag t-t">TYPES</span><span class="ch-t">Types of Machine Learning</span></div>
+    <div class="cb">
+      <div class="theory-grid">
+        <div class="th-card" style="border-color:rgba(59,130,246,.3)">
+          <div class="th-icon">📘</div>
+          <div class="th-title" style="color:var(--blue)">Supervised Learning</div>
+          <div class="th-body">
+            Training data <strong>includes</strong> desired outputs (labels).<br>
+            Goal: Predict output for new input.<br>
+            <ul>
+              <li>Classification (Is it A or B?)</li>
+              <li>Regression (How much/many?)</li>
+              <li>Ranking</li>
+            </ul>
+          </div>
+        </div>
+        <div class="th-card" style="border-color:rgba(16,185,129,.3)">
+          <div class="th-icon">📗</div>
+          <div class="th-title" style="color:var(--green)">Unsupervised Learning</div>
+          <div class="th-body">
+            Training data does <strong>NOT</strong> include labels.<br>
+            Goal: Find hidden patterns.<br>
+            <ul>
+              <li>Clustering (k-means, hierarchical)</li>
+              <li>Association Rule Learning</li>
+              <li>Dimensionality Reduction</li>
+            </ul>
+          </div>
+        </div>
+        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
+          <div class="th-icon">📙</div>
+          <div class="th-title" style="color:var(--purple)">Reinforcement Learning</div>
+          <div class="th-body">
+            Agent learns by <strong>trial and error</strong>.<br>
+            Gets rewards/penalties.<br>
+            No labeled data needed.<br>
+            Example: autonomous driving, games.
+          </div>
+        </div>
+      </div>
+
+      <!-- Supervised vs Unsupervised comparison table -->
+      <div class="div"><div class="dl"></div><span class="dt">Supervised vs Unsupervised — Key Differences</span><div class="dl"></div></div>
+      <table class="cmp">
+        <thead><tr><th>Aspect</th><th>Supervised</th><th>Unsupervised</th></tr></thead>
+        <tbody>
+          <tr><td>Input data</td><td class="hl">Labeled</td><td>Unlabeled</td></tr>
+          <tr><td>Feedback</td><td class="hl">Has feedback mechanism</td><td>No feedback mechanism</td></tr>
+          <tr><td>Classification</td><td class="hl">Based on training dataset</td><td>Assigns properties to classify</td></tr>
+          <tr><td>Sub-types</td><td class="hl">Regression &amp; Classification</td><td>Clustering &amp; Association</td></tr>
+          <tr><td>Goal</td><td class="hl">Prediction</td><td>Analysis / Pattern discovery</td></tr>
+          <tr><td>Complexity</td><td class="hl">Less complex</td><td>More complex</td></tr>
+          <tr><td>Classes</td><td class="hl">Known number of classes</td><td>Unknown number of classes</td></tr>
+          <tr><td>Algorithms</td><td class="hl">Decision tree, SVM, Logistic Regression</td><td>K-means, Hierarchical, Apriori</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Supervised subtypes -->
+  <div class="card">
+    <div class="ch"><span class="tag t-b">SUPERVISED</span><span class="ch-t">Supervised Learning — Classification vs Regression</span></div>
+    <div class="cb">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+        <div class="th-card" style="border-color:rgba(59,130,246,.3)">
+          <div class="th-title" style="color:var(--blue)">Classification</div>
+          <div class="th-body">
+            Output variable is <strong>categorical</strong>.<br>
+            Q: Is it A or B?<br>
+            Examples: spam/not-spam, disease/no-disease<br>
+            <br>Algorithms:
+            <ul>
+              <li>Decision Tree</li>
+              <li>SVM</li>
+              <li>Random Forest</li>
+              <li>Naïve Bayes</li>
+              <li>KNN</li>
+              <li>Neural Networks</li>
+            </ul>
+          </div>
+        </div>
+        <div class="th-card" style="border-color:rgba(16,185,129,.3)">
+          <div class="th-title" style="color:var(--green)">Regression</div>
+          <div class="th-body">
+            Output variable is <strong>continuous</strong>.<br>
+            Q: How much? How many?<br>
+            Examples: house price, weather, stock price<br>
+            <br>Algorithms:
+            <ul>
+              <li>Simple Linear Regression</li>
+              <li>Multi-linear Regression</li>
+              <li>Polynomial Regression</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /lec1 -->
 
 
-<!-- ══════════════════════════════════════════
-     REFERENCE CARD
-══════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════
+     LECTURE 2 SUMMARY
+════════════════════════════════════════ -->
+<div id="lec2" class="sec">
+  <div class="qhdr">
+    <div>
+      <div class="qhdr-t">Lecture 2 — Data Preparation &amp; Feature Scaling</div>
+      <div class="qhdr-s">Smart Summary · Focused on Exam Patterns</div>
+    </div>
+    <div class="qhdr-d">Lec 2</div>
+  </div>
+
+  <!-- ML Steps -->
+  <div class="card">
+    <div class="ch"><span class="tag t-b">STEPS</span><span class="ch-t">Main Steps to Build an ML Model</span></div>
+    <div class="cb">
+      <div class="steps">
+        <div class="step-flow">
+          <div class="sf-num" style="background:rgba(59,130,246,.15);color:var(--blue)">1</div>
+          <div class="sf-body"><div class="sf-title">Data Collection</div><div class="sf-desc">Gather data from sources (Kaggle, UCI, Roboflow). Quality and quantity affect model accuracy.</div></div>
+        </div>
+        <div class="step-flow">
+          <div class="sf-num" style="background:rgba(16,185,129,.15);color:var(--green)">2</div>
+          <div class="sf-body"><div class="sf-title">Data Preparation ⭐</div><div class="sf-desc">Clean, integrate, and transform raw data. Includes: removing duplicates, handling missing values, normalization, encoding.</div></div>
+        </div>
+        <div class="step-flow">
+          <div class="sf-num" style="background:rgba(167,139,250,.15);color:var(--purple)">3</div>
+          <div class="sf-body"><div class="sf-title">Choose a Model</div><div class="sf-desc">Select the ML algorithm (sometimes try multiple to find the best).</div></div>
+        </div>
+        <div class="step-flow">
+          <div class="sf-num" style="background:rgba(245,158,11,.15);color:var(--amber)">4</div>
+          <div class="sf-body"><div class="sf-title">Train the Model</div><div class="sf-desc">Feed training data to the model. Updates weights &amp; biases each cycle.</div></div>
+        </div>
+        <div class="step-flow">
+          <div class="sf-num" style="background:rgba(0,191,179,.15);color:var(--teal)">5</div>
+          <div class="sf-body"><div class="sf-title">Evaluation</div><div class="sf-desc">Test with unseen data. Metrics: accuracy, precision, recall, F-score. If not acceptable → go back.</div></div>
+        </div>
+        <div class="step-flow">
+          <div class="sf-num" style="background:rgba(236,72,153,.15);color:var(--pink)">6</div>
+          <div class="sf-body"><div class="sf-title">Hyperparameter Tuning</div><div class="sf-desc">Experimental process. Tune learning rate, number of steps, initialization values etc.</div></div>
+        </div>
+        <div class="step-flow">
+          <div class="sf-num" style="background:rgba(248,113,113,.15);color:var(--red)">7</div>
+          <div class="sf-body"><div class="sf-title">Prediction</div><div class="sf-desc">Model is ready to make predictions on new data.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Preparation subtopics -->
+  <div class="card">
+    <div class="ch"><span class="tag t-g">DATA PREP</span><span class="ch-t">Data Preparation — 3 Main Operations</span></div>
+    <div class="cb">
+      <div class="theory-grid">
+        <div class="th-card" style="border-color:rgba(248,113,113,.3)">
+          <div class="th-icon">🧹</div>
+          <div class="th-title" style="color:var(--red)">1. Data Cleaning</div>
+          <div class="th-body">
+            Detect and remove inconsistencies.<br>
+            Includes: missing values, duplicates, outliers, errors.<br>
+            <strong>Missing Value Methods:</strong>
+            <ul>
+              <li>Impute with Zero</li>
+              <li>Impute with Mean/Median (numerical)</li>
+              <li>Impute with Mode (categorical)</li>
+              <li>Drop the row</li>
+            </ul>
+          </div>
+        </div>
+        <div class="th-card" style="border-color:rgba(59,130,246,.3)">
+          <div class="th-icon">🔗</div>
+          <div class="th-title" style="color:var(--blue)">2. Data Integration</div>
+          <div class="th-body">
+            Combine data from multiple sources into one unified dataset.<br>
+            Handles: entity identification, data redundancy, unit variations (km→miles).
+          </div>
+        </div>
+        <div class="th-card" style="border-color:rgba(16,185,129,.3)">
+          <div class="th-icon">⚙️</div>
+          <div class="th-title" style="color:var(--green)">3. Data Transformation</div>
+          <div class="th-body">
+            Convert data to proper format for ML.<br>
+            Includes:
+            <ul>
+              <li>Aggregation</li>
+              <li>Feature Scaling ⭐</li>
+              <li>Categorical Encoding ⭐</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Scaling -->
+  <div class="card">
+    <div class="ch"><span class="tag t-t">SCALING</span><span class="ch-t">Feature Scaling — Normalization vs Standardization</span></div>
+    <div class="cb">
+      <table class="cmp">
+        <thead><tr><th>Aspect</th><th>Normalization (Min-Max)</th><th>Standardization (Z-score)</th></tr></thead>
+        <tbody>
+          <tr><td>Formula</td><td class="hl" style="font-family:'JetBrains Mono',monospace">X′ = (X−X_min)/(X_max−X_min)</td><td class="hl2" style="font-family:'JetBrains Mono',monospace">X′ = (X − μ) / σ</td></tr>
+          <tr><td>Output range</td><td class="hl">0 to 1 (positive data)</td><td class="hl2">No fixed range, mean=0, std=1</td></tr>
+          <tr><td>Outlier effect</td><td style="color:var(--red)">Heavily affected</td><td class="hl2">More robust</td></tr>
+          <tr><td>Best when</td><td class="hl">Standard deviation is small</td><td class="hl2">Outliers exist in data</td></tr>
+          <tr><td>Distribution</td><td>Does not change shape</td><td class="hl2">Produces ~ normal distribution</td></tr>
+        </tbody>
+      </table>
+      <div class="info ir" style="margin-top:10px">
+        <strong>⚠️ Normalization Limitation:</strong> Adding one outlier can drastically shift all other normalized values. Example: marks 50 mapped to 1.0, but after adding outlier 90, same marks 50 → only 0.375.
+      </div>
+    </div>
+  </div>
+
+  <!-- Categorical Encoding -->
+  <div class="card">
+    <div class="ch"><span class="tag t-a">ENCODING</span><span class="ch-t">Categorical Encoding — Label Encoder vs One-Hot Encoder</span></div>
+    <div class="cb">
+      <div class="info ib" style="margin-bottom:12px">
+        <strong>Why encode?</strong> ML algorithms only accept numerical data. Categorical variables must be converted to numbers before training.
+      </div>
+
+      <table class="cmp">
+        <thead><tr><th>Aspect</th><th>Label Encoder</th><th>One-Hot Encoder</th></tr></thead>
+        <tbody>
+          <tr><td>Output</td><td class="hl">Single column: 0, 1, 2…</td><td>Multiple binary columns (0/1)</td></tr>
+          <tr><td>Best for</td><td class="hl">Ordered categories (ordinal)</td><td class="hl2">Unordered categories (nominal)</td></tr>
+          <tr><td>Risk</td><td style="color:var(--red)">Creates fake order between labels</td><td class="hl2">No fake order</td></tr>
+          <tr><td>Example</td><td class="hl">Small &lt; Medium &lt; Large</td><td class="hl2">Red, Blue, Green (colors)</td></tr>
+          <tr><td>n categories →</td><td class="hl">1 column</td><td>n binary columns</td></tr>
+          <tr><td>Active per row</td><td class="hl">1 number</td><td class="hl2">Only ONE column = 1, rest = 0</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info ia" style="margin-top:10px">
+        <strong>⚠️ Never use Label Encoder</strong> for unordered categories like colors or city names — the model will incorrectly think Green(2) &gt; Red(0), which is meaningless!
+      </div>
+
+      <!-- Category types -->
+      <div class="div"><div class="dl"></div><span class="dt">3 Types of Categorical Features</span><div class="dl"></div></div>
+      <div class="theory-grid">
+        <div class="th-card"><div class="th-title" style="color:var(--teal)">Binary</div><div class="th-body">Two values only.<br>Examples: Yes/No, True/False</div></div>
+        <div class="th-card"><div class="th-title" style="color:var(--amber)">Ordinal</div><div class="th-body">Specific ordered groups.<br>Examples: Low/Medium/High, Cold/Hot</div></div>
+        <div class="th-card"><div class="th-title" style="color:var(--purple)">Nominal</div><div class="th-body">Unordered groups.<br>Examples: cat/dog/tiger, Red/Blue/Green</div></div>
+      </div>
+    </div>
+  </div>
+</div><!-- /lec2 -->
+
+
+<!-- ════════════════════════════════════════
+     EXAM FOCUS / CHEAT SHEET
+════════════════════════════════════════ -->
 <div id="ref" class="sec">
-  <div class="ehdr">
-    <div class="ehdr-l">
-      <div class="en">Quick Reference</div>
-      <div class="title">All Key Facts for This Exam — Cheat Sheet</div>
+  <div class="qhdr">
+    <div>
+      <div class="qhdr-t">⚡ Exam Focus — High-Priority Topics</div>
+      <div class="qhdr-s">Based on quiz patterns from the doctor's questions</div>
     </div>
-    <div class="ehdr-r">Mid Exam<br>2025–2026</div>
+    <div class="qhdr-d">Must Know</div>
   </div>
 
-  <!-- Arduino Boards -->
-  <div class="qc">
-    <div class="qh"><span class="tag tq">BOARDS</span><span class="qh-t">Arduino &amp; ESP Boards Comparison</span></div>
-    <div class="qb">
-      <table class="cmp">
-        <thead><tr><th>Property</th><th>Arduino Uno</th><th>Arduino Nano</th><th>Arduino Mega</th><th>ESP32</th></tr></thead>
-        <tbody>
-          <tr><td>Chip</td><td>ATmega328P</td><td>ATmega328P</td><td class="hl2">ATmega2560</td><td class="hl">Xtensa LX6 (dual-core)</td></tr>
-          <tr><td>Architecture</td><td>8-bit AVR</td><td>8-bit AVR</td><td>8-bit AVR</td><td class="hl">32-bit, 240 MHz</td></tr>
-          <tr><td>Flash</td><td>32 KB</td><td>32 KB</td><td class="hl2">256 KB</td><td class="hl">4 MB (external SPI)</td></tr>
-          <tr><td>RAM</td><td>2 KB</td><td>2 KB</td><td class="hl2">8 KB</td><td class="hl">520 KB SRAM</td></tr>
-          <tr><td>Wi-Fi</td><td style="color:var(--red)">None</td><td style="color:var(--red)">None</td><td style="color:var(--red)">None</td><td class="hl">Built-in 2.4 GHz</td></tr>
-          <tr><td>Bluetooth</td><td style="color:var(--red)">None</td><td style="color:var(--red)">None</td><td style="color:var(--red)">None</td><td class="hl">BT Classic + BLE</td></tr>
-          <tr><td>Digital I/O</td><td>14</td><td>14</td><td class="hl2">54</td><td class="hl">34</td></tr>
-          <tr><td>Size</td><td>69×53 mm</td><td class="hl">45×18 mm</td><td>101×53 mm</td><td>~55×28 mm</td></tr>
-          <tr><td>Best For</td><td>Learning, basic</td><td>Compact projects</td><td class="hl2">Complex / many pins</td><td class="hl">IoT projects</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Protocols -->
-  <div class="qc">
-    <div class="qh"><span class="tag ttf">PROTO</span><span class="qh-t">IoT Protocols — HTTP vs MQTT vs CoAP</span></div>
-    <div class="qb">
-      <table class="cmp">
-        <thead><tr><th>Protocol</th><th>Model</th><th>Transport</th><th>Weight</th><th>Best For</th></tr></thead>
-        <tbody>
-          <tr><td style="color:var(--red);font-weight:700">HTTP</td><td>Request/Response</td><td>TCP</td><td style="color:var(--red)">Heavy</td><td>Web APIs, non-battery</td></tr>
-          <tr><td style="color:var(--teal);font-weight:700">MQTT</td><td class="hl">Publish/Subscribe (via Broker)</td><td>TCP</td><td class="hl">Light</td><td>Battery sensors, telemetry</td></tr>
-          <tr><td style="color:var(--amber);font-weight:700">CoAP</td><td>GET/POST (RESTful)</td><td class="hl">UDP</td><td class="hl">Very Light</td><td>Constrained devices</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Wireless -->
-  <div class="qc">
-    <div class="qh"><span class="tag tde">WIRELESS</span><span class="qh-t">Wireless Technologies — Range, Power, Data Rate</span></div>
-    <div class="qb">
-      <table class="cmp">
-        <thead><tr><th>Technology</th><th>Range</th><th>Power</th><th>Data Rate</th><th>Latency</th><th>Best For</th></tr></thead>
-        <tbody>
-          <tr><td style="color:var(--teal);font-weight:700">Wi-Fi</td><td>~100 m</td><td style="color:var(--red)">High</td><td class="hl">High (Mbps)</td><td>Medium</td><td>Cameras, smart home</td></tr>
-          <tr><td style="color:var(--blue);font-weight:700">Bluetooth BLE</td><td>~50 m</td><td class="hl">Very Low</td><td>Low (Kbps)</td><td>Low</td><td>Wearables, medical</td></tr>
-          <tr><td style="color:var(--amber);font-weight:700">Zigbee</td><td>~100 m</td><td class="hl">Very Low</td><td>Low (250Kbps)</td><td>Low</td><td>Smart home mesh</td></tr>
-          <tr><td style="color:var(--purple);font-weight:700">LoRaWAN</td><td class="hl">15 km+</td><td class="hl">Very Low</td><td>Very Low (bps)</td><td>High</td><td>Agriculture, smart meters</td></tr>
-          <tr><td style="color:var(--red);font-weight:700">5G Cellular</td><td class="hl">km+</td><td style="color:var(--red)">High</td><td class="hl">Very High (Gbps)</td><td class="hl" style="color:var(--teal)">Ultra-Low (~1ms)</td><td>Surgery, self-driving cars</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Interfaces -->
-  <div class="qc">
-    <div class="qh"><span class="tag tcm">COMM</span><span class="qh-t">Communication Interfaces — UART · SPI · I2C</span></div>
-    <div class="qb">
-      <table class="cmp">
-        <thead><tr><th>Interface</th><th>Type</th><th>Wires</th><th>Speed</th><th>Multi-device</th><th>Best Use</th></tr></thead>
-        <tbody>
-          <tr><td style="color:var(--teal);font-weight:700">UART</td><td style="color:var(--amber)">Asynchronous</td><td>2 (TX,RX)</td><td>Medium</td><td>No</td><td>GPS, Bluetooth serial, debug</td></tr>
-          <tr><td style="color:var(--blue);font-weight:700">SPI</td><td class="hl">Synchronous</td><td>4 (MOSI,MISO,SCK,SS)</td><td class="hl">Fast</td><td>Yes (SS per device)</td><td>SD card, TFT, Flash</td></tr>
-          <tr><td style="color:var(--purple);font-weight:700">I2C</td><td class="hl">Synchronous</td><td class="hl">2 (SDA,SCL)</td><td>Slow–Med</td><td class="hl">Yes (address-based)</td><td>OLED, sensors, multi-bus</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Key Facts for Exam -->
-  <div class="qc">
-    <div class="qh"><span class="tag tq">KEY FACTS</span><span class="qh-t">Critical Facts — Must Know for Exam</span></div>
-    <div class="qb">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px">
-        <div style="background:var(--bg3);border:1px solid rgba(0,212,200,.2);border-radius:8px;padding:12px 14px">
-          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--teal);font-weight:700;margin-bottom:6px">Arduino Uno</div>
-          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
-            Chip: <span style="color:var(--green)">ATmega328P</span><br>
-            Wi-Fi: <span style="color:var(--red)">None (Zero)</span><br>
-            Speed: 16 MHz, 8-bit<br>
-            Flash: 32 KB / RAM: 2 KB
-          </div>
+  <!-- Normalization formula -->
+  <div class="card">
+    <div class="ch"><span class="tag t-t">🔢</span><span class="ch-t">Normalization Formula + Steps (likely to be tested)</span></div>
+    <div class="cb">
+      <div class="formula" style="font-size:1rem">X′ = (X − X<sub>min</sub>) / (X<sub>max</sub> − X<sub>min</sub>)</div>
+      <div class="steps" style="margin-top:12px">
+        <div class="step-flow">
+          <div class="sf-num" style="background:var(--teal-d);color:var(--teal)">1</div>
+          <div class="sf-body"><div class="sf-title">Find X_min and X_max</div><div class="sf-desc">Scan all values in the column to find minimum and maximum.</div></div>
         </div>
-        <div style="background:var(--bg3);border:1px solid rgba(74,158,255,.2);border-radius:8px;padding:12px 14px">
-          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--blue);font-weight:700;margin-bottom:6px">ESP32</div>
-          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
-            Chip: <span style="color:var(--green)">Xtensa LX6 (dual-core 32-bit)</span><br>
-            Wi-Fi: <span style="color:var(--green)">Built-in 2.4 GHz</span><br>
-            Bluetooth: <span style="color:var(--green)">Classic + BLE</span><br>
-            Speed: 240 MHz / RAM: 520 KB
-          </div>
+        <div class="step-flow">
+          <div class="sf-num" style="background:var(--teal-d);color:var(--teal)">2</div>
+          <div class="sf-body"><div class="sf-title">Compute the Range</div><div class="sf-desc">Range = X_max − X_min</div></div>
         </div>
-        <div style="background:var(--bg3);border:1px solid rgba(245,166,35,.2);border-radius:8px;padding:12px 14px">
-          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--amber);font-weight:700;margin-bottom:6px">UART vs SPI vs I2C</div>
-          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
-            UART = <span style="color:var(--red)">Asynchronous</span> (no clock)<br>
-            SPI = <span style="color:var(--green)">Synchronous</span> + 4 wires<br>
-            I2C = <span style="color:var(--green)">Synchronous</span> + 2 wires<br>
-            I2C → multi-device on 1 bus
-          </div>
-        </div>
-        <div style="background:var(--bg3);border:1px solid rgba(167,139,250,.2);border-radius:8px;padding:12px 14px">
-          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--purple);font-weight:700;margin-bottom:6px">5G vs LoRaWAN Power</div>
-          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
-            5G: <span style="color:var(--red)">High power</span>, ultra-low latency<br>
-            LoRaWAN: <span style="color:var(--green)">Very low power</span>, slow data<br>
-            5G → surgery, autonomous cars<br>
-            LoRaWAN → agriculture, meters
-          </div>
-        </div>
-        <div style="background:var(--bg3);border:1px solid rgba(45,212,160,.2);border-radius:8px;padding:12px 14px">
-          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--green);font-weight:700;margin-bottom:6px">D2D / D2C / D2G</div>
-          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
-            D2D = <span style="color:var(--teal)">Local, no internet</span> (BT/Zigbee)<br>
-            D2C = <span style="color:var(--blue)">Direct to cloud</span> (Wi-Fi/Cellular)<br>
-            D2G = <span style="color:var(--amber)">Via gateway</span> (BT → phone → cloud)
-          </div>
-        </div>
-        <div style="background:var(--bg3);border:1px solid rgba(0,212,200,.2);border-radius:8px;padding:12px 14px">
-          <div style="font-family:'Space Mono',monospace;font-size:.67rem;color:var(--teal);font-weight:700;margin-bottom:6px">MQTT Broker Concept</div>
-          <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
-            Publisher → <span style="color:var(--teal)">Broker (server)</span> → Subscriber<br>
-            Devices never talk directly<br>
-            Broker routes by Topic<br>
-            <span style="font-family:'Cairo',sans-serif;font-size:.8rem;direction:rtl">الناشر → الوسيط → المشترك</span>
-          </div>
+        <div class="step-flow">
+          <div class="sf-num" style="background:var(--teal-d);color:var(--teal)">3</div>
+          <div class="sf-body"><div class="sf-title">Apply formula to the target X</div><div class="sf-desc">X′ = (X − X_min) / Range → result is in [0, 1]</div></div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Standardization formula -->
+  <div class="card">
+    <div class="ch"><span class="tag t-a">📐</span><span class="ch-t">Standardization Formula + Steps</span></div>
+    <div class="cb">
+      <div class="formula" style="font-size:1rem">X′ = (X − μ) / σ</div>
+      <div class="info ia" style="margin-top:10px">
+        <strong>μ (mu)</strong> = Mean of the column &nbsp;|&nbsp; <strong>σ (sigma)</strong> = Standard Deviation<br>
+        After standardization: Mean = 0, Std Dev = 1
+      </div>
+      <div class="info ig" style="margin-top:8px">
+        <strong>Standard Deviation formula:</strong> σ = √[ Σ(xᵢ − μ)² / n ]<br>
+        Example: dataset {4,8,6,5,3} → μ = 5.2 → variance = 2.56 → σ ≈ 1.6
+      </div>
+    </div>
+  </div>
+
+  <!-- One-Hot Encoding key fact -->
+  <div class="card">
+    <div class="ch"><span class="tag t-p">🔥</span><span class="ch-t">One-Hot Encoding — Key Exam Facts</span></div>
+    <div class="cb">
+      <div class="lim-list">
+        <div class="lim-item">
+          <span class="lim-num">✓</span>
+          <div class="lim-body"><strong>Creates n binary columns</strong> for n categories — NOT n−1, NOT n+1</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num">✓</span>
+          <div class="lim-body"><strong>Only ONE column is 1</strong> (active) per row — all others are 0</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num">✓</span>
+          <div class="lim-body"><strong>Use for nominal (unordered)</strong> categories: colors, cities, animal names</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num">✓</span>
+          <div class="lim-body"><strong>LabelEncoder</strong> encodes labels from <strong>0 to n_classes−1</strong> (not 0 to n, not 0 to n−2)</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num">✓</span>
+          <div class="lim-body"><strong>Feature scaling → True</strong>: helps model accuracy and speeds up convergence</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num">✓</span>
+          <div class="lim-body"><strong>Missing values</strong>: all 3 methods are valid (drop, impute, assign category) → Answer: d) All of the above</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick definitions -->
+  <div class="card">
+    <div class="ch"><span class="tag t-g">📚</span><span class="ch-t">Quick Definitions — Short Answer Ready</span></div>
+    <div class="cb">
+      <div class="lim-list">
+        <div class="lim-item">
+          <span class="lim-num" style="color:var(--teal)">ML</span>
+          <div class="lim-body">Machine Learning: a subfield of AI that enables computers to learn from data without explicit programming. "Predicting the future based on the past."</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num" style="color:var(--blue)">SL</span>
+          <div class="lim-body">Supervised Learning: training with labeled data (input→output known). Used for prediction. Sub-types: Classification, Regression.</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num" style="color:var(--green)">UL</span>
+          <div class="lim-body">Unsupervised Learning: training with unlabeled data. Finds hidden patterns. Sub-types: Clustering, Association, Dimensionality Reduction.</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num" style="color:var(--red)">OUT</span>
+          <div class="lim-body">Outlier: an extreme value that falls outside the normal range. Main cause of normalization failure. Solution: use Standardization instead.</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num" style="color:var(--amber)">NORM</span>
+          <div class="lim-body">Normalization (Min-Max Scaling): rescales values to [0,1]. Best when standard deviation is small. Sensitive to outliers.</div>
+        </div>
+        <div class="lim-item">
+          <span class="lim-num" style="color:var(--purple)">STD</span>
+          <div class="lim-body">Standardization (Z-score): rescales to mean=0, std=1. Use when outliers exist. Not bounded to a fixed range.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Standardization worked example -->
+  <div class="card">
+    <div class="ch"><span class="tag t-a">📊</span><span class="ch-t">Standardization — Worked Example (from lecture)</span></div>
+    <div class="cb">
+      <div class="info ib" style="margin-bottom:12px">
+        Dataset: {4, 8, 6, 5, 3} — Find standard deviation step by step
+      </div>
+      <div class="calc-box">
+        <div class="calc-title">Step-by-step: Standard Deviation</div>
+        <div class="step"><span class="step-n">①</span><span class="step-c">Mean μ = (4+8+6+5+3) / 5 = 26/5 = <span class="step-r">5.2</span></span></div>
+        <div class="step"><span class="step-n">②</span><span class="step-c">Deviations squared:<br>
+          (4−5.2)² = (−1.2)² = <span class="step-r">1.44</span><br>
+          (8−5.2)² = (2.8)²  = <span class="step-r">7.84</span><br>
+          (6−5.2)² = (0.8)²  = <span class="step-r">0.64</span><br>
+          (5−5.2)² = (−0.2)² = <span class="step-r">0.04</span><br>
+          (3−5.2)² = (−2.2)² = <span class="step-r">4.84</span>
+        </span></div>
+        <div class="step"><span class="step-n">③</span><span class="step-c">Variance = (1.44 + 7.84 + 0.64 + 0.04 + 4.84) / 5 = 14.8/5 = <span class="step-r">2.96</span></span></div>
+        <div class="step"><span class="step-n">④</span><span class="step-c">Standard Deviation σ = √2.96 ≈ <span class="step-r">1.72</span></span></div>
+        <div class="formula" style="margin-top:10px">σ = √[ Σ(xᵢ − μ)² / n ] = √2.96 ≈ <strong>1.72</strong></div>
+      </div>
+      <div class="info ig" style="margin-top:10px">
+        <strong>After standardization</strong> all values in a column will have: Mean = 0 and Std Dev = 1.<br>
+        Formula: X′ = (X − μ) / σ &nbsp;→&nbsp; For X=4: X′ = (4 − 5.2) / 1.72 ≈ −0.698
+      </div>
+    </div>
+  </div>
+
+  <!-- Missing Value Imputation Example -->
+  <div class="card">
+    <div class="ch"><span class="tag t-g">📋</span><span class="ch-t">Missing Value Imputation — Mean Example (from lecture)</span></div>
+    <div class="cb">
+      <div class="info ib" style="margin-bottom:12px">
+        Dataset: Country, Age, Salary, Purchased — Row 6 has missing Salary, Row 8 has missing Age
+      </div>
+      <div class="calc-box">
+        <div class="calc-title">SimpleImputer with Mean strategy</div>
+        <div class="step"><span class="step-n">①</span><span class="step-c">
+          Mean Salary (9 known values):<br>
+          (72000+48000+54000+61000+58000+52000+79000+83000+67000) / 9<br>
+          = 574000 / 9 = <span class="step-r">63777.7</span>
+        </span></div>
+        <div class="step"><span class="step-n">②</span><span class="step-c">
+          Mean Age (9 known values):<br>
+          (44+27+30+38+40+35+48+50+37) / 9<br>
+          = 349 / 9 = <span class="step-r">38.777</span>
+        </span></div>
+        <div class="step"><span class="step-n">③</span><span class="step-c">
+          Replace: Row 6 Salary → <span class="step-r">63777.7</span> &nbsp;|&nbsp; Row 8 Age → <span class="step-r">38.777</span>
+        </span></div>
+      </div>
+      <div class="info ia">
+        <strong>Note:</strong> For small datasets or large % of missing values → impute (replace with mean/median) rather than drop rows, to preserve data.
+      </div>
+    </div>
+  </div>
+
+  <!-- One-Hot Encoding Worked Example -->
+  <div class="card">
+    <div class="ch"><span class="tag t-p">🔢</span><span class="ch-t">One-Hot Encoding — Worked Example (Country feature)</span></div>
+    <div class="cb">
+      <div class="calc-box">
+        <div class="calc-title">Encoding: France(Fr), Germany(Ger), Spain(Sp) → 3 binary columns</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.74rem;margin-top:8px">
+          <thead>
+            <tr style="background:rgba(0,191,179,.08)">
+              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Country</th>
+              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Fr_id</th>
+              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Ger_id</th>
+              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Sp_id</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:4px 8px;border:1px solid var(--border)">France</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--green);font-weight:700">1</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td></tr>
+            <tr style="background:rgba(255,255,255,.02)"><td style="padding:4px 8px;border:1px solid var(--border)">Spain</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--green);font-weight:700">1</td></tr>
+            <tr><td style="padding:4px 8px;border:1px solid var(--border)">Germany</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--green);font-weight:700">1</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td></tr>
+            <tr style="background:rgba(255,255,255,.02)"><td style="padding:4px 8px;border:1px solid var(--border)">Spain</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--green);font-weight:700">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info ig" style="margin-top:10px">
+        <strong>Label Encoding for Purchased (Yes/No):</strong><br>
+        No → 0 &nbsp;|&nbsp; Yes → 1<br>
+        Output: [0, 1, 0, 0, 1, 1, 0, 1, 0, 1] — one value per row, range 0 to n_classes−1 = 1
+      </div>
+    </div>
+  </div>
+
+  <!-- ML steps pipeline reminder -->
+  <div class="card">
+    <div class="ch"><span class="tag t-b">🗺️</span><span class="ch-t">ML Pipeline — Data Preparation Detail</span></div>
+    <div class="cb">
+      <div class="theory-grid" style="margin-bottom:10px">
+        <div class="th-card" style="border-color:rgba(248,113,113,.3)">
+          <div class="th-title" style="color:var(--red)">🧹 Data Cleaning</div>
+          <div class="th-body">
+            Remove inconsistencies:<br>
+            • Missing values → impute or drop<br>
+            • Duplicates → remove<br>
+            • Outliers → detect &amp; handle<br>
+            • Type errors → fix<br>
+            • Noise → smooth
+          </div>
+        </div>
+        <div class="th-card" style="border-color:rgba(59,130,246,.3)">
+          <div class="th-title" style="color:var(--blue)">🔗 Data Integration</div>
+          <div class="th-body">
+            Combine multiple sources:<br>
+            • Same attribute, different names<br>
+            • Remove duplicate attributes<br>
+            • Standardize units<br>
+            &nbsp;&nbsp;(km → miles, kg → lbs)<br>
+            → Clean, consistent dataset
+          </div>
+        </div>
+        <div class="th-card" style="border-color:rgba(16,185,129,.3)">
+          <div class="th-title" style="color:var(--green)">⚙️ Data Transformation</div>
+          <div class="th-body">
+            Format data for ML:<br>
+            • <strong>Aggregation</strong> — summarize<br>
+            • <strong>Feature Scaling</strong><br>
+            &nbsp;&nbsp;→ Normalization<br>
+            &nbsp;&nbsp;→ Standardization<br>
+            • <strong>Categorical Encoding</strong><br>
+            &nbsp;&nbsp;→ LabelEncoder<br>
+            &nbsp;&nbsp;→ OneHotEncoder
+          </div>
+        </div>
+      </div>
+      <div class="info ia">
+        <strong>Data Preparation Goal:</strong> Transform raw data into an understandable, clean, numeric format that ML algorithms can process accurately.
+      </div>
+    </div>
+  </div>
+
+  <!-- Supervised types comparison -->
+  <div class="card">
+    <div class="ch"><span class="tag t-t">🆚</span><span class="ch-t">Classification vs Regression — Quick Comparison</span></div>
+    <div class="cb">
+      <table class="cmp">
+        <thead><tr><th>Aspect</th><th>Classification</th><th>Regression</th></tr></thead>
+        <tbody>
+          <tr><td>Output type</td><td class="hl">Categorical (discrete)</td><td class="hl2">Continuous (numerical)</td></tr>
+          <tr><td>Question answered</td><td class="hl">Is it A or B?</td><td class="hl2">How much? How many?</td></tr>
+          <tr><td>Example problem</td><td class="hl">Spam or not spam?</td><td class="hl2">What is tomorrow's temperature?</td></tr>
+          <tr><td>Output examples</td><td class="hl">Yes/No, 0/1, Cat/Dog</td><td class="hl2">77.5°F, $350,000, 42.3 kg</td></tr>
+          <tr><td>Algorithms</td><td class="hl">Decision Tree, SVM, KNN, Naïve Bayes, Neural Net</td><td class="hl2">Linear Regression, Polynomial Regression</td></tr>
+          <tr><td>Metric</td><td class="hl">Accuracy, Precision, Recall, F1</td><td class="hl2">MSE, RMSE, MAE, R²</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Reinforcement Learning key facts -->
+  <div class="card">
+    <div class="ch"><span class="tag t-p">🎮</span><span class="ch-t">Reinforcement Learning — Key Concepts</span></div>
+    <div class="cb">
+      <div class="theory-grid">
+        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
+          <div class="th-title" style="color:var(--purple)">Agent</div>
+          <div class="th-body">The learner / decision-maker that interacts with the environment.</div>
+        </div>
+        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
+          <div class="th-title" style="color:var(--purple)">Environment</div>
+          <div class="th-body">Everything the agent interacts with. Provides states and rewards.</div>
+        </div>
+        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
+          <div class="th-title" style="color:var(--purple)">State</div>
+          <div class="th-body">A specific situation the agent finds itself in at a given moment.</div>
+        </div>
+        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
+          <div class="th-title" style="color:var(--purple)">Action</div>
+          <div class="th-body">All possible moves the agent can make in the current state.</div>
+        </div>
+        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
+          <div class="th-title" style="color:var(--purple)">Reward</div>
+          <div class="th-body">Feedback from the environment based on the action taken. Goal: maximize cumulative reward.</div>
+        </div>
+        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
+          <div class="th-title" style="color:var(--purple)">Real Example</div>
+          <div class="th-body">Autonomous driving: car (agent) learns to drive (actions) on roads (environment) to avoid crashes (reward/penalty).</div>
+        </div>
+      </div>
+      <div class="info ip" style="margin-top:10px">
+        <strong>Key difference from Supervised:</strong> No labeled training data. The agent learns by trial and error — taking actions, observing outcomes, and adjusting to maximize rewards.
+      </div>
+    </div>
+  </div>
+
+
 </div><!-- /ref -->
 
 </main>
@@ -831,16 +1123,14 @@ footer{
 <!-- FOOTER -->
 <footer>
   <div class="ft">
-    <div><div class="fi-lbl">University</div><div class="fi-val">جامعة تكريت</div></div>
+    <div><div class="fi-l">University</div><div class="fi-v">Tikrit University</div></div>
     <div class="fsep"></div>
-    <div><div class="fi-lbl">Course</div><div class="fi-val" style="font-family:'Syne',sans-serif;font-size:.82rem">Internet of Things — Theory</div></div>
+    <div><div class="fi-l">Course</div><div class="fi-v">Machine Learning — Theory</div></div>
     <div class="fsep"></div>
-    <div><div class="fi-lbl">Exam</div><div class="fi-val" style="font-family:'Space Mono',monospace;font-size:.78rem">Mid Exam · 20/04/2026</div></div>
-    <div class="fsep"></div>
-    <div><div class="fi-lbl">Stage</div><div class="fi-val" style="font-family:'Space Mono',monospace;font-size:.78rem">3rd · Semester 2 · 2025–2026</div></div>
+    <div><div class="fi-l">Stage</div><div class="fi-v" style="font-family:'JetBrains Mono',monospace;font-size:.75rem">3rd · 2025–2026</div></div>
   </div>
-  <div style="height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:.9rem"></div>
-  <p class="fcopy">Q1 Definitions · Q2 Comparisons · Q3 Engineering Reasons · Q4 MCQ · Q5 True/False — All Answered</p>
+  <div style="height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:.7rem"></div>
+  <p class="fcopy">Quiz Solutions + Lecture 1 &amp; 2 Summary — Exam-Focused</p>
 </footer>
 
 <script>
@@ -855,7 +1145,7 @@ function go(id){
 }
 document.addEventListener('keydown',e=>{
   if(!e.altKey)return;
-  const m={'1':'p1','2':'p2','3':'ref'};
+  const m={'1':'quiz','2':'lec1','3':'lec2','4':'ref'};
   if(m[e.key]){e.preventDefault();go(m[e.key]);}
 });
 </script>
