@@ -3,1201 +3,510 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>نظرية الاحتمالات والإحصاء — دليل الدراسة</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<title>Probability Theory & Statistics — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0c14;
-    --surface: #111520;
-    --surface2: #161b2e;
-    --border: #1e2540;
-    --accent: #f5c842;
-    --accent2: #3b82f6;
-    --accent3: #10b981;
-    --accent4: #f43f5e;
-    --accent5: #a855f7;
-    --text: #e8eaf2;
-    --text-muted: #8b90a8;
-    --text-dim: #555c7a;
-    --gold: #f5c842;
-    --glow: rgba(245, 200, 66, 0.15);
-  }
+:root {
+  --bg:     #080b12;
+  --surf:   #0e1220;
+  --surf2:  #131829;
+  --border: #1c2238;
+  --gold:   #f5c518;
+  --blue:   #4f8ef7;
+  --green:  #22c55e;
+  --pink:   #f43f5e;
+  --purple: #a855f7;
+  --cyan:   #06b6d4;
+  --text:   #dde2f0;
+  --muted:  #7a82a0;
+  --dim:    #454d68;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+.hero{
+  text-align:center;padding:56px 20px 44px;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(245,197,24,.07),transparent 70%);
+  border-bottom:1px solid var(--border);
+}
+.chip{
+  display:inline-block;border:1px solid rgba(245,197,24,.35);
+  background:rgba(245,197,24,.08);color:var(--gold);
+  font-size:.72rem;letter-spacing:1.5px;padding:5px 16px;border-radius:50px;margin-bottom:18px;
+}
+.hero h1{
+  font-family:'Cairo',sans-serif;font-size:clamp(1.7rem,5vw,3rem);font-weight:900;
+  background:linear-gradient(130deg,var(--gold) 0%,#fff 55%,var(--blue) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;
+}
+.hero p{color:var(--muted);font-size:.95rem}
 
-  body {
-    font-family: 'Tajawal', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+.tabs{
+  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
+  position:sticky;top:0;z-index:99;
+  background:rgba(8,11,18,.97);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);padding:13px 20px;
+}
+.tab{
+  border:1px solid var(--border);background:var(--surf);color:var(--muted);
+  padding:8px 20px;border-radius:50px;cursor:pointer;
+  font-family:'Tajawal',sans-serif;font-size:.88rem;font-weight:500;transition:all .2s;
+}
+.tab:hover{border-color:var(--gold);color:var(--gold)}
+.tab.on{background:var(--gold);border-color:var(--gold);color:#080b12;font-weight:800;box-shadow:0 0 16px rgba(245,197,24,.3)}
 
-  /* ===== HERO ===== */
-  .hero {
-    position: relative;
-    text-align: center;
-    padding: 80px 20px 60px;
-    overflow: hidden;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,200,66,0.08) 0%, transparent 70%);
-  }
+.sec{display:none;max-width:1060px;margin:0 auto;padding:44px 20px 80px;animation:up .35s ease}
+.sec.on{display:block}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: 
-      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(245,200,66,0.03) 40px, rgba(245,200,66,0.03) 41px),
-      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(59,130,246,0.03) 40px, rgba(59,130,246,0.03) 41px);
-    pointer-events: none;
-  }
+.sec-h{font-family:'Cairo',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:32px;display:flex;align-items:center;gap:10px}
+.sec-h .ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
 
-  .hero-badge {
-    display: inline-block;
-    background: rgba(245,200,66,0.1);
-    border: 1px solid rgba(245,200,66,0.3);
-    color: var(--gold);
-    font-size: 0.8rem;
-    padding: 6px 18px;
-    border-radius: 50px;
-    margin-bottom: 24px;
-    letter-spacing: 1px;
-    animation: fadeDown 0.6s ease;
-  }
+/* ──────── LAWS TABLE ──────── */
+.ltable{width:100%;border-collapse:collapse;border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.ltable thead tr{background:var(--surf2)}
+.ltable th{padding:13px 16px;font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:700;color:var(--gold);text-align:right;border-bottom:1px solid var(--border)}
+.ltable td{padding:18px 16px;border-bottom:1px solid rgba(28,34,56,.5);background:var(--surf);vertical-align:top;font-size:.88rem}
+.ltable tr:last-child td{border-bottom:none}
 
-  .hero h1 {
-    font-family: 'Cairo', sans-serif;
-    font-size: clamp(2rem, 6vw, 4rem);
-    font-weight: 900;
-    line-height: 1.2;
-    background: linear-gradient(135deg, #f5c842 0%, #fff 50%, #3b82f6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 16px;
-    animation: fadeDown 0.7s ease;
-  }
+.lname{font-family:'Cairo',sans-serif;font-size:.97rem;font-weight:700;margin-bottom:3px}
+.len{font-size:.72rem;color:var(--dim);font-family:'JetBrains Mono',monospace;margin-bottom:10px}
+.formula{font-family:'JetBrains Mono',monospace;font-size:.95rem;color:var(--gold);background:var(--surf2);border:1px solid var(--border);border-radius:7px;padding:6px 12px;display:inline-block;direction:ltr}
 
-  .hero p {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    max-width: 500px;
-    margin: 0 auto 40px;
-    animation: fadeDown 0.8s ease;
-  }
+.lbadge{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:7px;font-weight:800;font-size:.78rem;font-family:'Cairo',sans-serif;padding:0 6px}
 
-  /* ===== NAV TABS ===== */
-  .nav-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    padding: 0 20px 50px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(10,12,20,0.95);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
+.wc{font-size:.86rem;color:var(--muted);line-height:1.85}
+.wc b{color:var(--text)}
+.tr{display:inline-block;background:rgba(245,197,24,.09);border:1px solid rgba(245,197,24,.22);color:var(--gold);padding:2px 8px;border-radius:5px;font-size:.74rem;font-weight:600;margin:2px 2px 0 0}
 
-  .tab-btn {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    padding: 10px 22px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: 'Tajawal', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: all 0.25s ease;
-  }
+/* quick key */
+.qkey{margin-top:28px;background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:22px}
+.qkey-h{font-family:'Cairo',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:14px;color:var(--gold)}
+.qkey table{width:100%;border-collapse:collapse;font-size:.83rem}
+.qkey td{padding:7px 10px;border:1px solid var(--border);color:var(--muted)}
+.qkey td b{color:var(--text)}
 
-  .tab-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .tab-btn.active {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: #0a0c14;
-    font-weight: 700;
-    box-shadow: 0 0 20px rgba(245,200,66,0.3);
-  }
+/* ──────── PROBLEMS ──────── */
+.prob{background:var(--surf);border:1px solid var(--border);border-radius:16px;margin-bottom:26px;overflow:hidden;transition:transform .2s}
+.prob:hover{transform:translateY(-2px)}
 
-  /* ===== SECTIONS ===== */
-  .section {
-    display: none;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 50px 20px 80px;
-    animation: fadeIn 0.4s ease;
-  }
-  .section.active { display: block; }
+.ph{display:flex;align-items:flex-start;gap:12px;padding:18px 22px;border-bottom:1px solid var(--border);background:var(--surf2)}
+.pnum{min-width:38px;height:38px;border-radius:9px;border:1px solid rgba(245,197,24,.3);background:rgba(245,197,24,.08);color:var(--gold);font-family:'Cairo',sans-serif;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ptitle{font-family:'Cairo',sans-serif;font-weight:700;font-size:.97rem;line-height:1.5}
+.ptitle .en{font-size:.78rem;color:var(--muted);font-weight:400;margin-top:2px}
 
-  .section-title {
-    font-family: 'Cairo', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+.qbox{margin:18px 22px 0;border-radius:11px;overflow:hidden}
+.qen{background:rgba(79,142,247,.06);border:1px solid rgba(79,142,247,.18);padding:12px 16px;font-size:.87rem;color:var(--text);line-height:1.8;direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace;border-radius:11px 11px 0 0;border-bottom:none}
+.qar{background:rgba(79,142,247,.03);border:1px solid rgba(79,142,247,.18);border-top:1px dashed rgba(79,142,247,.2);padding:12px 16px;font-size:.87rem;color:var(--muted);line-height:1.8;border-radius:0 0 11px 11px}
 
-  .section-title .icon {
-    width: 48px; height: 48px;
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem;
-  }
+.lindstrip{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 22px;border-bottom:1px solid var(--border);background:rgba(168,85,247,.03)}
+.lil{font-size:.74rem;color:var(--dim);font-weight:600;white-space:nowrap}
+.lindic{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:50px;font-size:.75rem;font-weight:700;border:1px solid}
 
-  /* ===== LAW CARDS ===== */
-  .laws-grid {
-    display: grid;
-    gap: 24px;
-  }
+.parts{padding:18px 22px 22px}
+.part{border-right:2px solid var(--border);padding:12px 14px 12px 0;margin-bottom:16px}
+.part:last-child{margin-bottom:0}
+.plabel{font-family:'Cairo',sans-serif;font-weight:700;font-size:.87rem;color:var(--gold);display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.ltag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:5px;font-size:.7rem;font-weight:700;border:1px solid}
 
-  .law-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: transform 0.25s, box-shadow 0.25s;
-    position: relative;
-  }
+.steps{display:flex;flex-direction:column;gap:7px}
+.step{display:flex;gap:8px;align-items:flex-start}
+.sn{min-width:22px;height:22px;border-radius:5px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);color:var(--green);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.sc{font-size:.87rem;color:var(--muted);line-height:1.8}
+.sc b{color:var(--text)}
+.m{font-family:'JetBrains Mono',monospace;color:var(--gold);background:var(--surf2);padding:1px 7px;border-radius:4px;font-size:.82rem;direction:ltr;display:inline-block}
 
-  .law-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-  }
+.ans{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:9px;padding:10px 14px;display:flex;align-items:center;gap:8px;margin-top:10px}
+.al{color:var(--green);font-weight:700;font-size:.82rem;white-space:nowrap}
+.av{font-family:'JetBrains Mono',monospace;color:var(--text);font-size:.85rem;direction:ltr}
 
-  .law-card::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0; left: 0;
-    height: 3px;
-    border-radius: 20px 20px 0 0;
-  }
+/* color helpers */
+.bg-gold{background:rgba(245,197,24,.12);border-color:rgba(245,197,24,.35);color:var(--gold)}
+.bg-blue{background:rgba(79,142,247,.12);border-color:rgba(79,142,247,.35);color:var(--blue)}
+.bg-green{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.35);color:var(--green)}
+.bg-pink{background:rgba(244,63,94,.12);border-color:rgba(244,63,94,.35);color:var(--pink)}
+.bg-purple{background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.35);color:var(--purple)}
+.bg-cyan{background:rgba(6,182,212,.12);border-color:rgba(6,182,212,.35);color:var(--cyan)}
 
-  .law-card.gold::before { background: linear-gradient(90deg, var(--gold), #f59e0b); }
-  .law-card.blue::before { background: linear-gradient(90deg, var(--accent2), #6366f1); }
-  .law-card.green::before { background: linear-gradient(90deg, var(--accent3), #059669); }
-  .law-card.pink::before { background: linear-gradient(90deg, var(--accent4), #ec4899); }
-  .law-card.purple::before { background: linear-gradient(90deg, var(--accent5), #7c3aed); }
-
-  .law-header {
-    padding: 24px 28px 16px;
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .law-num {
-    min-width: 40px; height: 40px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 1rem;
-    font-family: 'Cairo', sans-serif;
-  }
-
-  .gold .law-num { background: rgba(245,200,66,0.15); color: var(--gold); }
-  .blue .law-num { background: rgba(59,130,246,0.15); color: var(--accent2); }
-  .green .law-num { background: rgba(16,185,129,0.15); color: var(--accent3); }
-  .pink .law-num { background: rgba(244,63,94,0.15); color: var(--accent4); }
-  .purple .law-num { background: rgba(168,85,247,0.15); color: var(--accent5); }
-
-  .law-title-block h3 {
-    font-family: 'Cairo', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .law-title-block .en {
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    font-family: monospace;
-    letter-spacing: 0.5px;
-  }
-
-  .law-body { padding: 0 28px 28px; }
-
-  .law-desc {
-    color: var(--text-muted);
-    line-height: 1.85;
-    font-size: 1rem;
-    margin-bottom: 18px;
-  }
-
-  .formula-box {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 24px;
-    margin-bottom: 14px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .formula-box::before {
-    content: 'القانون';
-    position: absolute;
-    top: 10px;
-    left: 16px;
-    font-size: 0.7rem;
-    color: var(--text-dim);
-    letter-spacing: 1px;
-  }
-
-  .formula {
-    font-family: 'Cairo', monospace;
-    font-size: 1.2rem;
-    color: var(--text);
-    text-align: center;
-    direction: ltr;
-    padding-top: 8px;
-  }
-
-  .formula .var { color: var(--gold); font-weight: 700; }
-  .formula .op { color: var(--accent2); }
-
-  .conditions {
-    background: rgba(59,130,246,0.05);
-    border: 1px solid rgba(59,130,246,0.15);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-  }
-
-  .conditions strong { color: var(--accent2); }
-
-  /* ===== WHEN TO USE ===== */
-  .when-to-use {
-    background: rgba(245,200,66,0.05);
-    border-right: 3px solid var(--gold);
-    padding: 12px 16px;
-    border-radius: 0 10px 10px 0;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-top: 14px;
-  }
-  .when-to-use strong { color: var(--gold); }
-
-  /* ===== SUMMARY TABLE ===== */
-  .summary-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-
-  .summary-table th {
-    background: var(--surface2);
-    padding: 14px 18px;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--gold);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .summary-table td {
-    padding: 14px 18px;
-    border-bottom: 1px solid rgba(30,37,64,0.5);
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    background: var(--surface);
-    vertical-align: middle;
-  }
-
-  .summary-table tr:last-child td { border-bottom: none; }
-  .summary-table td:first-child { color: var(--text); font-weight: 600; }
-  .summary-table td .ltr { direction: ltr; display: inline-block; font-family: monospace; color: var(--accent2); }
-
-  /* ===== PROBLEMS ===== */
-  .problem-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    margin-bottom: 32px;
-    overflow: hidden;
-    transition: transform 0.2s;
-  }
-
-  .problem-card:hover { transform: translateY(-2px); }
-
-  .problem-header {
-    padding: 20px 28px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface2);
-  }
-
-  .problem-num {
-    width: 44px; height: 44px;
-    border-radius: 12px;
-    background: rgba(245,200,66,0.1);
-    border: 1px solid rgba(245,200,66,0.3);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 800;
-    color: var(--gold);
-    font-size: 1.1rem;
-    flex-shrink: 0;
-  }
-
-  .problem-title {
-    font-family: 'Cairo', sans-serif;
-    font-weight: 700;
-    font-size: 1.05rem;
-    line-height: 1.5;
-  }
-
-  .problem-body { padding: 24px 28px; }
-
-  .question-text {
-    background: rgba(59,130,246,0.06);
-    border: 1px solid rgba(59,130,246,0.15);
-    border-radius: 12px;
-    padding: 16px 20px;
-    font-size: 0.98rem;
-    color: var(--text-muted);
-    line-height: 1.85;
-    margin-bottom: 20px;
-  }
-
-  .law-used {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(168,85,247,0.1);
-    border: 1px solid rgba(168,85,247,0.25);
-    color: var(--accent5);
-    padding: 6px 14px;
-    border-radius: 50px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-
-  .solution-steps { display: flex; flex-direction: column; gap: 14px; }
-
-  .step {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-  }
-
-  .step-num {
-    min-width: 28px; height: 28px;
-    border-radius: 8px;
-    background: rgba(16,185,129,0.1);
-    border: 1px solid rgba(16,185,129,0.2);
-    color: var(--accent3);
-    font-size: 0.8rem;
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .step-content { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; }
-  .step-content strong { color: var(--text); }
-  .step-content .calc {
-    direction: ltr;
-    display: inline-block;
-    background: var(--surface2);
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-family: monospace;
-    font-size: 0.9rem;
-    color: var(--gold);
-    margin: 4px 0;
-  }
-
-  .answer-box {
-    background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.03));
-    border: 1px solid rgba(16,185,129,0.25);
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .answer-box .label {
-    color: var(--accent3);
-    font-weight: 700;
-    font-size: 0.9rem;
-    white-space: nowrap;
-  }
-
-  .answer-box .value {
-    color: var(--text);
-    font-size: 1rem;
-    font-weight: 600;
-    direction: ltr;
-    font-family: monospace;
-  }
-
-  .sub-parts { margin-top: 16px; }
-  .sub-part {
-    border-right: 2px solid var(--border);
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    border-radius: 0 8px 8px 0;
-  }
-  .sub-part-label {
-    font-weight: 700;
-    color: var(--gold);
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    font-family: 'Cairo', sans-serif;
-  }
-
-  /* ===== CARDS GRID ===== */
-  .cards-2col {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-  }
-
-  .info-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 22px;
-  }
-
-  .info-card h4 {
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: var(--text);
-  }
-
-  .info-card p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.75;
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ===== SCROLLBAR ===== */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-  /* ===== DIVIDER ===== */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    margin: 30px 0;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 6px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    margin-left: 6px;
-  }
-
-  .tag-gold { background: rgba(245,200,66,0.1); color: var(--gold); }
-  .tag-blue { background: rgba(59,130,246,0.1); color: var(--accent2); }
-  .tag-green { background: rgba(16,185,129,0.1); color: var(--accent3); }
-
-  /* note box */
-  .note {
-    background: rgba(245,200,66,0.05);
-    border: 1px solid rgba(245,200,66,0.2);
-    border-radius: 12px;
-    padding: 14px 18px;
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    margin-top: 16px;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-  .note .note-icon { font-size: 1rem; margin-top: 1px; }
-
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">📚 نظرية الاحتمالات والإحصاء — Spring 2026</div>
+  <div class="chip">PROBABILITY THEORY & STATISTICS — SPRING 2026</div>
   <h1>دليل الدراسة الشامل</h1>
-  <p>جميع القوانين والمسائل مع الشرح التفصيلي الكامل</p>
+  <p>القوانين · متى تستخدم كل قانون · المسائل بالإنجليزي والعربي مع الحلول</p>
 </div>
 
-<!-- NAV -->
-<div class="nav-tabs">
-  <button class="tab-btn active" onclick="showTab('laws')">📐 القوانين</button>
-  <button class="tab-btn" onclick="showTab('problems')">🧮 المسائل المحلولة</button>
-  <button class="tab-btn" onclick="showTab('summary')">📋 جدول الملخص</button>
+<div class="tabs">
+  <button class="tab on" onclick="show('laws',this)">📐 القوانين</button>
+  <button class="tab"    onclick="show('probs',this)">🧮 المسائل</button>
 </div>
 
-<!-- ===================== TAB 1: LAWS ===================== -->
-<div id="laws" class="section active">
-  <div class="section-title">
-    <div class="icon" style="background:rgba(245,200,66,0.1)">📐</div>
-    القوانين الأساسية في الاحتمالات والعد
-  </div>
+<!-- ══════════════════ LAWS ══════════════════ -->
+<div id="laws" class="sec on">
+  <div class="sec-h"><span class="ico" style="background:rgba(245,197,24,.1)">📐</span>القوانين الأساسية — متى تستخدم كل قانون؟</div>
 
-  <div class="laws-grid">
-
-    <!-- LAW 1 -->
-    <div class="law-card gold">
-      <div class="law-header">
-        <div class="law-num">١</div>
-        <div class="law-title-block">
-          <h3>قاعدة لابلاس (الاحتمال الكلاسيكي)</h3>
-          <div class="en">Laplace's Rule — Classical Probability</div>
-        </div>
-      </div>
-      <div class="law-body">
-        <div class="law-desc">
-          الاحتمال هو نسبة عدد الحالات المفضّلة (الناجحة) إلى إجمالي الحالات الممكنة، شريطة أن تكون جميع الحالات متساوية الاحتمال. هذا المبدأ يسمى أيضاً مبدأ عدم التحيز.
-        </div>
-        <div class="formula-box">
-          <div class="formula">
-            <span class="var">P(A)</span> <span class="op">=</span> <span class="var">عدد الحالات المفضلة</span> <span class="op">/</span> <span class="var">إجمالي الحالات الممكنة</span>
-          </div>
-        </div>
-        <div class="when-to-use">
-          <strong>⚡ متى تستخدمه:</strong> عندما يكون الفضاء العيني منتهياً وجميع النتائج متساوية الاحتمال — رمي نرد، رمي عملة، اختيار عشوائي.
-        </div>
-      </div>
-    </div>
-
-    <!-- LAW 2 -->
-    <div class="law-card blue">
-      <div class="law-header">
-        <div class="law-num">٢</div>
-        <div class="law-title-block">
-          <h3>السحب بإعادة مع الترتيب</h3>
-          <div class="en">Sampling with Replacement & Order</div>
-        </div>
-      </div>
-      <div class="law-body">
-        <div class="law-desc">
-          عدد طرق اختيار تسلسل مكوّن من <strong>k</strong> عنصراً من مجموعة حجمها <strong>n</strong>، مع السماح بالتكرار والترتيب مهم. كل مرة نختار، نُعيد العنصر للمجموعة مجدداً.
-        </div>
-        <div class="formula-box">
-          <div class="formula">
-            <span class="var">n<sup>k</sup></span>
-          </div>
-        </div>
-        <div class="conditions">
-          <strong>المعاملات:</strong> n = حجم المجموعة الكلية، k = عدد الاختيارات
-        </div>
-        <div class="when-to-use">
-          <strong>⚡ متى تستخدمه:</strong> رمي نرد عدة مرات، قائمة طعام لأيام متعددة (يمكن تكرار نفس الأكلة)، أرقام السر.
-        </div>
-      </div>
-    </div>
-
-    <!-- LAW 3 -->
-    <div class="law-card green">
-      <div class="law-header">
-        <div class="law-num">٣</div>
-        <div class="law-title-block">
-          <h3>السحب بدون إعادة مع الترتيب (ترتيب جزئي)</h3>
-          <div class="en">Sampling without Replacement with Order</div>
-        </div>
-      </div>
-      <div class="law-body">
-        <div class="law-desc">
-          عدد طرق اختيار تسلسل مرتّب من <strong>k</strong> عنصراً مختلفاً من مجموعة حجمها <strong>n</strong>، لا يجوز تكرار العنصر مرتين والترتيب مهم.
-        </div>
-        <div class="formula-box">
-          <div class="formula">
-            <span class="op">∏</span><sub>i=1</sub><sup>k</sup> (n−i+1) = <span class="var">n!</span> <span class="op">/</span> <span class="var">(n−k)!</span>
-          </div>
-        </div>
-        <div class="conditions">
-          <strong>شرط:</strong> n ≥ k
-        </div>
-        <div class="when-to-use">
-          <strong>⚡ متى تستخدمه:</strong> اختيار أكلات مختلفة كل يوم بدون تكرار، ترتيب أشخاص في صف، رمز الدخول بأرقام غير متكررة.
-        </div>
-      </div>
-    </div>
-
-    <!-- LAW 4 -->
-    <div class="law-card gold">
-      <div class="law-header">
-        <div class="law-num">٤</div>
-        <div class="law-title-block">
-          <h3>التباديل (Permutation)</h3>
-          <div class="en">Permutation — n!</div>
-        </div>
-      </div>
-      <div class="law-body">
-        <div class="law-desc">
-          حالة خاصة من السحب بدون إعادة مع ترتيب — عندما نرتّب <strong>جميع</strong> عناصر المجموعة. عدد طرق ترتيب n شخص في صف واحد.
-        </div>
-        <div class="formula-box">
-          <div class="formula">
-            <span class="var">n!</span> = n × (n−1) × (n−2) × ... × 2 × 1
-          </div>
-        </div>
-        <div class="conditions">
-          <strong>مثال:</strong> 4! = 4×3×2×1 = 24
-        </div>
-        <div class="when-to-use">
-          <strong>⚡ متى تستخدمه:</strong> ترتيب مجموعة أشخاص في صف، ترتيب كتب على رف، تحديد عدد الطرق المختلفة لترتيب مجموعة كاملة.
-        </div>
-      </div>
-    </div>
-
-    <!-- LAW 5 -->
-    <div class="law-card pink">
-      <div class="law-header">
-        <div class="law-num">٥</div>
-        <div class="law-title-block">
-          <h3>التوافيق (Combination) — المعامل الثنائي</h3>
-          <div class="en">Combination — Binomial Coefficient</div>
-        </div>
-      </div>
-      <div class="law-body">
-        <div class="law-desc">
-          عدد طرق اختيار مجموعة من <strong>k</strong> عنصراً من مجموعة حجمها <strong>n</strong>، بدون إعادة وبدون اعتبار للترتيب. أي ما يهمنا هو "مَن في المجموعة" لا "بأي ترتيب".
-        </div>
-        <div class="formula-box">
-          <div class="formula">
-            <span class="var">C(n,k)</span> = <span class="var">n!</span> <span class="op">/</span> [(n−k)! × k!] = <span class="var">(n choose k)</span>
-          </div>
-        </div>
-        <div class="conditions">
-          <strong>العلاقة مع التباديل:</strong> C(n,k) × k! = ترتيب k من n
-        </div>
-        <div class="when-to-use">
-          <strong>⚡ متى تستخدمه:</strong> اختيار فريق أو لجنة من مجموعة، اختيار عدد من الأشخاص لمهمة، تعيين مندوب أو مندوبَين من مجموعة.
-        </div>
-      </div>
-    </div>
-
-    <!-- LAW 6 -->
-    <div class="law-card purple">
-      <div class="law-header">
-        <div class="law-num">٦</div>
-        <div class="law-title-block">
-          <h3>المعاملات متعددة الحدود (Multinomial)</h3>
-          <div class="en">Multinomial Coefficients</div>
-        </div>
-      </div>
-      <div class="law-body">
-        <div class="law-desc">
-          عدد طرق تقسيم مجموعة من <strong>n</strong> عنصراً إلى <strong>s</strong> مجموعات فرعية، حجم المجموعة الأولى k₁ والثانية k₂ وهكذا، شريطة أن يكون مجموع أحجام المجموعات يساوي n.
-        </div>
-        <div class="formula-box">
-          <div class="formula">
-            <span class="var">n!</span> <span class="op">/</span> (k₁! × k₂! × ... × kₛ!)
-          </div>
-        </div>
-        <div class="conditions">
-          <strong>شرط:</strong> k₁ + k₂ + ... + kₛ = n
-        </div>
-        <div class="when-to-use">
-          <strong>⚡ متى تستخدمه:</strong> تقسيم مجموعة إلى فرق متعددة، توزيع n شخص على s مجموعات بأحجام محددة.
-        </div>
-      </div>
-    </div>
-
-    <!-- LAW 7 -->
-    <div class="law-card blue">
-      <div class="law-header">
-        <div class="law-num">٧</div>
-        <div class="law-title-block">
-          <h3>السحب بإعادة بدون ترتيب (Multiset)</h3>
-          <div class="en">Sampling with Replacement without Order</div>
-        </div>
-      </div>
-      <div class="law-body">
-        <div class="law-desc">
-          عدد طرق اختيار <strong>k</strong> عنصراً من مجموعة حجمها <strong>n</strong> مع السماح بالتكرار لكن بدون اعتبار للترتيب. أي "كم عنصر من كل نوع" وليس "بأي ترتيب". يُعرف بعد العناصر المتعددة أو الـ Multiset.
-        </div>
-        <div class="formula-box">
-          <div class="formula">
-            ⟨⟨n choose k⟩⟩ = C(k+n−1, k) = (k+n−1)! <span class="op">/</span> [(n−1)! × k!]
-          </div>
-        </div>
-        <div class="when-to-use">
-          <strong>⚡ متى تستخدمه:</strong> عدد الطلبات الممكنة من قائمة طعام لمجموعة (من منظور الطباخ)، توزيع طلبات متكررة بدون اعتبار من طلب ماذا.
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===================== TAB 2: PROBLEMS ===================== -->
-<div id="problems" class="section">
-  <div class="section-title">
-    <div class="icon" style="background:rgba(59,130,246,0.1)">🧮</div>
-    المسائل المحلولة مع الشرح التفصيلي
-  </div>
-
-  <!-- PROBLEM: DIE -->
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">١</div>
-      <div class="problem-title">رمي نرد عادل — حساب الاحتمالات</div>
-    </div>
-    <div class="problem-body">
-      <div class="question-text">
-        إذا رميت نرداً عادلاً (6 أوجه)، ما احتمال أن تكون النتيجة:<br>
-        أ) الرقم 3 &nbsp;&nbsp; ب) عدد زوجي &nbsp;&nbsp; ج) ليس عدداً أولياً &nbsp;&nbsp; د) الرقم 7
-      </div>
-      <div class="law-used">📐 القانون المستخدم: قاعدة لابلاس — P(A) = مفضّل / كلي</div>
-      <div class="solution-steps">
-        <div class="step">
-          <div class="step-num">١</div>
-          <div class="step-content">
-            <strong>حدّد الفضاء العيني:</strong> جميع النتائج الممكنة عند رمي النرد هي {1، 2، 3، 4، 5، 6}، إذن الإجمالي = 6
-          </div>
-        </div>
-      </div>
-      <div class="sub-parts">
-        <div class="sub-part">
-          <div class="sub-part-label">أ) احتمال الرقم 3</div>
-          <div class="step-content">الرقم 3 يظهر مرة واحدة فقط من أصل 6 نتائج.<br>
-          <span class="calc">P(3) = 1/6 ≈ 0.167</span></div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">P(3) = 1/6</div>
-          </div>
-        </div>
-        <div class="sub-part">
-          <div class="sub-part-label">ب) احتمال عدد زوجي</div>
-          <div class="step-content">الأعداد الزوجية هي: {2، 4، 6} — 3 نتائج مفضّلة.<br>
-          <span class="calc">P(زوجي) = 3/6 = 1/2</span></div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">P(زوجي) = 1/2</div>
-          </div>
-        </div>
-        <div class="sub-part">
-          <div class="sub-part-label">ج) احتمال ليس عدداً أولياً</div>
-          <div class="step-content">الأعداد الأولية بين 1-6 هي: {2، 3، 5} — إذن غير الأولية هي: {1، 4، 6} — 3 نتائج مفضّلة.<br>
-          <span class="calc">P(ليس أولي) = 3/6 = 1/2</span></div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">P(ليس أولي) = 1/2</div>
-          </div>
-        </div>
-        <div class="sub-part">
-          <div class="sub-part-label">د) احتمال الرقم 7</div>
-          <div class="step-content">الرقم 7 غير موجود في النرد (أوجهه من 1 إلى 6)، إذن لا توجد نتائج مفضّلة.<br>
-          <span class="calc">P(7) = 0/6 = 0</span></div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">P(7) = 0 (مستحيل)</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROBLEM: SAMPLE SPACE -->
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">٢</div>
-      <div class="problem-title">الفضاء العيني لتجارب عشوائية مختلفة</div>
-    </div>
-    <div class="problem-body">
-      <div class="question-text">
-        ما الفضاء العيني لكل من التجارب التالية؟<br>
-        أ) رمي عملة واحدة &nbsp; ب) رمي 3 عملات &nbsp; ج) رمي نرد &nbsp; د) قياس درجة حرارة &nbsp; ه) إحصاء تعداد سكاني
-      </div>
-      <div class="law-used">📌 المفهوم: الفضاء العيني Ω = مجموعة كل النتائج الممكنة</div>
-      <div class="sub-parts">
-        <div class="sub-part">
-          <div class="sub-part-label">أ) عملة واحدة</div>
-          <div class="step-content">نتيجتان فقط: رأس أو كتابة<br>
-          <span class="calc">Ω = {H, T}</span></div>
-        </div>
-        <div class="sub-part">
-          <div class="sub-part-label">ب) 3 عملات</div>
-          <div class="step-content">كل عملة لها نتيجتان، و3 عملات تعني 2³ = 8 نتائج ممكنة<br>
-          <span class="calc">Ω = {HHH, HHT, HTH, HTT, THH, THT, TTH, TTT}</span><br>
-          القانون المستخدم لحساب العدد: <span class="calc">n^k = 2^3 = 8</span> (سحب بإعادة مع ترتيب)</div>
-        </div>
-        <div class="sub-part">
-          <div class="sub-part-label">ج) رمي نرد</div>
-          <div class="step-content">
-          <span class="calc">Ω = {1, 2, 3, 4, 5, 6}</span> — 6 نتائج</div>
-        </div>
-        <div class="sub-part">
-          <div class="sub-part-label">د) قياس درجة الحرارة</div>
-          <div class="step-content">المجال متصل (غير منتهٍ) — درجة حرارة يمكن أن تكون أي قيمة في نطاق معين<br>
-          <span class="calc">Ω = ℝ  (أو نطاق مثل [-50°C, 60°C])</span></div>
-        </div>
-        <div class="sub-part">
-          <div class="sub-part-label">ه) تعداد سكاني</div>
-          <div class="step-content">عدد صحيح غير سالب لا حد نظري محدد له<br>
-          <span class="calc">Ω = {0, 1, 2, 3, ...} = ℕ₀</span></div>
-        </div>
-      </div>
-      <div class="note">
-        <div class="note-icon">💡</div>
-        <div>الحدث العشوائي هو أي مجموعة جزئية من الفضاء العيني. مثلاً "الحصول على رأسَين على الأقل" هو حدث يشمل: {HHT, HTH, THH, HHH}.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROBLEM: MUHAMMED CAFE -->
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">٣</div>
-      <div class="problem-title">محمد والمقهى — مسألة العد الشاملة</div>
-    </div>
-    <div class="problem-body">
-      <div class="question-text">
-        يأكل طالب اسمه محمد في مقهى يقدّم 10 أكلات مختلفة طوال أسبوع (7 أيام)، ويختار وجبته عشوائياً كل يوم.
-      </div>
-
-      <div class="sub-parts">
-
-        <div class="sub-part">
-          <div class="sub-part-label">أ) كم عدد القوائم الغذائية الممكنة خلال 7 أيام؟</div>
-          <div class="law-used">📐 السحب بإعادة مع ترتيب: n^k</div>
-          <div class="solution-steps">
-            <div class="step">
-              <div class="step-num">١</div>
-              <div class="step-content">كل يوم محمد يختار من 10 أكلات، ويمكن أن يكرر نفس الأكلة. الأيام مرتّبة (يوم1، يوم2، ...) والتكرار مسموح.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٢</div>
-              <div class="step-content">n = 10 (عدد الأكلات)، k = 7 (عدد الأيام)<br>
-              <span class="calc">العدد الكلي = 10^7 = 10,000,000</span></div>
-            </div>
-          </div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">10^7 = 10,000,000 قائمة ممكنة</div>
-          </div>
-        </div>
-
-        <div class="sub-part">
-          <div class="sub-part-label">ب) ما احتمال أن يأكل نفس الأكلة كل يوم؟</div>
-          <div class="solution-steps">
-            <div class="step">
-              <div class="step-num">١</div>
-              <div class="step-content"><strong>حالات نفس الأكلة كل يوم:</strong> 10 فقط (أكلة1 كل يوم، أو أكلة2 كل يوم، ... إلخ)</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٢</div>
-              <div class="step-content"><span class="calc">P = 10 / 10^7 = 1 / 10^6 = 0.000001</span></div>
-            </div>
-          </div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">P = 10⁻⁶ (احتمال ضئيل جداً)</div>
-          </div>
-        </div>
-
-        <div class="sub-part">
-          <div class="sub-part-label">ج) ما احتمال أن يأكل أكثر 2 نوع مختلف كحد أقصى طوال الأسبوع؟</div>
-          <div class="law-used">📐 التوافيق C(n,k) + السحب بإعادة</div>
-          <div class="solution-steps">
-            <div class="step">
-              <div class="step-num">١</div>
-              <div class="step-content"><strong>الحالة 1:</strong> نوع واحد فقط = 10 قوائم (كما حسبنا)</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٢</div>
-              <div class="step-content"><strong>الحالة 2:</strong> نوعان بالضبط — نختار أولاً أي نوعَين: C(10,2) = 45 طريقة. ثم لكل زوج: القوائم بهذَين النوعَين فقط = 2^7 = 128، لكن نطرح القوائم التي تستخدم نوعاً واحداً فقط (2 قائمة). إذن لكل زوج: 128 − 2 = 126.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٣</div>
-              <div class="step-content">إجمالي الحالات المفضّلة = 10 + (45 × 126) = 10 + 5670 = 5680<br>
-              <span class="calc">P = 5680 / 10^7 ≈ 0.000568</span></div>
-            </div>
-          </div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">P ≈ 5.68 × 10⁻⁴</div>
-          </div>
-        </div>
-
-        <div class="sub-part">
-          <div class="sub-part-label">د) كيف يختار إذا أراد أكلة مختلفة كل يوم (بدون تكرار)؟</div>
-          <div class="law-used">📐 السحب بدون إعادة مع ترتيب: n! / (n-k)!</div>
-          <div class="solution-steps">
-            <div class="step">
-              <div class="step-num">١</div>
-              <div class="step-content">n = 10، k = 7. يختار أكلة مختلفة كل يوم، لا تكرار، والأيام مرتّبة.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٢</div>
-              <div class="step-content"><span class="calc">العدد = 10! / (10-7)! = 10! / 3! = 10×9×8×7×6×5×4 = 604,800</span></div>
-            </div>
-          </div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">604,800 طريقة</div>
-          </div>
-        </div>
-
-        <div class="sub-part">
-          <div class="sub-part-label">ه) إذا أراد أكلة مختلفة عن اليوم السابق فقط (لا عن كل الأيام)؟</div>
-          <div class="solution-steps">
-            <div class="step">
-              <div class="step-num">١</div>
-              <div class="step-content">اليوم الأول: 10 خيارات حرة.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٢</div>
-              <div class="step-content">كل يوم تالٍ: 9 خيارات (أي شيء ما عدا ما أكله أمس).</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٣</div>
-              <div class="step-content"><span class="calc">العدد = 10 × 9^6 = 10 × 531,441 = 5,314,410</span></div>
-            </div>
-          </div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">5,314,410 طريقة</div>
-          </div>
-        </div>
-
-        <div class="sub-part">
-          <div class="sub-part-label">و) كم عدد ترتيبات دخول محمد وأصدقائه الثلاثة للمقهى؟</div>
-          <div class="law-used">📐 التباديل: n!</div>
-          <div class="solution-steps">
-            <div class="step">
-              <div class="step-num">١</div>
-              <div class="step-content">لديهم 4 أشخاص (محمد + 3 أصدقاء) يدخلون واحداً تلو الآخر.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٢</div>
-              <div class="step-content"><span class="calc">عدد الترتيبات = 4! = 4×3×2×1 = 24</span></div>
-            </div>
-          </div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">24 ترتيباً مختلفاً</div>
-          </div>
-        </div>
-
-        <div class="sub-part">
-          <div class="sub-part-label">ز) كم طريقة لاختيار شخص واحد (أو شخصَين) من المجموعة لجلب الطعام؟</div>
-          <div class="law-used">📐 التوافيق: C(n,k)</div>
-          <div class="solution-steps">
-            <div class="step">
-              <div class="step-num">١</div>
-              <div class="step-content"><strong>شخص واحد:</strong> C(4,1) = 4 طرق</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٢</div>
-              <div class="step-content"><strong>شخصان:</strong> <span class="calc">C(4,2) = 4! / (2! × 2!) = 6 طرق</span></div>
-            </div>
-          </div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">4 طرق للشخص الواحد، 6 طرق لشخصَين</div>
-          </div>
-        </div>
-
-        <div class="sub-part">
-          <div class="sub-part-label">ح) كم طلباً مختلفاً يمكن أن يطلبه الأربعة من قائمة 10 أكلات؟ (من منظور الطباخ)</div>
-          <div class="law-used">📐 السحب بإعادة بدون ترتيب (Multiset): C(k+n-1, k)</div>
-          <div class="solution-steps">
-            <div class="step">
-              <div class="step-num">١</div>
-              <div class="step-content">الطباخ يرى الطلب الإجمالي فقط (مثلاً: وجبتان برجر + بيتزا + عصير)، لا يهمه من طلب ماذا.</div>
-            </div>
-            <div class="step">
-              <div class="step-num">٢</div>
-              <div class="step-content">n = 10 أكلات، k = 4 أشخاص.<br>
-              <span class="calc">C(4+10-1, 4) = C(13, 4) = 13! / (9! × 4!) = 715</span></div>
-            </div>
-          </div>
-          <div class="answer-box">
-            <div class="label">✅ الجواب</div>
-            <div class="value">715 طلباً مختلفاً (منظور الطباخ)</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- PROBLEM: TEAMS -->
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">٤</div>
-      <div class="problem-title">مجموعة 12 صديقاً وتقسيمهم لفرق — المعاملات متعددة الحدود</div>
-    </div>
-    <div class="problem-body">
-      <div class="question-text">
-        مجموعة من 12 صديقاً يريدون اللعب في 4 فرق، كل فريق 3 أشخاص. كم ترتيباً ممكناً؟
-      </div>
-      <div class="law-used">📐 المعامل متعدد الحدود: n! / (k₁! × k₂! × ... × kₛ!)</div>
-      <div class="solution-steps">
-        <div class="step">
-          <div class="step-num">١</div>
-          <div class="step-content">n = 12، لدينا 4 مجموعات كل واحدة حجمها 3.<br>
-          التحقق: 3+3+3+3 = 12 ✓</div>
-        </div>
-        <div class="step">
-          <div class="step-num">٢</div>
-          <div class="step-content">
-          <span class="calc">العدد = 12! / (3! × 3! × 3! × 3!) = 479,001,600 / (6×6×6×6) = 479,001,600 / 1296 = 369,600</span></div>
-        </div>
-      </div>
-      <div class="answer-box">
-        <div class="label">✅ الجواب</div>
-        <div class="value">369,600 ترتيباً ممكناً</div>
-      </div>
-
-      <div class="divider"></div>
-      <div class="sub-part">
-        <div class="sub-part-label">ماذا لو كانت الفرق بأحجام 2، 4، 5 (من 11 شخصاً مثلاً)؟</div>
-        <div class="step-content">التحقق: 2+4+5 = 11 ✓<br>
-        <span class="calc">العدد = 11! / (2! × 4! × 5!) = 39,916,800 / (2 × 24 × 120) = 39,916,800 / 5,760 = 6,930</span></div>
-        <div class="answer-box" style="margin-top:12px">
-          <div class="label">✅ الجواب</div>
-          <div class="value">6,930 طريقة</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ===================== TAB 3: SUMMARY ===================== -->
-<div id="summary" class="section">
-  <div class="section-title">
-    <div class="icon" style="background:rgba(16,185,129,0.1)">📋</div>
-    جدول الملخص الشامل للقوانين
-  </div>
-
-  <div class="cards-2col" style="margin-bottom:32px">
-    <div class="info-card">
-      <h4>🔑 مفتاح القرار السريع</h4>
-      <p>
-        <strong>هل التكرار مسموح؟</strong><br>
-        ✅ نعم + الترتيب مهم → <span style="color:var(--accent2)">nᵏ</span><br>
-        ✅ نعم + الترتيب غير مهم → <span style="color:var(--accent5)">Multiset</span><br>
-        ❌ لا + الترتيب مهم → <span style="color:var(--accent3)">n!/(n-k)!</span><br>
-        ❌ لا + الترتيب غير مهم → <span style="color:var(--accent4)">C(n,k)</span>
-      </p>
-    </div>
-    <div class="info-card">
-      <h4>⚠️ تنبيهات مهمة</h4>
-      <p>
-        • لابلاس يشترط أن تكون الحالات متساوية الاحتمال.<br>
-        • التباديل (n!) هي حالة خاصة حيث k=n.<br>
-        • Multinomial هو تعميم للـ Binomial لأكثر من مجموعتين.<br>
-        • السؤال "من منظور من؟" يغير نوع القانون المطلوب!
-      </p>
-    </div>
-  </div>
-
-  <table class="summary-table">
+  <table class="ltable">
     <thead>
       <tr>
-        <th>النوع</th>
-        <th>التكرار؟</th>
-        <th>الترتيب؟</th>
-        <th>القانون</th>
-        <th>مثال</th>
+        <th style="width:52px">#</th>
+        <th style="width:42%">القانون والصيغة</th>
+        <th>متى تستخدمه؟</th>
       </tr>
     </thead>
     <tbody>
+
       <tr>
-        <td>سحب بإعادة مع ترتيب</td>
-        <td><span class="tag tag-green">✅ نعم</span></td>
-        <td><span class="tag tag-green">✅ مهم</span></td>
-        <td><span class="ltr">nᵏ</span></td>
-        <td>قائمة طعام لـ k يوم من n أكلة</td>
+        <td><span class="lbadge bg-gold">L1</span></td>
+        <td>
+          <div class="lname">قاعدة لابلاس — الاحتمال الكلاسيكي</div>
+          <div class="len">Laplace's Rule / Classical Probability</div>
+          <code class="formula">P(A) = |A| / |Ω|</code>
+        </td>
+        <td class="wc">
+          <b>الشرط:</b> جميع النتائج متساوية الاحتمال.<br>
+          <span class="tr">رمي نرد / عملة</span><span class="tr">اختيار عشوائي</span><span class="tr">فضاء عيني منتهٍ</span><br>
+          اقسم عدد الحالات المفضّلة على إجمالي الحالات الممكنة.
+        </td>
       </tr>
+
       <tr>
-        <td>سحب بدون إعادة مع ترتيب</td>
-        <td><span class="tag tag-blue">❌ لا</span></td>
-        <td><span class="tag tag-green">✅ مهم</span></td>
-        <td><span class="ltr">n! / (n-k)!</span></td>
-        <td>أكلة مختلفة كل يوم، ترتيب دخول المقهى</td>
+        <td><span class="lbadge bg-blue">L2</span></td>
+        <td>
+          <div class="lname">سحب بإعادة مع ترتيب</div>
+          <div class="len">Sampling with Replacement & Order</div>
+          <code class="formula">n^k</code>
+        </td>
+        <td class="wc">
+          <b>التكرار مسموح + الترتيب مهم.</b><br>
+          <span class="tr">قائمة طعام k يوم</span><span class="tr">رمي نرد k مرة</span><span class="tr">رمز مع تكرار</span><br>
+          كل مرة تختار تعود كل الخيارات متاحة، وتسلسل الاختيارات مهم.
+        </td>
       </tr>
+
       <tr>
-        <td>تباديل (كل العناصر)</td>
-        <td><span class="tag tag-blue">❌ لا</span></td>
-        <td><span class="tag tag-green">✅ مهم</span></td>
-        <td><span class="ltr">n!</span></td>
-        <td>ترتيب n شخص في صف</td>
+        <td><span class="lbadge bg-green">L3</span></td>
+        <td>
+          <div class="lname">سحب بدون إعادة مع ترتيب</div>
+          <div class="len">Sampling without Replacement & Order</div>
+          <code class="formula">n! / (n−k)!</code>
+        </td>
+        <td class="wc">
+          <b>لا تكرار + الترتيب مهم.</b><br>
+          <span class="tr">أكلة مختلفة كل يوم</span><span class="tr">ترتيب دخول أشخاص</span><span class="tr">رمز بأحرف مختلفة</span><br>
+          اختيار k عنصراً من n بدون إعادة والتسلسل يهم.
+        </td>
       </tr>
+
       <tr>
-        <td>توافيق (Combination)</td>
-        <td><span class="tag tag-blue">❌ لا</span></td>
-        <td><span class="tag tag-blue">❌ غير مهم</span></td>
-        <td><span class="ltr">n! / [(n-k)! × k!]</span></td>
-        <td>اختيار فريق أو لجنة</td>
+        <td><span class="lbadge bg-gold">L4</span></td>
+        <td>
+          <div class="lname">تباديل — ترتيب جميع العناصر</div>
+          <div class="len">Permutation — Full Arrangement</div>
+          <code class="formula">n!</code>
+        </td>
+        <td class="wc">
+          <b>حالة خاصة من L3 حين k = n.</b><br>
+          <span class="tr">ترتيب n شخص في صف</span><span class="tr">ترتيب كتب على رف</span><br>
+          كل العناصر تُستخدم مرة واحدة والترتيب يهم.
+        </td>
       </tr>
+
       <tr>
-        <td>معاملات متعددة الحدود</td>
-        <td><span class="tag tag-blue">❌ لا</span></td>
-        <td><span class="tag tag-blue">❌ غير مهم</span></td>
-        <td><span class="ltr">n! / (k₁!k₂!…kₛ!)</span></td>
-        <td>تقسيم مجموعة إلى فرق متعددة</td>
+        <td><span class="lbadge bg-pink">L5</span></td>
+        <td>
+          <div class="lname">توافيق — المعامل الثنائي</div>
+          <div class="len">Combination — Binomial Coefficient</div>
+          <code class="formula">C(n,k) = n! / [k!(n−k)!]</code>
+        </td>
+        <td class="wc">
+          <b>لا تكرار + الترتيب غير مهم.</b><br>
+          <span class="tr">اختيار فريق / لجنة</span><span class="tr">تعيين مندوب</span><span class="tr">اختيار مجموعة</span><br>
+          يهمنا "مَن في المجموعة" لا "بأي ترتيب دخلوا".
+        </td>
       </tr>
+
       <tr>
-        <td>سحب بإعادة بدون ترتيب (Multiset)</td>
-        <td><span class="tag tag-green">✅ نعم</span></td>
-        <td><span class="tag tag-blue">❌ غير مهم</span></td>
-        <td><span class="ltr">C(k+n-1, k)</span></td>
-        <td>طلبات مجموعة من قائمة طعام (منظور الطباخ)</td>
+        <td><span class="lbadge bg-purple">L6</span></td>
+        <td>
+          <div class="lname">معاملات متعددة الحدود</div>
+          <div class="len">Multinomial Coefficients</div>
+          <code class="formula">n! / (k₁!·k₂!·…·kₛ!)</code>
+        </td>
+        <td class="wc">
+          <b>تقسيم n عنصراً إلى s مجموعات بأحجام محددة.</b><br>
+          <span class="tr">تقسيم لفرق متعددة</span><span class="tr">توزيع على أقسام</span><br>
+          شرط: k₁+k₂+…+kₛ = n. هذا تعميم لـ L5.
+        </td>
       </tr>
+
       <tr>
-        <td>قاعدة لابلاس</td>
-        <td colspan="2" style="text-align:center">جميع النتائج متساوية الاحتمال</td>
-        <td><span class="ltr">|A| / |Ω|</span></td>
-        <td>رمي نرد، عملة، اختيار عشوائي</td>
+        <td><span class="lbadge bg-cyan">L7</span></td>
+        <td>
+          <div class="lname">سحب بإعادة بدون ترتيب — Multiset</div>
+          <div class="len">Sampling with Replacement, No Order</div>
+          <code class="formula">C(k+n−1, k)</code>
+        </td>
+        <td class="wc">
+          <b>التكرار مسموح + الترتيب غير مهم.</b><br>
+          <span class="tr">طلبات مجموعة من قائمة</span><span class="tr">منظور الطباخ</span><br>
+          يهمك "كم من كل نوع" لا من طلب ماذا ومتى.
+        </td>
       </tr>
+
     </tbody>
   </table>
 
-  <div style="margin-top:40px">
-    <div class="section-title" style="font-size:1.3rem; margin-bottom:20px">
-      <div class="icon" style="background:rgba(245,200,66,0.1); width:36px; height:36px; font-size:1rem">🧠</div>
-      العلاقات بين القوانين
+  <div class="qkey">
+    <div class="qkey-h">🔑 مفتاح القرار السريع — أي قانون أستخدم؟</div>
+    <table>
+      <tr><td><b>التكرار؟</b></td><td><b>الترتيب؟</b></td><td><b>القانون</b></td></tr>
+      <tr><td>✅ نعم</td><td>✅ مهم</td><td><span class="lbadge bg-blue" style="font-size:.72rem">L2</span> &nbsp;<code style="font-family:monospace;color:var(--blue)">nᵏ</code></td></tr>
+      <tr><td>✅ نعم</td><td>❌ غير مهم</td><td><span class="lbadge bg-cyan" style="font-size:.72rem">L7</span> &nbsp;<code style="font-family:monospace;color:var(--cyan)">C(k+n-1,k)</code></td></tr>
+      <tr><td>❌ لا</td><td>✅ مهم</td><td><span class="lbadge bg-green" style="font-size:.72rem">L3</span> <code style="font-family:monospace;color:var(--green)">n!/(n-k)!</code> &nbsp;أو إذا k=n: <span class="lbadge bg-gold" style="font-size:.72rem">L4</span> <code style="font-family:monospace;color:var(--gold)">n!</code></td></tr>
+      <tr><td>❌ لا</td><td>❌ غير مهم</td><td><span class="lbadge bg-pink" style="font-size:.72rem">L5</span> <code style="font-family:monospace;color:var(--pink)">C(n,k)</code> &nbsp;أو لمجموعات: <span class="lbadge bg-purple" style="font-size:.72rem">L6</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════ PROBLEMS ══════════════════ -->
+<div id="probs" class="sec">
+  <div class="sec-h"><span class="ico" style="background:rgba(79,142,247,.1)">🧮</span>المسائل المحلولة — السؤال بالإنجليزي والعربي</div>
+
+  <!-- Q1 -->
+  <div class="prob">
+    <div class="ph">
+      <div class="pnum">Q1</div>
+      <div class="ptitle">Rolling a Fair Die — Laplace's Rule<div class="en">رمي نرد عادل — قاعدة لابلاس</div></div>
     </div>
-    <div class="cards-2col">
-      <div class="info-card">
-        <h4>التوافيق ← التباديل</h4>
-        <p>التباديل الجزئي = التوافيق × k!<br>
-        أي: <span style="color:var(--gold)">n!/(n-k)! = C(n,k) × k!</span><br>
-        عندما نختار k عنصراً ثم نرتّبهم نحصل على التباديل الجزئي.</p>
+    <div class="qbox">
+      <div class="qen">If I roll a fair die, what is the probability that the outcome is:
+a) 3 &nbsp;&nbsp; b) Even &nbsp;&nbsp; c) Not prime &nbsp;&nbsp; d) 7</div>
+      <div class="qar">إذا رميت نرداً عادلاً، ما احتمال أن تكون النتيجة:&nbsp; أ) الرقم 3 &nbsp; ب) عدد زوجي &nbsp; ج) ليس عدداً أولياً &nbsp; د) الرقم 7</div>
+    </div>
+    <div class="lindstrip">
+      <span class="lil">القانون:</span>
+      <span class="lindic bg-gold">L1 — Laplace: P(A) = |A| / |Ω|</span>
+    </div>
+    <div class="parts">
+      <div class="step" style="margin-bottom:14px"><div class="sn">0</div><div class="sc"><b>Sample space / الفضاء العيني:</b> Ω = {1,2,3,4,5,6} → |Ω| = 6</div></div>
+
+      <div class="part">
+        <div class="plabel">a | أ — الرقم 3</div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">Favorable / المفضّل = {3} → |A| = 1</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc"><span class="m">P(3) = 1/6 ≈ 0.167</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">P(3) = 1/6</div></div>
       </div>
-      <div class="info-card">
-        <h4>Multinomial ← Binomial</h4>
-        <p>المعامل الثنائي هو حالة خاصة من المتعدد الحدود عندما s=2:<br>
-        <span style="color:var(--gold)">C(n,k) = n! / (k! × (n-k)!)</span><br>
-        وهو ما نحصل عليه من الصيغة العامة عند مجموعتَين.</p>
+
+      <div class="part">
+        <div class="plabel">b | ب — عدد زوجي</div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">Even numbers / الأزواج = {2,4,6} → |A| = 3</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc"><span class="m">P(even) = 3/6 = 1/2</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">P(even) = 1/2</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">c | ج — ليس عدداً أولياً</div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">Primes = {2,3,5} → Non-primes = {1,4,6} → |A| = 3</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc"><span class="m">P(not prime) = 3/6 = 1/2</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">P(not prime) = 1/2</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">d | د — الرقم 7</div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">7 is not on the die / 7 غير موجود → |A| = 0</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc"><span class="m">P(7) = 0/6 = 0</span> — impossible / مستحيل</div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">P(7) = 0</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="prob">
+    <div class="ph">
+      <div class="pnum">Q2</div>
+      <div class="ptitle">Sample Space of Random Experiments<div class="en">الفضاء العيني لتجارب عشوائية</div></div>
+    </div>
+    <div class="qbox">
+      <div class="qen">What is the sample space for:
+a) Coin toss  b) 3-coin toss  c) Die throw  d) Temperature measurement  e) Census</div>
+      <div class="qar">ما الفضاء العيني لكل من: &nbsp;أ) رمي عملة &nbsp; ب) رمي 3 عملات &nbsp; ج) رمي نرد &nbsp; د) قياس حرارة &nbsp; ه) تعداد سكاني</div>
+    </div>
+    <div class="lindstrip">
+      <span class="lil">القانون:</span>
+      <span class="lindic bg-gold">L1 — الفضاء العيني Ω</span>
+      <span class="lindic bg-blue">L2 — nᵏ لحساب عدد نتائج ب</span>
+    </div>
+    <div class="parts">
+      <div class="part">
+        <div class="plabel">a | أ — Coin toss / رمي عملة <span class="ltag bg-gold">L1</span></div>
+        <div class="sc"><span class="m">Ω = {H, T}</span> → |Ω| = 2</div>
+      </div>
+      <div class="part">
+        <div class="plabel">b | ب — 3-coin toss / رمي 3 عملات <span class="ltag bg-blue">L2: 2³=8</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">Each coin 2 outcomes, 3 independent coins → <span class="m">2³ = 8</span></div></div>
+          <div class="step"><div class="sn">2</div><div class="sc"><span class="m">Ω = {HHH,HHT,HTH,HTT,THH,THT,TTH,TTT}</span></div></div>
+        </div>
+      </div>
+      <div class="part">
+        <div class="plabel">c | ج — Die throw / رمي نرد</div>
+        <div class="sc"><span class="m">Ω = {1,2,3,4,5,6}</span></div>
+      </div>
+      <div class="part">
+        <div class="plabel">d | د — Temperature / حرارة</div>
+        <div class="sc">Continuous / متصل → <span class="m">Ω = ℝ</span></div>
+      </div>
+      <div class="part">
+        <div class="plabel">e | ه — Census / تعداد</div>
+        <div class="sc">Non-negative integers / أعداد صحيحة غير سالبة → <span class="m">Ω = {0,1,2,3,...}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="prob">
+    <div class="ph">
+      <div class="pnum">Q3</div>
+      <div class="ptitle">Muhammed and the Café — All Counting Laws<div class="en">محمد والمقهى — جميع قوانين العد</div></div>
+    </div>
+    <div class="qbox">
+      <div class="qen">A student, Muhammed, eats at a café with 10 different dishes for a week (7 days), picking his meal completely at random each day. Answer parts (a) through (h).</div>
+      <div class="qar">يأكل طالب اسمه محمد في مقهى يقدّم 10 أكلات مختلفة طوال أسبوع (7 أيام)، يختار وجبته عشوائياً كل يوم. أجب عن الأجزاء من (أ) إلى (ح).</div>
+    </div>
+    <div class="lindstrip">
+      <span class="lil">القوانين الموجودة:</span>
+      <span class="lindic bg-blue">L2</span>
+      <span class="lindic bg-gold">L1</span>
+      <span class="lindic bg-pink">L5</span>
+      <span class="lindic bg-green">L3</span>
+      <span class="lindic bg-gold">L4</span>
+      <span class="lindic bg-cyan">L7</span>
+    </div>
+    <div class="parts">
+
+      <div class="part">
+        <div class="plabel">a | أ — How many possible menus for 7 days? / كم عدد القوائم الممكنة؟ <span class="ltag bg-blue">L2: nᵏ</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">Repetition allowed + order matters (day1≠day2) / التكرار مسموح + الترتيب مهم → <b>L2</b></div></div>
+          <div class="step"><div class="sn">2</div><div class="sc">n=10, k=7 → <span class="m">10⁷ = 10,000,000</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">10⁷ = 10,000,000 menus</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">b | ب — P(same dish every day)? / احتمال نفس الأكلة كل يوم؟ <span class="ltag bg-gold">L1 + L2</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">Total / الكلي = <span class="m">10⁷</span></div></div>
+          <div class="step"><div class="sn">2</div><div class="sc">Favorable: 10 ways (one per dish type) / المفضّل: 10</div></div>
+          <div class="step"><div class="sn">3</div><div class="sc"><span class="m">P = 10 / 10⁷ = 1/10⁶</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">P = 10⁻⁶</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">c | ج — P(at most 2 different dish types)? / احتمال أكل نوعَين مختلفَين كحد أقصى؟ <span class="ltag bg-pink">L5: C(n,k)</span><span class="ltag bg-blue">L2: nᵏ</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc"><b>Exactly 1 type:</b> 10 menus / نوع واحد: 10 قوائم</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc"><b>Exactly 2 types:</b> Choose which 2 = <span class="m">C(10,2)=45</span>. Each pair: menus = <span class="m">2⁷=128</span> minus 2 single-type = 126. Total = <span class="m">45×126=5,670</span></div></div>
+          <div class="step"><div class="sn">3</div><div class="sc">Favorable = 10+5670 = 5680 → <span class="m">P = 5680/10⁷ ≈ 5.68×10⁻⁴</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">P ≈ 5.68 × 10⁻⁴</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">d | د — Different dish every day (no repeat at all)? / أكلة مختلفة كل يوم بدون أي تكرار؟ <span class="ltag bg-green">L3: n!/(n-k)!</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">No repetition + order matters → <b>L3</b> / لا تكرار + الترتيب مهم</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc">n=10, k=7 → <span class="m">10!/(10-7)! = 10!/3! = 604,800</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">604,800 ways</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">e | ه — Different from previous day only? / مختلف عن اليوم السابق فقط؟ <span class="ltag bg-blue">Rule of Product</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">Day 1: 10 free / اليوم الأول: 10 خيارات حرة</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc">Each next day: 9 choices (anything ≠ yesterday) / كل يوم تالٍ: 9 خيارات</div></div>
+          <div class="step"><div class="sn">3</div><div class="sc"><span class="m">10 × 9⁶ = 10 × 531,441 = 5,314,410</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">5,314,410 ways</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">f | و — Entry orders for Muhammed + 3 friends? / ترتيبات دخول محمد وأصدقائه الثلاثة؟ <span class="ltag bg-gold">L4: n!</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">4 people, all enter, order matters → full permutation L4 / 4 أشخاص، الترتيب مهم</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc"><span class="m">4! = 4×3×2×1 = 24</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">24 orderings</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">g | ز — Choose 1 or 2 people to fetch food? / اختيار شخص أو شخصَين لجلب الطعام؟ <span class="ltag bg-pink">L5: C(n,k)</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">No repeat + order doesn't matter → combination L5 / لا تكرار + الترتيب غير مهم</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc">1 person: <span class="m">C(4,1)=4</span> &nbsp;|&nbsp; 2 persons: <span class="m">C(4,2)=4!/(2!·2!)=6</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">4 ways (1 person) | 6 ways (2 persons)</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">h | ح — Different orders (cook's view, 4 people, 10 dishes)? / طلبات الأربعة من منظور الطباخ؟ <span class="ltag bg-cyan">L7: Multiset</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">Repetition allowed (2 people can order same dish) + order doesn't matter (cook sees totals) → L7 / التكرار مسموح + الترتيب غير مهم</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc">n=10, k=4 → <span class="m">C(4+10-1, 4) = C(13,4) = 715</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">715 different orders</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="prob">
+    <div class="ph">
+      <div class="pnum">Q4</div>
+      <div class="ptitle">12 Friends — Team Arrangements<div class="en">12 صديقاً — ترتيبات الفرق</div></div>
+    </div>
+    <div class="qbox">
+      <div class="qen">A group of 12 friends wants to play a game with four 3-person teams. How many possible arrangements?
+What if three teams of sizes 2, 4, and 5 out of 11?</div>
+      <div class="qar">مجموعة من 12 صديقاً يريدون اللعب في 4 فرق كل فريق 3 أشخاص. كم ترتيباً ممكناً؟ وماذا لو كانت 3 فرق بأحجام 2 و4 و5 من 11 شخصاً؟</div>
+    </div>
+    <div class="lindstrip">
+      <span class="lil">القانون:</span>
+      <span class="lindic bg-purple">L6 — Multinomial: n! / (k₁!·k₂!·…·kₛ!)</span>
+    </div>
+    <div class="parts">
+      <div class="part">
+        <div class="plabel">Four 3-person teams from 12 / 4 فرق × 3 أشخاص من 12 <span class="ltag bg-purple">L6</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">n=12, partition into groups 3+3+3+3=12 ✓ / تقسيم إلى 4 مجموعات</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc"><span class="m">12! / (3!·3!·3!·3!) = 479,001,600 / 1,296 = 369,600</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">369,600 arrangements</div></div>
+      </div>
+
+      <div class="part">
+        <div class="plabel">Teams of sizes 2, 4, 5 from 11 / فرق بأحجام 2 و4 و5 من 11 <span class="ltag bg-purple">L6</span></div>
+        <div class="steps">
+          <div class="step"><div class="sn">1</div><div class="sc">n=11, partition 2+4+5=11 ✓</div></div>
+          <div class="step"><div class="sn">2</div><div class="sc"><span class="m">11! / (2!·4!·5!) = 39,916,800 / 5,760 = 6,930</span></div></div>
+        </div>
+        <div class="ans"><div class="al">✅</div><div class="av">6,930 ways</div></div>
       </div>
     </div>
   </div>
@@ -1205,12 +514,12 @@
 </div>
 
 <script>
-function showTab(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
 </body>
