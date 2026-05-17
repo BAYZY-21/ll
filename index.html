@@ -1,457 +1,1045 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Machine Learning — Quiz + Lecture Summary</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نظرية الاحتمالات والإحصاء — دليل الدراسة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#05080f;--bg2:#080d18;--bg3:#0c1220;--bg4:#101828;
-  --panel:#09111f;--border:#172236;--border2:#1e3048;
-  --teal:#00bfb3;--teal-d:rgba(0,191,179,.13);
-  --amber:#f59e0b;--amber-d:rgba(245,158,11,.13);
-  --blue:#3b82f6;--blue-d:rgba(59,130,246,.12);
-  --green:#10b981;--green-d:rgba(16,185,129,.12);
-  --red:#f87171;--red-d:rgba(248,113,113,.12);
-  --purple:#a78bfa;--purple-d:rgba(167,139,250,.12);
-  --pink:#ec4899;--pink-d:rgba(236,72,153,.12);
-  --text:#c5d9f0;--text2:#6e90b4;--text3:#334e6e;--white:#fff;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  background:var(--bg);color:var(--text);
-  font-family:'Inter',sans-serif;font-size:15px;
-  line-height:1.7;overflow-x:hidden;
-}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:
-    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(0,191,179,.04) 0%, transparent 100%),
-    radial-gradient(ellipse 50% 40% at 80% 80%, rgba(59,130,246,.04) 0%, transparent 100%);
-}
+  :root {
+    --bg: #0a0c14;
+    --surface: #111520;
+    --surface2: #161b2e;
+    --border: #1e2540;
+    --accent: #f5c842;
+    --accent2: #3b82f6;
+    --accent3: #10b981;
+    --accent4: #f43f5e;
+    --accent5: #a855f7;
+    --text: #e8eaf2;
+    --text-muted: #8b90a8;
+    --text-dim: #555c7a;
+    --gold: #f5c842;
+    --glow: rgba(245, 200, 66, 0.15);
+  }
 
-/* ── HEADER ── */
-header{
-  position:sticky;top:0;z-index:200;
-  background:rgba(5,8,15,.97);border-bottom:1px solid var(--border);
-  backdrop-filter:blur(16px);
-}
-.hdr{
-  max-width:900px;margin:0 auto;
-  display:flex;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap;
-}
-.logo{display:flex;align-items:center;gap:9px}
-.logo-icon{
-  width:34px;height:34px;border:2px solid var(--teal);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.95rem;background:var(--teal-d);flex-shrink:0;
-}
-.logo-text h1{
-  font-size:.82rem;font-weight:700;color:var(--white);
-  letter-spacing:.03em;text-transform:uppercase;line-height:1.2;
-}
-.logo-text p{font-size:.58rem;color:var(--text3);font-family:'JetBrains Mono',monospace;letter-spacing:.06em}
-.nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
-.nav::-webkit-scrollbar{display:none}
-.tb{
-  padding:10px 12px;background:none;border:none;
-  border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;
-  font-family:'Inter',sans-serif;font-size:.73rem;font-weight:600;
-  white-space:nowrap;transition:all .18s;
-}
-.tb:hover{color:var(--text);background:rgba(255,255,255,.02)}
-.tb.on{color:var(--teal);border-bottom-color:var(--teal)}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ── HERO ── */
-.hero{
-  position:relative;z-index:5;
-  background:linear-gradient(135deg,#04070d,#081220 60%,#04070d);
-  border-bottom:1px solid var(--border);padding:1.8rem 1rem;text-align:center;overflow:hidden;
-}
-.hero::after{
-  content:'';position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);width:360px;height:180px;
-  background:radial-gradient(ellipse,rgba(0,191,179,.07),transparent 70%);
-  pointer-events:none;
-}
-.hero h2{
-  font-size:clamp(1.25rem,5vw,1.9rem);font-weight:800;color:var(--white);
-  line-height:1.2;position:relative;z-index:1;letter-spacing:-.02em;
-}
-.hero h2 span{color:var(--teal)}
-.hero-sub{font-size:.85rem;color:var(--text2);margin-top:.35rem;position:relative;z-index:1}
-.pills{display:flex;gap:7px;justify-content:center;margin-top:.9rem;flex-wrap:wrap;position:relative;z-index:1}
-.pill{
-  padding:3px 11px;border-radius:999px;font-size:.67rem;font-weight:600;
-  border:1px solid;font-family:'JetBrains Mono',monospace;letter-spacing:.03em;
-}
-.p-t{color:var(--teal); border-color:rgba(0,191,179,.4); background:var(--teal-d)}
-.p-a{color:var(--amber);border-color:rgba(245,158,11,.4);background:var(--amber-d)}
-.p-b{color:var(--blue); border-color:rgba(59,130,246,.4); background:var(--blue-d)}
-.p-g{color:var(--green);border-color:rgba(16,185,129,.4);background:var(--green-d)}
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* ── MAIN ── */
-main{position:relative;z-index:5;max-width:900px;margin:0 auto;padding:1.4rem 1rem 5rem}
-.sec{display:none;animation:fi .22s ease}
-.sec.on{display:block}
-@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px 60px;
+    overflow: hidden;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,200,66,0.08) 0%, transparent 70%);
+  }
 
-/* ── QUIZ HEADER ── */
-.qhdr{
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
-  background:var(--bg3);border:1px solid var(--border);border-radius:10px;
-  padding:13px 16px;margin-bottom:16px;position:relative;overflow:hidden;
-}
-.qhdr::before{content:'';position:absolute;right:0;top:0;bottom:0;width:3px;background:var(--teal)}
-.qhdr-t{font-size:.9rem;font-weight:700;color:var(--white)}
-.qhdr-s{font-size:.74rem;color:var(--text2);margin-top:1px}
-.qhdr-d{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3)}
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(245,200,66,0.03) 40px, rgba(245,200,66,0.03) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(59,130,246,0.03) 40px, rgba(59,130,246,0.03) 41px);
+    pointer-events: none;
+  }
 
-/* ── CARDS ── */
-.card{background:var(--panel);border:1px solid var(--border);border-radius:9px;margin-bottom:13px;overflow:hidden}
-.ch{
-  display:flex;align-items:center;gap:9px;flex-wrap:wrap;
-  padding:10px 15px;background:var(--bg4);border-bottom:1px solid var(--border);
-}
-.tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:4px;flex-shrink:0;letter-spacing:.03em}
-.t-t{background:rgba(0,191,179,.12);color:var(--teal)}
-.t-a{background:rgba(245,158,11,.12);color:var(--amber)}
-.t-b{background:rgba(59,130,246,.12);color:var(--blue)}
-.t-g{background:rgba(16,185,129,.12);color:var(--green)}
-.t-p{background:rgba(167,139,250,.12);color:var(--purple)}
-.t-r{background:rgba(248,113,113,.12);color:var(--red)}
-.t-pk{background:rgba(236,72,153,.12);color:var(--pink)}
-.ch-t{font-size:.86rem;font-weight:600;color:var(--white);flex:1}
-.cb{padding:15px 17px}
+  .hero-badge {
+    display: inline-block;
+    background: rgba(245,200,66,0.1);
+    border: 1px solid rgba(245,200,66,0.3);
+    color: var(--gold);
+    font-size: 0.8rem;
+    padding: 6px 18px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+    animation: fadeDown 0.6s ease;
+  }
 
-/* ── MCQ ── */
-.mcq-list{display:flex;flex-direction:column;gap:11px}
-.mcq{padding:11px 13px;border-radius:8px;border:1px solid var(--border);background:var(--bg3)}
-.mn{font-family:'JetBrains Mono',monospace;font-size:.67rem;color:var(--purple);font-weight:600;margin-bottom:4px}
-.mq{font-size:.84rem;color:var(--text);font-weight:500;margin-bottom:8px;line-height:1.55}
-.opts{display:flex;flex-direction:column;gap:4px}
-.opt{padding:6px 11px;border-radius:6px;font-size:.8rem;border:1px solid var(--border);color:var(--text2);background:var(--bg4)}
-.opt.ok{background:var(--green-d);border-color:rgba(16,185,129,.4);color:var(--green);font-weight:600}
-.opt.ok::before{content:'✓ ';font-weight:800}
-.opt.wrong{background:var(--red-d);border-color:rgba(248,113,113,.2);color:var(--red);text-decoration:line-through;opacity:.7}
-.mnote{font-size:.75rem;color:var(--text3);margin-top:7px;line-height:1.45;padding:7px 10px;background:rgba(255,255,255,.02);border-radius:5px;border-right:2px solid var(--teal)}
+  .hero h1 {
+    font-family: 'Cairo', sans-serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #f5c842 0%, #fff 50%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    animation: fadeDown 0.7s ease;
+  }
 
-/* ── NORMALIZATION CALC ── */
-.calc-box{
-  background:var(--bg2);border:1px solid var(--border);border-radius:8px;
-  padding:13px 15px;margin:10px 0;font-family:'JetBrains Mono',monospace;
-  font-size:.8rem;direction:ltr;
-}
-.calc-title{color:var(--teal);font-weight:600;font-size:.77rem;margin-bottom:9px;letter-spacing:.04em}
-.formula{
-  background:rgba(0,191,179,.07);border:1px solid rgba(0,191,179,.2);
-  border-radius:6px;padding:8px 12px;font-size:.85rem;color:var(--teal);
-  text-align:center;margin:8px 0;font-weight:600;
-}
-.step{display:flex;gap:10px;align-items:baseline;padding:4px 0}
-.step-n{color:var(--amber);font-weight:700;min-width:20px;font-size:.72rem}
-.step-c{color:var(--text);font-size:.78rem;line-height:1.5}
-.step-r{color:var(--green);font-weight:700}
-.result-row{
-  display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;
-}
-.r-card{
-  background:var(--bg3);border:1px solid var(--border);border-radius:7px;
-  padding:9px 10px;text-align:center;
-}
-.r-label{font-size:.65rem;color:var(--text3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
-.r-val{font-size:.88rem;color:var(--teal);font-weight:700}
+  .hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    animation: fadeDown 0.8s ease;
+  }
 
-/* ── LIMITATIONS TEXT ── */
-.lim-list{display:flex;flex-direction:column;gap:8px}
-.lim-item{
-  display:flex;gap:10px;align-items:flex-start;
-  padding:10px 12px;border-radius:8px;
-  border:1px solid var(--border);background:var(--bg3);
-}
-.lim-num{
-  font-family:'JetBrains Mono',monospace;font-size:.72rem;
-  color:var(--red);font-weight:700;padding-top:1px;min-width:22px;
-}
-.lim-body{font-size:.84rem;color:var(--text);line-height:1.6}
-.lim-body strong{color:var(--amber)}
-.example-box{
-  background:rgba(248,113,113,.05);border:1px solid rgba(248,113,113,.15);
-  border-right:3px solid var(--red);border-radius:5px;
-  padding:8px 11px;font-size:.78rem;color:var(--text2);margin-top:6px;line-height:1.55;
-}
+  /* ===== NAV TABS ===== */
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 0 20px 50px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,12,20,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
 
-/* ── THEORY CARDS ── */
-.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
-.th-card{
-  background:var(--bg3);border:1px solid var(--border);border-radius:8px;
-  padding:12px 13px;
-}
-.th-icon{font-size:1.3rem;margin-bottom:6px}
-.th-title{font-size:.82rem;font-weight:700;color:var(--white);margin-bottom:5px}
-.th-body{font-size:.77rem;color:var(--text2);line-height:1.55}
-.th-body ul{margin:5px 0 0 14px;display:flex;flex-direction:column;gap:3px}
+  .tab-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 10px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+  }
 
-/* ── COMPARE TABLE ── */
-.cmp{width:100%;border-collapse:collapse;font-size:.79rem;margin:10px 0}
-.cmp th{
-  background:rgba(0,191,179,.1);color:var(--teal);
-  padding:8px 11px;text-align:left;border:1px solid var(--border);
-  font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;font-weight:600;
-}
-.cmp td{padding:7px 11px;border:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.5}
-.cmp tr:nth-child(even) td{background:rgba(255,255,255,.015)}
-.cmp .hl{color:var(--green);font-weight:600}
-.cmp .hl2{color:var(--amber);font-weight:600}
+  .tab-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .tab-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #0a0c14;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(245,200,66,0.3);
+  }
 
-/* ── INFO BOX ── */
-.info{padding:9px 13px;border-radius:7px;font-size:.81rem;line-height:1.6;margin:9px 0}
-.ig{background:var(--green-d);border:1px solid rgba(16,185,129,.2);border-right:3px solid var(--green);color:var(--text)}
-.ia{background:var(--amber-d);border:1px solid rgba(245,158,11,.2);border-right:3px solid var(--amber);color:var(--text)}
-.ib{background:var(--blue-d);border:1px solid rgba(59,130,246,.2);border-right:3px solid var(--blue);color:var(--text)}
-.ip{background:var(--purple-d);border:1px solid rgba(167,139,250,.2);border-right:3px solid var(--purple);color:var(--text)}
-.ir{background:var(--red-d);border:1px solid rgba(248,113,113,.2);border-right:3px solid var(--red);color:var(--text)}
+  /* ===== SECTIONS ===== */
+  .section {
+    display: none;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 20px 80px;
+    animation: fadeIn 0.4s ease;
+  }
+  .section.active { display: block; }
 
-/* ── DIVIDER ── */
-.div{display:flex;align-items:center;gap:8px;margin:15px 0 11px}
-.dl{flex:1;height:1px;background:var(--border)}
-.dt{font-family:'JetBrains Mono',monospace;font-size:.61rem;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+  .section-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
 
-/* ── BADGE STRIP ── */
-.strip{display:flex;flex-wrap:wrap;gap:5px;padding:8px 10px;background:var(--bg4);border:1px solid var(--border);border-radius:7px;margin-bottom:11px}
-.chip{padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.66rem;font-weight:700;border:1px solid}
-.cT{color:var(--green);border-color:rgba(16,185,129,.3);background:var(--green-d)}
-.cF{color:var(--red);  border-color:rgba(248,113,113,.3);background:var(--red-d)}
+  .section-title .icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+  }
 
-/* ── STEPS FLOW ── */
-.steps{display:flex;flex-direction:column;gap:8px;margin:10px 0}
-.step-flow{
-  display:flex;gap:11px;align-items:flex-start;
-  padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);
-}
-.sf-num{
-  width:26px;height:26px;border-radius:6px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;font-weight:800;font-family:'JetBrains Mono',monospace;
-}
-.sf-body{}
-.sf-title{font-size:.84rem;font-weight:700;color:var(--white);margin-bottom:2px}
-.sf-desc{font-size:.77rem;color:var(--text2);line-height:1.5}
+  /* ===== LAW CARDS ===== */
+  .laws-grid {
+    display: grid;
+    gap: 24px;
+  }
 
-/* ── FOOTER ── */
-footer{
-  position:relative;z-index:5;border-top:1px solid var(--border);
-  background:var(--bg2);padding:1.1rem 1rem;text-align:center;
-}
-.ft{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;margin-bottom:.7rem}
-.fsep{width:1px;height:20px;background:var(--border);flex-shrink:0}
-.fi-l{font-size:.58rem;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:1px;font-family:'JetBrains Mono',monospace}
-.fi-v{font-size:.78rem;color:var(--text2)}
-.fcopy{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text3)}
+  .law-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+  }
 
-/* ── MOBILE ── */
-@media(max-width:480px){
-  .result-row{grid-template-columns:1fr}
-  .theory-grid{grid-template-columns:1fr}
-  .hdr{gap:6px}
-  .logo-text h1{font-size:.74rem}
-  .cmp{font-size:.72rem}
-  .cmp th,.cmp td{padding:6px 8px}
-}
+  .law-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  .law-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; left: 0;
+    height: 3px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .law-card.gold::before { background: linear-gradient(90deg, var(--gold), #f59e0b); }
+  .law-card.blue::before { background: linear-gradient(90deg, var(--accent2), #6366f1); }
+  .law-card.green::before { background: linear-gradient(90deg, var(--accent3), #059669); }
+  .law-card.pink::before { background: linear-gradient(90deg, var(--accent4), #ec4899); }
+  .law-card.purple::before { background: linear-gradient(90deg, var(--accent5), #7c3aed); }
+
+  .law-header {
+    padding: 24px 28px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .law-num {
+    min-width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1rem;
+    font-family: 'Cairo', sans-serif;
+  }
+
+  .gold .law-num { background: rgba(245,200,66,0.15); color: var(--gold); }
+  .blue .law-num { background: rgba(59,130,246,0.15); color: var(--accent2); }
+  .green .law-num { background: rgba(16,185,129,0.15); color: var(--accent3); }
+  .pink .law-num { background: rgba(244,63,94,0.15); color: var(--accent4); }
+  .purple .law-num { background: rgba(168,85,247,0.15); color: var(--accent5); }
+
+  .law-title-block h3 {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .law-title-block .en {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-family: monospace;
+    letter-spacing: 0.5px;
+  }
+
+  .law-body { padding: 0 28px 28px; }
+
+  .law-desc {
+    color: var(--text-muted);
+    line-height: 1.85;
+    font-size: 1rem;
+    margin-bottom: 18px;
+  }
+
+  .formula-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 24px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .formula-box::before {
+    content: 'القانون';
+    position: absolute;
+    top: 10px;
+    left: 16px;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+
+  .formula {
+    font-family: 'Cairo', monospace;
+    font-size: 1.2rem;
+    color: var(--text);
+    text-align: center;
+    direction: ltr;
+    padding-top: 8px;
+  }
+
+  .formula .var { color: var(--gold); font-weight: 700; }
+  .formula .op { color: var(--accent2); }
+
+  .conditions {
+    background: rgba(59,130,246,0.05);
+    border: 1px solid rgba(59,130,246,0.15);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .conditions strong { color: var(--accent2); }
+
+  /* ===== WHEN TO USE ===== */
+  .when-to-use {
+    background: rgba(245,200,66,0.05);
+    border-right: 3px solid var(--gold);
+    padding: 12px 16px;
+    border-radius: 0 10px 10px 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 14px;
+  }
+  .when-to-use strong { color: var(--gold); }
+
+  /* ===== SUMMARY TABLE ===== */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .summary-table th {
+    background: var(--surface2);
+    padding: 14px 18px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .summary-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(30,37,64,0.5);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    background: var(--surface);
+    vertical-align: middle;
+  }
+
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table td:first-child { color: var(--text); font-weight: 600; }
+  .summary-table td .ltr { direction: ltr; display: inline-block; font-family: monospace; color: var(--accent2); }
+
+  /* ===== PROBLEMS ===== */
+  .problem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .problem-card:hover { transform: translateY(-2px); }
+
+  .problem-header {
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+
+  .problem-num {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: rgba(245,200,66,0.1);
+    border: 1px solid rgba(245,200,66,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    color: var(--gold);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .problem-title {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  .problem-body { padding: 24px 28px; }
+
+  .question-text {
+    background: rgba(59,130,246,0.06);
+    border: 1px solid rgba(59,130,246,0.15);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+
+  .law-used {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(168,85,247,0.1);
+    border: 1px solid rgba(168,85,247,0.25);
+    color: var(--accent5);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .solution-steps { display: flex; flex-direction: column; gap: 14px; }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    min-width: 28px; height: 28px;
+    border-radius: 8px;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.2);
+    color: var(--accent3);
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-content { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; }
+  .step-content strong { color: var(--text); }
+  .step-content .calc {
+    direction: ltr;
+    display: inline-block;
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--gold);
+    margin: 4px 0;
+  }
+
+  .answer-box {
+    background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.03));
+    border: 1px solid rgba(16,185,129,0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .answer-box .label {
+    color: var(--accent3);
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .answer-box .value {
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+    direction: ltr;
+    font-family: monospace;
+  }
+
+  .sub-parts { margin-top: 16px; }
+  .sub-part {
+    border-right: 2px solid var(--border);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border-radius: 0 8px 8px 0;
+  }
+  .sub-part-label {
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    font-family: 'Cairo', sans-serif;
+  }
+
+  /* ===== CARDS GRID ===== */
+  .cards-2col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+  }
+
+  .info-card h4 {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+
+  .info-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 30px 0;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+
+  .tag-gold { background: rgba(245,200,66,0.1); color: var(--gold); }
+  .tag-blue { background: rgba(59,130,246,0.1); color: var(--accent2); }
+  .tag-green { background: rgba(16,185,129,0.1); color: var(--accent3); }
+
+  /* note box */
+  .note {
+    background: rgba(245,200,66,0.05);
+    border: 1px solid rgba(245,200,66,0.2);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .note .note-icon { font-size: 1rem; margin-top: 1px; }
+
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="hdr">
-    <div class="logo">
-      <div class="logo-icon">🧠</div>
-      <div class="logo-text">
-        <h1>Machine Learning — Quiz &amp; Summary</h1>
-        <p>TIKRIT UNIV · CS DEPT · 3RD STAGE · 2025–2026</p>
-      </div>
-    </div>
-    <nav class="nav">
-      <button class="tb on"  onclick="go('quiz')">📝 Quiz Solutions</button>
-      <button class="tb"     onclick="go('lec1')">📖 Lec 1 — Intro</button>
-      <button class="tb"     onclick="go('lec2')">📖 Lec 2 — Data Prep</button>
-      <button class="tb"     onclick="go('ref')">⚡ Exam Focus</button>
-    </nav>
-  </div>
-</header>
-
 <!-- HERO -->
 <div class="hero">
-  <h2>ML Quiz <span>Full Solutions</span> + Smart Summary</h2>
-  <p class="hero-sub">First Quiz · Machine Learning · 3rd Class Group-A</p>
-  <div class="pills">
-    <span class="pill p-t">Q1 Normalization Calc</span>
-    <span class="pill p-a">Q2 Limitations</span>
-    <span class="pill p-b">Q3 MCQ × 4</span>
-    <span class="pill p-g">Lecture Notes</span>
+  <div class="hero-badge">📚 نظرية الاحتمالات والإحصاء — Spring 2026</div>
+  <h1>دليل الدراسة الشامل</h1>
+  <p>جميع القوانين والمسائل مع الشرح التفصيلي الكامل</p>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="showTab('laws')">📐 القوانين</button>
+  <button class="tab-btn" onclick="showTab('problems')">🧮 المسائل المحلولة</button>
+  <button class="tab-btn" onclick="showTab('summary')">📋 جدول الملخص</button>
+</div>
+
+<!-- ===================== TAB 1: LAWS ===================== -->
+<div id="laws" class="section active">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(245,200,66,0.1)">📐</div>
+    القوانين الأساسية في الاحتمالات والعد
+  </div>
+
+  <div class="laws-grid">
+
+    <!-- LAW 1 -->
+    <div class="law-card gold">
+      <div class="law-header">
+        <div class="law-num">١</div>
+        <div class="law-title-block">
+          <h3>قاعدة لابلاس (الاحتمال الكلاسيكي)</h3>
+          <div class="en">Laplace's Rule — Classical Probability</div>
+        </div>
+      </div>
+      <div class="law-body">
+        <div class="law-desc">
+          الاحتمال هو نسبة عدد الحالات المفضّلة (الناجحة) إلى إجمالي الحالات الممكنة، شريطة أن تكون جميع الحالات متساوية الاحتمال. هذا المبدأ يسمى أيضاً مبدأ عدم التحيز.
+        </div>
+        <div class="formula-box">
+          <div class="formula">
+            <span class="var">P(A)</span> <span class="op">=</span> <span class="var">عدد الحالات المفضلة</span> <span class="op">/</span> <span class="var">إجمالي الحالات الممكنة</span>
+          </div>
+        </div>
+        <div class="when-to-use">
+          <strong>⚡ متى تستخدمه:</strong> عندما يكون الفضاء العيني منتهياً وجميع النتائج متساوية الاحتمال — رمي نرد، رمي عملة، اختيار عشوائي.
+        </div>
+      </div>
+    </div>
+
+    <!-- LAW 2 -->
+    <div class="law-card blue">
+      <div class="law-header">
+        <div class="law-num">٢</div>
+        <div class="law-title-block">
+          <h3>السحب بإعادة مع الترتيب</h3>
+          <div class="en">Sampling with Replacement & Order</div>
+        </div>
+      </div>
+      <div class="law-body">
+        <div class="law-desc">
+          عدد طرق اختيار تسلسل مكوّن من <strong>k</strong> عنصراً من مجموعة حجمها <strong>n</strong>، مع السماح بالتكرار والترتيب مهم. كل مرة نختار، نُعيد العنصر للمجموعة مجدداً.
+        </div>
+        <div class="formula-box">
+          <div class="formula">
+            <span class="var">n<sup>k</sup></span>
+          </div>
+        </div>
+        <div class="conditions">
+          <strong>المعاملات:</strong> n = حجم المجموعة الكلية، k = عدد الاختيارات
+        </div>
+        <div class="when-to-use">
+          <strong>⚡ متى تستخدمه:</strong> رمي نرد عدة مرات، قائمة طعام لأيام متعددة (يمكن تكرار نفس الأكلة)، أرقام السر.
+        </div>
+      </div>
+    </div>
+
+    <!-- LAW 3 -->
+    <div class="law-card green">
+      <div class="law-header">
+        <div class="law-num">٣</div>
+        <div class="law-title-block">
+          <h3>السحب بدون إعادة مع الترتيب (ترتيب جزئي)</h3>
+          <div class="en">Sampling without Replacement with Order</div>
+        </div>
+      </div>
+      <div class="law-body">
+        <div class="law-desc">
+          عدد طرق اختيار تسلسل مرتّب من <strong>k</strong> عنصراً مختلفاً من مجموعة حجمها <strong>n</strong>، لا يجوز تكرار العنصر مرتين والترتيب مهم.
+        </div>
+        <div class="formula-box">
+          <div class="formula">
+            <span class="op">∏</span><sub>i=1</sub><sup>k</sup> (n−i+1) = <span class="var">n!</span> <span class="op">/</span> <span class="var">(n−k)!</span>
+          </div>
+        </div>
+        <div class="conditions">
+          <strong>شرط:</strong> n ≥ k
+        </div>
+        <div class="when-to-use">
+          <strong>⚡ متى تستخدمه:</strong> اختيار أكلات مختلفة كل يوم بدون تكرار، ترتيب أشخاص في صف، رمز الدخول بأرقام غير متكررة.
+        </div>
+      </div>
+    </div>
+
+    <!-- LAW 4 -->
+    <div class="law-card gold">
+      <div class="law-header">
+        <div class="law-num">٤</div>
+        <div class="law-title-block">
+          <h3>التباديل (Permutation)</h3>
+          <div class="en">Permutation — n!</div>
+        </div>
+      </div>
+      <div class="law-body">
+        <div class="law-desc">
+          حالة خاصة من السحب بدون إعادة مع ترتيب — عندما نرتّب <strong>جميع</strong> عناصر المجموعة. عدد طرق ترتيب n شخص في صف واحد.
+        </div>
+        <div class="formula-box">
+          <div class="formula">
+            <span class="var">n!</span> = n × (n−1) × (n−2) × ... × 2 × 1
+          </div>
+        </div>
+        <div class="conditions">
+          <strong>مثال:</strong> 4! = 4×3×2×1 = 24
+        </div>
+        <div class="when-to-use">
+          <strong>⚡ متى تستخدمه:</strong> ترتيب مجموعة أشخاص في صف، ترتيب كتب على رف، تحديد عدد الطرق المختلفة لترتيب مجموعة كاملة.
+        </div>
+      </div>
+    </div>
+
+    <!-- LAW 5 -->
+    <div class="law-card pink">
+      <div class="law-header">
+        <div class="law-num">٥</div>
+        <div class="law-title-block">
+          <h3>التوافيق (Combination) — المعامل الثنائي</h3>
+          <div class="en">Combination — Binomial Coefficient</div>
+        </div>
+      </div>
+      <div class="law-body">
+        <div class="law-desc">
+          عدد طرق اختيار مجموعة من <strong>k</strong> عنصراً من مجموعة حجمها <strong>n</strong>، بدون إعادة وبدون اعتبار للترتيب. أي ما يهمنا هو "مَن في المجموعة" لا "بأي ترتيب".
+        </div>
+        <div class="formula-box">
+          <div class="formula">
+            <span class="var">C(n,k)</span> = <span class="var">n!</span> <span class="op">/</span> [(n−k)! × k!] = <span class="var">(n choose k)</span>
+          </div>
+        </div>
+        <div class="conditions">
+          <strong>العلاقة مع التباديل:</strong> C(n,k) × k! = ترتيب k من n
+        </div>
+        <div class="when-to-use">
+          <strong>⚡ متى تستخدمه:</strong> اختيار فريق أو لجنة من مجموعة، اختيار عدد من الأشخاص لمهمة، تعيين مندوب أو مندوبَين من مجموعة.
+        </div>
+      </div>
+    </div>
+
+    <!-- LAW 6 -->
+    <div class="law-card purple">
+      <div class="law-header">
+        <div class="law-num">٦</div>
+        <div class="law-title-block">
+          <h3>المعاملات متعددة الحدود (Multinomial)</h3>
+          <div class="en">Multinomial Coefficients</div>
+        </div>
+      </div>
+      <div class="law-body">
+        <div class="law-desc">
+          عدد طرق تقسيم مجموعة من <strong>n</strong> عنصراً إلى <strong>s</strong> مجموعات فرعية، حجم المجموعة الأولى k₁ والثانية k₂ وهكذا، شريطة أن يكون مجموع أحجام المجموعات يساوي n.
+        </div>
+        <div class="formula-box">
+          <div class="formula">
+            <span class="var">n!</span> <span class="op">/</span> (k₁! × k₂! × ... × kₛ!)
+          </div>
+        </div>
+        <div class="conditions">
+          <strong>شرط:</strong> k₁ + k₂ + ... + kₛ = n
+        </div>
+        <div class="when-to-use">
+          <strong>⚡ متى تستخدمه:</strong> تقسيم مجموعة إلى فرق متعددة، توزيع n شخص على s مجموعات بأحجام محددة.
+        </div>
+      </div>
+    </div>
+
+    <!-- LAW 7 -->
+    <div class="law-card blue">
+      <div class="law-header">
+        <div class="law-num">٧</div>
+        <div class="law-title-block">
+          <h3>السحب بإعادة بدون ترتيب (Multiset)</h3>
+          <div class="en">Sampling with Replacement without Order</div>
+        </div>
+      </div>
+      <div class="law-body">
+        <div class="law-desc">
+          عدد طرق اختيار <strong>k</strong> عنصراً من مجموعة حجمها <strong>n</strong> مع السماح بالتكرار لكن بدون اعتبار للترتيب. أي "كم عنصر من كل نوع" وليس "بأي ترتيب". يُعرف بعد العناصر المتعددة أو الـ Multiset.
+        </div>
+        <div class="formula-box">
+          <div class="formula">
+            ⟨⟨n choose k⟩⟩ = C(k+n−1, k) = (k+n−1)! <span class="op">/</span> [(n−1)! × k!]
+          </div>
+        </div>
+        <div class="when-to-use">
+          <strong>⚡ متى تستخدمه:</strong> عدد الطلبات الممكنة من قائمة طعام لمجموعة (من منظور الطباخ)، توزيع طلبات متكررة بدون اعتبار من طلب ماذا.
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<main>
-
-<!-- ════════════════════════════════════════
-     QUIZ SOLUTIONS
-════════════════════════════════════════ -->
-<div id="quiz" class="sec on">
-  <div class="qhdr">
-    <div>
-      <div class="qhdr-t">First Quiz — Machine Learning</div>
-      <div class="qhdr-s">3rd Class · Group-A · Tikrit University</div>
-    </div>
-    <div class="qhdr-d">Total: 10 marks</div>
+<!-- ===================== TAB 2: PROBLEMS ===================== -->
+<div id="problems" class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(59,130,246,0.1)">🧮</div>
+    المسائل المحلولة مع الشرح التفصيلي
   </div>
 
-  <!-- ─── Q1 Normalization ─── -->
-  <div class="card">
-    <div class="ch">
-      <span class="tag t-t">Q1</span>
-      <span class="ch-t">Calculate the Normalized value — Min-Max Normalization</span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--amber);background:var(--amber-d);padding:2px 8px;border-radius:4px;border:1px solid rgba(245,158,11,.3)">3 marks</span>
+  <!-- PROBLEM: DIE -->
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">١</div>
+      <div class="problem-title">رمي نرد عادل — حساب الاحتمالات</div>
     </div>
-    <div class="cb">
-
-      <div class="info ib" style="margin-bottom:13px">
-        <strong>Target values to normalize:</strong>
-        Sepal length = <strong style="color:var(--teal)">4.7</strong> &nbsp;|&nbsp;
-        Sepal width = <strong style="color:var(--teal)">3.5</strong> &nbsp;|&nbsp;
-        Petal length = <strong style="color:var(--teal)">1.4</strong>
-        <br>Using the dataset of 5 rows (index 0–4)
+    <div class="problem-body">
+      <div class="question-text">
+        إذا رميت نرداً عادلاً (6 أوجه)، ما احتمال أن تكون النتيجة:<br>
+        أ) الرقم 3 &nbsp;&nbsp; ب) عدد زوجي &nbsp;&nbsp; ج) ليس عدداً أولياً &nbsp;&nbsp; د) الرقم 7
       </div>
-
-      <!-- Formula -->
-      <div class="formula">X′ = (X − X<sub>min</sub>) / (X<sub>max</sub> − X<sub>min</sub>)</div>
-
-      <!-- Dataset quick view -->
-      <div class="div"><div class="dl"></div><span class="dt">Dataset Values</span><div class="dl"></div></div>
-      <div class="calc-box">
-        <div class="calc-title">📊 Dataset used for Min/Max calculation</div>
-        <table style="width:100%;border-collapse:collapse;font-size:.74rem">
-          <thead>
-            <tr style="background:rgba(0,191,179,.08)">
-              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal);text-align:center">#</th>
-              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Sepal Length</th>
-              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Sepal Width</th>
-              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Petal Length</th>
-              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Petal Width</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">0</td><td style="padding:4px 8px;border:1px solid var(--border)">5.1</td><td style="padding:4px 8px;border:1px solid var(--border)">3.5</td><td style="padding:4px 8px;border:1px solid var(--border)">1.4</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
-            <tr style="background:rgba(255,255,255,.02)"><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">1</td><td style="padding:4px 8px;border:1px solid var(--border)">4.9</td><td style="padding:4px 8px;border:1px solid var(--border)">3.0</td><td style="padding:4px 8px;border:1px solid var(--border)">1.4</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
-            <tr style="background:rgba(0,191,179,.05)"><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">2</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--teal);font-weight:700">4.7 ★</td><td style="padding:4px 8px;border:1px solid var(--border)">3.2</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--teal);font-weight:700">1.3</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
-            <tr style="background:rgba(255,255,255,.02)"><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">3</td><td style="padding:4px 8px;border:1px solid var(--border)">4.6</td><td style="padding:4px 8px;border:1px solid var(--border)">3.1</td><td style="padding:4px 8px;border:1px solid var(--border)">1.5</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
-            <tr><td style="padding:4px 8px;border:1px solid var(--border);text-align:center;color:var(--text3)">4</td><td style="padding:4px 8px;border:1px solid var(--border)">5.0</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--teal);font-weight:700">3.6</td><td style="padding:4px 8px;border:1px solid var(--border)">1.4</td><td style="padding:4px 8px;border:1px solid var(--border)">0.2</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Feature 1: Sepal Length = 4.7 -->
-      <div class="div"><div class="dl"></div><span class="dt">Feature 1 — Sepal Length (X = 4.7)</span><div class="dl"></div></div>
-      <div class="calc-box">
-        <div class="calc-title">Sepal Length: values = {5.1, 4.9, 4.7, 4.6, 5.0}</div>
-        <div class="step"><span class="step-n">①</span><span class="step-c">X<sub>min</sub> = <span class="step-r">4.6</span> &nbsp; X<sub>max</sub> = <span class="step-r">5.1</span> &nbsp; Range = 5.1 − 4.6 = <span class="step-r">0.5</span></span></div>
-        <div class="step"><span class="step-n">②</span><span class="step-c">X = 4.7, so: X′ = (4.7 − 4.6) / (5.1 − 4.6)</span></div>
-        <div class="step"><span class="step-n">③</span><span class="step-c">X′ = 0.1 / 0.5 = <strong class="step-r" style="font-size:.95rem">0.2</strong></span></div>
-        <div class="formula" style="margin-top:8px">Normalized Sepal Length = <strong>0.2</strong></div>
-      </div>
-
-      <!-- Feature 2: Sepal Width = 3.5 -->
-      <div class="div"><div class="dl"></div><span class="dt">Feature 2 — Sepal Width (X = 3.5)</span><div class="dl"></div></div>
-      <div class="calc-box">
-        <div class="calc-title">Sepal Width: values = {3.5, 3.0, 3.2, 3.1, 3.6}</div>
-        <div class="step"><span class="step-n">①</span><span class="step-c">X<sub>min</sub> = <span class="step-r">3.0</span> &nbsp; X<sub>max</sub> = <span class="step-r">3.6</span> &nbsp; Range = 3.6 − 3.0 = <span class="step-r">0.6</span></span></div>
-        <div class="step"><span class="step-n">②</span><span class="step-c">X = 3.5, so: X′ = (3.5 − 3.0) / (3.6 − 3.0)</span></div>
-        <div class="step"><span class="step-n">③</span><span class="step-c">X′ = 0.5 / 0.6 = <strong class="step-r" style="font-size:.95rem">0.8333</strong></span></div>
-        <div class="formula" style="margin-top:8px">Normalized Sepal Width ≈ <strong>0.833</strong></div>
-      </div>
-
-      <!-- Feature 3: Petal Length = 1.4 -->
-      <div class="div"><div class="dl"></div><span class="dt">Feature 3 — Petal Length (X = 1.4)</span><div class="dl"></div></div>
-      <div class="calc-box">
-        <div class="calc-title">Petal Length: values = {1.4, 1.4, 1.3, 1.5, 1.4}</div>
-        <div class="step"><span class="step-n">①</span><span class="step-c">X<sub>min</sub> = <span class="step-r">1.3</span> &nbsp; X<sub>max</sub> = <span class="step-r">1.5</span> &nbsp; Range = 1.5 − 1.3 = <span class="step-r">0.2</span></span></div>
-        <div class="step"><span class="step-n">②</span><span class="step-c">X = 1.4, so: X′ = (1.4 − 1.3) / (1.5 − 1.3)</span></div>
-        <div class="step"><span class="step-n">③</span><span class="step-c">X′ = 0.1 / 0.2 = <strong class="step-r" style="font-size:.95rem">0.5</strong></span></div>
-        <div class="formula" style="margin-top:8px">Normalized Petal Length = <strong>0.5</strong></div>
-      </div>
-
-      <!-- Final Summary -->
-      <div class="div"><div class="dl"></div><span class="dt">Final Answers Summary</span><div class="dl"></div></div>
-      <div class="result-row">
-        <div class="r-card">
-          <div class="r-label">Sepal Length (4.7)</div>
-          <div class="r-val">0.2000</div>
-          <div style="font-size:.65rem;color:var(--text3);margin-top:3px">(4.7−4.6)/(5.1−4.6)</div>
-        </div>
-        <div class="r-card">
-          <div class="r-label">Sepal Width (3.5)</div>
-          <div class="r-val">0.8333</div>
-          <div style="font-size:.65rem;color:var(--text3);margin-top:3px">(3.5−3.0)/(3.6−3.0)</div>
-        </div>
-        <div class="r-card">
-          <div class="r-label">Petal Length (1.4)</div>
-          <div class="r-val">0.5000</div>
-          <div style="font-size:.65rem;color:var(--text3);margin-top:3px">(1.4−1.3)/(1.5−1.3)</div>
+      <div class="law-used">📐 القانون المستخدم: قاعدة لابلاس — P(A) = مفضّل / كلي</div>
+      <div class="solution-steps">
+        <div class="step">
+          <div class="step-num">١</div>
+          <div class="step-content">
+            <strong>حدّد الفضاء العيني:</strong> جميع النتائج الممكنة عند رمي النرد هي {1، 2، 3، 4، 5، 6}، إذن الإجمالي = 6
+          </div>
         </div>
       </div>
-
+      <div class="sub-parts">
+        <div class="sub-part">
+          <div class="sub-part-label">أ) احتمال الرقم 3</div>
+          <div class="step-content">الرقم 3 يظهر مرة واحدة فقط من أصل 6 نتائج.<br>
+          <span class="calc">P(3) = 1/6 ≈ 0.167</span></div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">P(3) = 1/6</div>
+          </div>
+        </div>
+        <div class="sub-part">
+          <div class="sub-part-label">ب) احتمال عدد زوجي</div>
+          <div class="step-content">الأعداد الزوجية هي: {2، 4، 6} — 3 نتائج مفضّلة.<br>
+          <span class="calc">P(زوجي) = 3/6 = 1/2</span></div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">P(زوجي) = 1/2</div>
+          </div>
+        </div>
+        <div class="sub-part">
+          <div class="sub-part-label">ج) احتمال ليس عدداً أولياً</div>
+          <div class="step-content">الأعداد الأولية بين 1-6 هي: {2، 3، 5} — إذن غير الأولية هي: {1، 4، 6} — 3 نتائج مفضّلة.<br>
+          <span class="calc">P(ليس أولي) = 3/6 = 1/2</span></div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">P(ليس أولي) = 1/2</div>
+          </div>
+        </div>
+        <div class="sub-part">
+          <div class="sub-part-label">د) احتمال الرقم 7</div>
+          <div class="step-content">الرقم 7 غير موجود في النرد (أوجهه من 1 إلى 6)، إذن لا توجد نتائج مفضّلة.<br>
+          <span class="calc">P(7) = 0/6 = 0</span></div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">P(7) = 0 (مستحيل)</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ─── Q2 Limitations ─── -->
-  <div class="card">
-    <div class="ch">
-      <span class="tag t-a">Q2</span>
-      <span class="ch-t">Limitations of Normalization in Feature Scaling</span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--amber);background:var(--amber-d);padding:2px 8px;border-radius:4px;border:1px solid rgba(245,158,11,.3)">3 marks</span>
+  <!-- PROBLEM: SAMPLE SPACE -->
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">٢</div>
+      <div class="problem-title">الفضاء العيني لتجارب عشوائية مختلفة</div>
     </div>
-    <div class="cb">
-      <div class="lim-list">
+    <div class="problem-body">
+      <div class="question-text">
+        ما الفضاء العيني لكل من التجارب التالية؟<br>
+        أ) رمي عملة واحدة &nbsp; ب) رمي 3 عملات &nbsp; ج) رمي نرد &nbsp; د) قياس درجة حرارة &nbsp; ه) إحصاء تعداد سكاني
+      </div>
+      <div class="law-used">📌 المفهوم: الفضاء العيني Ω = مجموعة كل النتائج الممكنة</div>
+      <div class="sub-parts">
+        <div class="sub-part">
+          <div class="sub-part-label">أ) عملة واحدة</div>
+          <div class="step-content">نتيجتان فقط: رأس أو كتابة<br>
+          <span class="calc">Ω = {H, T}</span></div>
+        </div>
+        <div class="sub-part">
+          <div class="sub-part-label">ب) 3 عملات</div>
+          <div class="step-content">كل عملة لها نتيجتان، و3 عملات تعني 2³ = 8 نتائج ممكنة<br>
+          <span class="calc">Ω = {HHH, HHT, HTH, HTT, THH, THT, TTH, TTT}</span><br>
+          القانون المستخدم لحساب العدد: <span class="calc">n^k = 2^3 = 8</span> (سحب بإعادة مع ترتيب)</div>
+        </div>
+        <div class="sub-part">
+          <div class="sub-part-label">ج) رمي نرد</div>
+          <div class="step-content">
+          <span class="calc">Ω = {1, 2, 3, 4, 5, 6}</span> — 6 نتائج</div>
+        </div>
+        <div class="sub-part">
+          <div class="sub-part-label">د) قياس درجة الحرارة</div>
+          <div class="step-content">المجال متصل (غير منتهٍ) — درجة حرارة يمكن أن تكون أي قيمة في نطاق معين<br>
+          <span class="calc">Ω = ℝ  (أو نطاق مثل [-50°C, 60°C])</span></div>
+        </div>
+        <div class="sub-part">
+          <div class="sub-part-label">ه) تعداد سكاني</div>
+          <div class="step-content">عدد صحيح غير سالب لا حد نظري محدد له<br>
+          <span class="calc">Ω = {0, 1, 2, 3, ...} = ℕ₀</span></div>
+        </div>
+      </div>
+      <div class="note">
+        <div class="note-icon">💡</div>
+        <div>الحدث العشوائي هو أي مجموعة جزئية من الفضاء العيني. مثلاً "الحصول على رأسَين على الأقل" هو حدث يشمل: {HHT, HTH, THH, HHH}.</div>
+      </div>
+    </div>
+  </div>
 
-        <div class="lim-item">
-          <span class="lim-num">①</span>
-          <div class="lim-body">
-            <strong>Sensitive to Outliers (Main Limitation)</strong><br>
-            Normalization compresses all values into [0, 1] based on the min and max. If the dataset contains outliers, these extreme values become the new min/max, causing all other values to be squeezed into a very narrow range — severely distorting the data distribution.
-            <div class="example-box">
-              📌 Example: Marks = {26, 27, 30, 35, 38, 39, 40, 48, 50}<br>
-              Without outlier → 50 maps to 1.0 → 26 maps to 0.0<br>
-              Add outlier 90 → now 90 maps to 1.0, and 50 maps to only ≈ <strong>0.375</strong><br>
-              The value 50 (previously max) is now compressed significantly just by adding one outlier!
+  <!-- PROBLEM: MUHAMMED CAFE -->
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">٣</div>
+      <div class="problem-title">محمد والمقهى — مسألة العد الشاملة</div>
+    </div>
+    <div class="problem-body">
+      <div class="question-text">
+        يأكل طالب اسمه محمد في مقهى يقدّم 10 أكلات مختلفة طوال أسبوع (7 أيام)، ويختار وجبته عشوائياً كل يوم.
+      </div>
+
+      <div class="sub-parts">
+
+        <div class="sub-part">
+          <div class="sub-part-label">أ) كم عدد القوائم الغذائية الممكنة خلال 7 أيام؟</div>
+          <div class="law-used">📐 السحب بإعادة مع ترتيب: n^k</div>
+          <div class="solution-steps">
+            <div class="step">
+              <div class="step-num">١</div>
+              <div class="step-content">كل يوم محمد يختار من 10 أكلات، ويمكن أن يكرر نفس الأكلة. الأيام مرتّبة (يوم1، يوم2، ...) والتكرار مسموح.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٢</div>
+              <div class="step-content">n = 10 (عدد الأكلات)، k = 7 (عدد الأيام)<br>
+              <span class="calc">العدد الكلي = 10^7 = 10,000,000</span></div>
             </div>
           </div>
-        </div>
-
-        <div class="lim-item">
-          <span class="lim-num">②</span>
-          <div class="lim-body">
-            <strong>Does NOT produce a standard distribution</strong><br>
-            Normalization only scales the range — it does not reshape the distribution. If your data is skewed or non-Gaussian, normalization will not fix that. In contrast, Standardization centers data around mean=0 with std=1, which many ML algorithms prefer.
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">10^7 = 10,000,000 قائمة ممكنة</div>
           </div>
         </div>
 
-        <div class="lim-item">
-          <span class="lim-num">③</span>
-          <div class="lim-body">
-            <strong>Range is fixed only for training data</strong><br>
-            If new test data contains values outside the training min/max range, the normalized values will fall outside [0, 1], which is unexpected and can cause model errors.
+        <div class="sub-part">
+          <div class="sub-part-label">ب) ما احتمال أن يأكل نفس الأكلة كل يوم؟</div>
+          <div class="solution-steps">
+            <div class="step">
+              <div class="step-num">١</div>
+              <div class="step-content"><strong>حالات نفس الأكلة كل يوم:</strong> 10 فقط (أكلة1 كل يوم، أو أكلة2 كل يوم، ... إلخ)</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٢</div>
+              <div class="step-content"><span class="calc">P = 10 / 10^7 = 1 / 10^6 = 0.000001</span></div>
+            </div>
+          </div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">P = 10⁻⁶ (احتمال ضئيل جداً)</div>
           </div>
         </div>
 
-        <div class="lim-item">
-          <span class="lim-num">④</span>
-          <div class="lim-body">
-            <strong>Solution → Use Standardization (Z-score) instead</strong><br>
-            When outliers exist in the dataset, use Standardization: <strong>X′ = (X − μ) / σ</strong><br>
-            Standardization is not affected by outliers because it uses the mean (μ) and standard deviation (σ) rather than absolute min/max values.
+        <div class="sub-part">
+          <div class="sub-part-label">ج) ما احتمال أن يأكل أكثر 2 نوع مختلف كحد أقصى طوال الأسبوع؟</div>
+          <div class="law-used">📐 التوافيق C(n,k) + السحب بإعادة</div>
+          <div class="solution-steps">
+            <div class="step">
+              <div class="step-num">١</div>
+              <div class="step-content"><strong>الحالة 1:</strong> نوع واحد فقط = 10 قوائم (كما حسبنا)</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٢</div>
+              <div class="step-content"><strong>الحالة 2:</strong> نوعان بالضبط — نختار أولاً أي نوعَين: C(10,2) = 45 طريقة. ثم لكل زوج: القوائم بهذَين النوعَين فقط = 2^7 = 128، لكن نطرح القوائم التي تستخدم نوعاً واحداً فقط (2 قائمة). إذن لكل زوج: 128 − 2 = 126.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٣</div>
+              <div class="step-content">إجمالي الحالات المفضّلة = 10 + (45 × 126) = 10 + 5670 = 5680<br>
+              <span class="calc">P = 5680 / 10^7 ≈ 0.000568</span></div>
+            </div>
+          </div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">P ≈ 5.68 × 10⁻⁴</div>
+          </div>
+        </div>
+
+        <div class="sub-part">
+          <div class="sub-part-label">د) كيف يختار إذا أراد أكلة مختلفة كل يوم (بدون تكرار)؟</div>
+          <div class="law-used">📐 السحب بدون إعادة مع ترتيب: n! / (n-k)!</div>
+          <div class="solution-steps">
+            <div class="step">
+              <div class="step-num">١</div>
+              <div class="step-content">n = 10، k = 7. يختار أكلة مختلفة كل يوم، لا تكرار، والأيام مرتّبة.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٢</div>
+              <div class="step-content"><span class="calc">العدد = 10! / (10-7)! = 10! / 3! = 10×9×8×7×6×5×4 = 604,800</span></div>
+            </div>
+          </div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">604,800 طريقة</div>
+          </div>
+        </div>
+
+        <div class="sub-part">
+          <div class="sub-part-label">ه) إذا أراد أكلة مختلفة عن اليوم السابق فقط (لا عن كل الأيام)؟</div>
+          <div class="solution-steps">
+            <div class="step">
+              <div class="step-num">١</div>
+              <div class="step-content">اليوم الأول: 10 خيارات حرة.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٢</div>
+              <div class="step-content">كل يوم تالٍ: 9 خيارات (أي شيء ما عدا ما أكله أمس).</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٣</div>
+              <div class="step-content"><span class="calc">العدد = 10 × 9^6 = 10 × 531,441 = 5,314,410</span></div>
+            </div>
+          </div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">5,314,410 طريقة</div>
+          </div>
+        </div>
+
+        <div class="sub-part">
+          <div class="sub-part-label">و) كم عدد ترتيبات دخول محمد وأصدقائه الثلاثة للمقهى؟</div>
+          <div class="law-used">📐 التباديل: n!</div>
+          <div class="solution-steps">
+            <div class="step">
+              <div class="step-num">١</div>
+              <div class="step-content">لديهم 4 أشخاص (محمد + 3 أصدقاء) يدخلون واحداً تلو الآخر.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٢</div>
+              <div class="step-content"><span class="calc">عدد الترتيبات = 4! = 4×3×2×1 = 24</span></div>
+            </div>
+          </div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">24 ترتيباً مختلفاً</div>
+          </div>
+        </div>
+
+        <div class="sub-part">
+          <div class="sub-part-label">ز) كم طريقة لاختيار شخص واحد (أو شخصَين) من المجموعة لجلب الطعام؟</div>
+          <div class="law-used">📐 التوافيق: C(n,k)</div>
+          <div class="solution-steps">
+            <div class="step">
+              <div class="step-num">١</div>
+              <div class="step-content"><strong>شخص واحد:</strong> C(4,1) = 4 طرق</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٢</div>
+              <div class="step-content"><strong>شخصان:</strong> <span class="calc">C(4,2) = 4! / (2! × 2!) = 6 طرق</span></div>
+            </div>
+          </div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">4 طرق للشخص الواحد، 6 طرق لشخصَين</div>
+          </div>
+        </div>
+
+        <div class="sub-part">
+          <div class="sub-part-label">ح) كم طلباً مختلفاً يمكن أن يطلبه الأربعة من قائمة 10 أكلات؟ (من منظور الطباخ)</div>
+          <div class="law-used">📐 السحب بإعادة بدون ترتيب (Multiset): C(k+n-1, k)</div>
+          <div class="solution-steps">
+            <div class="step">
+              <div class="step-num">١</div>
+              <div class="step-content">الطباخ يرى الطلب الإجمالي فقط (مثلاً: وجبتان برجر + بيتزا + عصير)، لا يهمه من طلب ماذا.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">٢</div>
+              <div class="step-content">n = 10 أكلات، k = 4 أشخاص.<br>
+              <span class="calc">C(4+10-1, 4) = C(13, 4) = 13! / (9! × 4!) = 715</span></div>
+            </div>
+          </div>
+          <div class="answer-box">
+            <div class="label">✅ الجواب</div>
+            <div class="value">715 طلباً مختلفاً (منظور الطباخ)</div>
           </div>
         </div>
 
@@ -459,695 +1047,171 @@ footer{
     </div>
   </div>
 
-  <!-- ─── Q3 MCQ ─── -->
-  <div class="card">
-    <div class="ch">
-      <span class="tag t-p">Q3</span>
-      <span class="ch-t">Select the Correct Answer — MCQ</span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--amber);background:var(--amber-d);padding:2px 8px;border-radius:4px;border:1px solid rgba(245,158,11,.3)">4 marks</span>
+  <!-- PROBLEM: TEAMS -->
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">٤</div>
+      <div class="problem-title">مجموعة 12 صديقاً وتقسيمهم لفرق — المعاملات متعددة الحدود</div>
     </div>
-    <div class="cb">
-      <div class="strip">
-        <span class="chip cT">1-d</span>
-        <span class="chip cT">2-a</span>
-        <span class="chip cT">3-c</span>
-        <span class="chip cT">4-a</span>
+    <div class="problem-body">
+      <div class="question-text">
+        مجموعة من 12 صديقاً يريدون اللعب في 4 فرق، كل فريق 3 أشخاص. كم ترتيباً ممكناً؟
       </div>
-      <div class="mcq-list">
-
-        <div class="mcq">
-          <div class="mn">Q3 — 1</div>
-          <div class="mq">How do you handle missing values in a data set?</div>
-          <div class="opts">
-            <div class="opt">a) Drop missing rows and columns</div>
-            <div class="opt">b) Replace missing values with mean/mode/median</div>
-            <div class="opt">c) Assign a unique category to missing values</div>
-            <div class="opt ok">d) All of the above</div>
-          </div>
-          <div class="mnote">All three strategies are valid. (a) Drop rows — when missing data is minimal. (b) Impute with mean/median (numerical) or mode (categorical). (c) Assign special category — for categorical features. The choice depends on data size and % of missing values.</div>
+      <div class="law-used">📐 المعامل متعدد الحدود: n! / (k₁! × k₂! × ... × kₛ!)</div>
+      <div class="solution-steps">
+        <div class="step">
+          <div class="step-num">١</div>
+          <div class="step-content">n = 12، لدينا 4 مجموعات كل واحدة حجمها 3.<br>
+          التحقق: 3+3+3+3 = 12 ✓</div>
         </div>
-
-        <div class="mcq">
-          <div class="mn">Q3 — 2</div>
-          <div class="mq">Feature scaling helps to increase the accuracy of the model.</div>
-          <div class="opts">
-            <div class="opt ok">a) True</div>
-            <div class="opt">b) False</div>
-          </div>
-          <div class="mnote">TRUE. Feature scaling normalizes the range of features so that no single feature dominates due to its scale. This speeds up convergence in gradient-based algorithms (like neural networks, SVM) and improves accuracy by ensuring fair contribution of all features.</div>
-        </div>
-
-        <div class="mcq">
-          <div class="mn">Q3 — 3</div>
-          <div class="mq">What is the use of the LabelEncoder class?</div>
-          <div class="opts">
-            <div class="opt wrong">a) It encodes labels with a value between 0 and n_classes</div>
-            <div class="opt wrong">b) It encodes labels with a value between 0 and n_classes-2</div>
-            <div class="opt ok">c) It encodes labels with a value between 0 and n_classes-1</div>
-            <div class="opt">d) None</div>
-          </div>
-          <div class="mnote">LabelEncoder assigns integer labels from <strong>0 to n_classes−1</strong>. For example, if you have 3 classes {cat, dog, fish}, they become {0, 1, 2} — that's n_classes−1 = 3−1 = 2 as the maximum value. Use it ONLY for ordered/ordinal categories, not for nominal (unordered) ones like city names.</div>
-        </div>
-
-        <div class="mcq">
-          <div class="mn">Q3 — 4</div>
-          <div class="mq">One-hot encoding transforms:</div>
-          <div class="opts">
-            <div class="opt ok">a) each categorical feature with n possible values into n binary features, with only one active</div>
-            <div class="opt">b) each categorical feature with n possible values into n binary features, with a maximum of two active</div>
-            <div class="opt">c) each categorical feature with n possible values into n-1 binary features, with only one active</div>
-            <div class="opt">d) each categorical feature with n possible values into n+1 binary features, with only one active</div>
-          </div>
-          <div class="mnote">One-Hot Encoding creates exactly <strong>n binary columns</strong> for n categories — and exactly <strong>one column is 1</strong> (active) per row, all others are 0. Example: Color {Red, Blue, Green} → 3 columns: [1,0,0], [0,1,0], [0,0,1]. Used for unordered (nominal) categories.</div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div><!-- /quiz -->
-
-
-<!-- ════════════════════════════════════════
-     LECTURE 1 SUMMARY
-════════════════════════════════════════ -->
-<div id="lec1" class="sec">
-  <div class="qhdr">
-    <div>
-      <div class="qhdr-t">Lecture 1 — Introduction to Machine Learning</div>
-      <div class="qhdr-s">Smart Summary · Focused on Exam Patterns</div>
-    </div>
-    <div class="qhdr-d">Lec 1</div>
-  </div>
-
-  <!-- What is ML -->
-  <div class="card">
-    <div class="ch"><span class="tag t-b">DEF</span><span class="ch-t">What is Machine Learning?</span></div>
-    <div class="cb">
-      <div class="info ib" style="margin-bottom:12px">
-        <strong>Arthur Samuel (1959):</strong> "Machine learning is the science of getting computers to act without being explicitly programmed."
-      </div>
-      <div class="info ig">
-        <strong>Simple definition:</strong> ML is about <em>predicting the future</em> based on the <em>past</em>. Or: predicting the <em>unseen</em> based on the <em>already-seen</em>.
-      </div>
-      <div class="info ia" style="margin-top:8px">
-        <strong>ML is a subfield of Artificial Intelligence (AI).</strong> Instead of writing explicit rules, the machine learns the rules from data.
-      </div>
-    </div>
-  </div>
-
-  <!-- Types of ML -->
-  <div class="card">
-    <div class="ch"><span class="tag t-t">TYPES</span><span class="ch-t">Types of Machine Learning</span></div>
-    <div class="cb">
-      <div class="theory-grid">
-        <div class="th-card" style="border-color:rgba(59,130,246,.3)">
-          <div class="th-icon">📘</div>
-          <div class="th-title" style="color:var(--blue)">Supervised Learning</div>
-          <div class="th-body">
-            Training data <strong>includes</strong> desired outputs (labels).<br>
-            Goal: Predict output for new input.<br>
-            <ul>
-              <li>Classification (Is it A or B?)</li>
-              <li>Regression (How much/many?)</li>
-              <li>Ranking</li>
-            </ul>
-          </div>
-        </div>
-        <div class="th-card" style="border-color:rgba(16,185,129,.3)">
-          <div class="th-icon">📗</div>
-          <div class="th-title" style="color:var(--green)">Unsupervised Learning</div>
-          <div class="th-body">
-            Training data does <strong>NOT</strong> include labels.<br>
-            Goal: Find hidden patterns.<br>
-            <ul>
-              <li>Clustering (k-means, hierarchical)</li>
-              <li>Association Rule Learning</li>
-              <li>Dimensionality Reduction</li>
-            </ul>
-          </div>
-        </div>
-        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
-          <div class="th-icon">📙</div>
-          <div class="th-title" style="color:var(--purple)">Reinforcement Learning</div>
-          <div class="th-body">
-            Agent learns by <strong>trial and error</strong>.<br>
-            Gets rewards/penalties.<br>
-            No labeled data needed.<br>
-            Example: autonomous driving, games.
-          </div>
+        <div class="step">
+          <div class="step-num">٢</div>
+          <div class="step-content">
+          <span class="calc">العدد = 12! / (3! × 3! × 3! × 3!) = 479,001,600 / (6×6×6×6) = 479,001,600 / 1296 = 369,600</span></div>
         </div>
       </div>
+      <div class="answer-box">
+        <div class="label">✅ الجواب</div>
+        <div class="value">369,600 ترتيباً ممكناً</div>
+      </div>
 
-      <!-- Supervised vs Unsupervised comparison table -->
-      <div class="div"><div class="dl"></div><span class="dt">Supervised vs Unsupervised — Key Differences</span><div class="dl"></div></div>
-      <table class="cmp">
-        <thead><tr><th>Aspect</th><th>Supervised</th><th>Unsupervised</th></tr></thead>
-        <tbody>
-          <tr><td>Input data</td><td class="hl">Labeled</td><td>Unlabeled</td></tr>
-          <tr><td>Feedback</td><td class="hl">Has feedback mechanism</td><td>No feedback mechanism</td></tr>
-          <tr><td>Classification</td><td class="hl">Based on training dataset</td><td>Assigns properties to classify</td></tr>
-          <tr><td>Sub-types</td><td class="hl">Regression &amp; Classification</td><td>Clustering &amp; Association</td></tr>
-          <tr><td>Goal</td><td class="hl">Prediction</td><td>Analysis / Pattern discovery</td></tr>
-          <tr><td>Complexity</td><td class="hl">Less complex</td><td>More complex</td></tr>
-          <tr><td>Classes</td><td class="hl">Known number of classes</td><td>Unknown number of classes</td></tr>
-          <tr><td>Algorithms</td><td class="hl">Decision tree, SVM, Logistic Regression</td><td>K-means, Hierarchical, Apriori</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Supervised subtypes -->
-  <div class="card">
-    <div class="ch"><span class="tag t-b">SUPERVISED</span><span class="ch-t">Supervised Learning — Classification vs Regression</span></div>
-    <div class="cb">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
-        <div class="th-card" style="border-color:rgba(59,130,246,.3)">
-          <div class="th-title" style="color:var(--blue)">Classification</div>
-          <div class="th-body">
-            Output variable is <strong>categorical</strong>.<br>
-            Q: Is it A or B?<br>
-            Examples: spam/not-spam, disease/no-disease<br>
-            <br>Algorithms:
-            <ul>
-              <li>Decision Tree</li>
-              <li>SVM</li>
-              <li>Random Forest</li>
-              <li>Naïve Bayes</li>
-              <li>KNN</li>
-              <li>Neural Networks</li>
-            </ul>
-          </div>
-        </div>
-        <div class="th-card" style="border-color:rgba(16,185,129,.3)">
-          <div class="th-title" style="color:var(--green)">Regression</div>
-          <div class="th-body">
-            Output variable is <strong>continuous</strong>.<br>
-            Q: How much? How many?<br>
-            Examples: house price, weather, stock price<br>
-            <br>Algorithms:
-            <ul>
-              <li>Simple Linear Regression</li>
-              <li>Multi-linear Regression</li>
-              <li>Polynomial Regression</li>
-            </ul>
-          </div>
+      <div class="divider"></div>
+      <div class="sub-part">
+        <div class="sub-part-label">ماذا لو كانت الفرق بأحجام 2، 4، 5 (من 11 شخصاً مثلاً)؟</div>
+        <div class="step-content">التحقق: 2+4+5 = 11 ✓<br>
+        <span class="calc">العدد = 11! / (2! × 4! × 5!) = 39,916,800 / (2 × 24 × 120) = 39,916,800 / 5,760 = 6,930</span></div>
+        <div class="answer-box" style="margin-top:12px">
+          <div class="label">✅ الجواب</div>
+          <div class="value">6,930 طريقة</div>
         </div>
       </div>
     </div>
   </div>
 
-</div><!-- /lec1 -->
+</div>
 
-
-<!-- ════════════════════════════════════════
-     LECTURE 2 SUMMARY
-════════════════════════════════════════ -->
-<div id="lec2" class="sec">
-  <div class="qhdr">
-    <div>
-      <div class="qhdr-t">Lecture 2 — Data Preparation &amp; Feature Scaling</div>
-      <div class="qhdr-s">Smart Summary · Focused on Exam Patterns</div>
-    </div>
-    <div class="qhdr-d">Lec 2</div>
+<!-- ===================== TAB 3: SUMMARY ===================== -->
+<div id="summary" class="section">
+  <div class="section-title">
+    <div class="icon" style="background:rgba(16,185,129,0.1)">📋</div>
+    جدول الملخص الشامل للقوانين
   </div>
 
-  <!-- ML Steps -->
-  <div class="card">
-    <div class="ch"><span class="tag t-b">STEPS</span><span class="ch-t">Main Steps to Build an ML Model</span></div>
-    <div class="cb">
-      <div class="steps">
-        <div class="step-flow">
-          <div class="sf-num" style="background:rgba(59,130,246,.15);color:var(--blue)">1</div>
-          <div class="sf-body"><div class="sf-title">Data Collection</div><div class="sf-desc">Gather data from sources (Kaggle, UCI, Roboflow). Quality and quantity affect model accuracy.</div></div>
-        </div>
-        <div class="step-flow">
-          <div class="sf-num" style="background:rgba(16,185,129,.15);color:var(--green)">2</div>
-          <div class="sf-body"><div class="sf-title">Data Preparation ⭐</div><div class="sf-desc">Clean, integrate, and transform raw data. Includes: removing duplicates, handling missing values, normalization, encoding.</div></div>
-        </div>
-        <div class="step-flow">
-          <div class="sf-num" style="background:rgba(167,139,250,.15);color:var(--purple)">3</div>
-          <div class="sf-body"><div class="sf-title">Choose a Model</div><div class="sf-desc">Select the ML algorithm (sometimes try multiple to find the best).</div></div>
-        </div>
-        <div class="step-flow">
-          <div class="sf-num" style="background:rgba(245,158,11,.15);color:var(--amber)">4</div>
-          <div class="sf-body"><div class="sf-title">Train the Model</div><div class="sf-desc">Feed training data to the model. Updates weights &amp; biases each cycle.</div></div>
-        </div>
-        <div class="step-flow">
-          <div class="sf-num" style="background:rgba(0,191,179,.15);color:var(--teal)">5</div>
-          <div class="sf-body"><div class="sf-title">Evaluation</div><div class="sf-desc">Test with unseen data. Metrics: accuracy, precision, recall, F-score. If not acceptable → go back.</div></div>
-        </div>
-        <div class="step-flow">
-          <div class="sf-num" style="background:rgba(236,72,153,.15);color:var(--pink)">6</div>
-          <div class="sf-body"><div class="sf-title">Hyperparameter Tuning</div><div class="sf-desc">Experimental process. Tune learning rate, number of steps, initialization values etc.</div></div>
-        </div>
-        <div class="step-flow">
-          <div class="sf-num" style="background:rgba(248,113,113,.15);color:var(--red)">7</div>
-          <div class="sf-body"><div class="sf-title">Prediction</div><div class="sf-desc">Model is ready to make predictions on new data.</div></div>
-        </div>
+  <div class="cards-2col" style="margin-bottom:32px">
+    <div class="info-card">
+      <h4>🔑 مفتاح القرار السريع</h4>
+      <p>
+        <strong>هل التكرار مسموح؟</strong><br>
+        ✅ نعم + الترتيب مهم → <span style="color:var(--accent2)">nᵏ</span><br>
+        ✅ نعم + الترتيب غير مهم → <span style="color:var(--accent5)">Multiset</span><br>
+        ❌ لا + الترتيب مهم → <span style="color:var(--accent3)">n!/(n-k)!</span><br>
+        ❌ لا + الترتيب غير مهم → <span style="color:var(--accent4)">C(n,k)</span>
+      </p>
+    </div>
+    <div class="info-card">
+      <h4>⚠️ تنبيهات مهمة</h4>
+      <p>
+        • لابلاس يشترط أن تكون الحالات متساوية الاحتمال.<br>
+        • التباديل (n!) هي حالة خاصة حيث k=n.<br>
+        • Multinomial هو تعميم للـ Binomial لأكثر من مجموعتين.<br>
+        • السؤال "من منظور من؟" يغير نوع القانون المطلوب!
+      </p>
+    </div>
+  </div>
+
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>النوع</th>
+        <th>التكرار؟</th>
+        <th>الترتيب؟</th>
+        <th>القانون</th>
+        <th>مثال</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>سحب بإعادة مع ترتيب</td>
+        <td><span class="tag tag-green">✅ نعم</span></td>
+        <td><span class="tag tag-green">✅ مهم</span></td>
+        <td><span class="ltr">nᵏ</span></td>
+        <td>قائمة طعام لـ k يوم من n أكلة</td>
+      </tr>
+      <tr>
+        <td>سحب بدون إعادة مع ترتيب</td>
+        <td><span class="tag tag-blue">❌ لا</span></td>
+        <td><span class="tag tag-green">✅ مهم</span></td>
+        <td><span class="ltr">n! / (n-k)!</span></td>
+        <td>أكلة مختلفة كل يوم، ترتيب دخول المقهى</td>
+      </tr>
+      <tr>
+        <td>تباديل (كل العناصر)</td>
+        <td><span class="tag tag-blue">❌ لا</span></td>
+        <td><span class="tag tag-green">✅ مهم</span></td>
+        <td><span class="ltr">n!</span></td>
+        <td>ترتيب n شخص في صف</td>
+      </tr>
+      <tr>
+        <td>توافيق (Combination)</td>
+        <td><span class="tag tag-blue">❌ لا</span></td>
+        <td><span class="tag tag-blue">❌ غير مهم</span></td>
+        <td><span class="ltr">n! / [(n-k)! × k!]</span></td>
+        <td>اختيار فريق أو لجنة</td>
+      </tr>
+      <tr>
+        <td>معاملات متعددة الحدود</td>
+        <td><span class="tag tag-blue">❌ لا</span></td>
+        <td><span class="tag tag-blue">❌ غير مهم</span></td>
+        <td><span class="ltr">n! / (k₁!k₂!…kₛ!)</span></td>
+        <td>تقسيم مجموعة إلى فرق متعددة</td>
+      </tr>
+      <tr>
+        <td>سحب بإعادة بدون ترتيب (Multiset)</td>
+        <td><span class="tag tag-green">✅ نعم</span></td>
+        <td><span class="tag tag-blue">❌ غير مهم</span></td>
+        <td><span class="ltr">C(k+n-1, k)</span></td>
+        <td>طلبات مجموعة من قائمة طعام (منظور الطباخ)</td>
+      </tr>
+      <tr>
+        <td>قاعدة لابلاس</td>
+        <td colspan="2" style="text-align:center">جميع النتائج متساوية الاحتمال</td>
+        <td><span class="ltr">|A| / |Ω|</span></td>
+        <td>رمي نرد، عملة، اختيار عشوائي</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:40px">
+    <div class="section-title" style="font-size:1.3rem; margin-bottom:20px">
+      <div class="icon" style="background:rgba(245,200,66,0.1); width:36px; height:36px; font-size:1rem">🧠</div>
+      العلاقات بين القوانين
+    </div>
+    <div class="cards-2col">
+      <div class="info-card">
+        <h4>التوافيق ← التباديل</h4>
+        <p>التباديل الجزئي = التوافيق × k!<br>
+        أي: <span style="color:var(--gold)">n!/(n-k)! = C(n,k) × k!</span><br>
+        عندما نختار k عنصراً ثم نرتّبهم نحصل على التباديل الجزئي.</p>
       </div>
-    </div>
-  </div>
-
-  <!-- Data Preparation subtopics -->
-  <div class="card">
-    <div class="ch"><span class="tag t-g">DATA PREP</span><span class="ch-t">Data Preparation — 3 Main Operations</span></div>
-    <div class="cb">
-      <div class="theory-grid">
-        <div class="th-card" style="border-color:rgba(248,113,113,.3)">
-          <div class="th-icon">🧹</div>
-          <div class="th-title" style="color:var(--red)">1. Data Cleaning</div>
-          <div class="th-body">
-            Detect and remove inconsistencies.<br>
-            Includes: missing values, duplicates, outliers, errors.<br>
-            <strong>Missing Value Methods:</strong>
-            <ul>
-              <li>Impute with Zero</li>
-              <li>Impute with Mean/Median (numerical)</li>
-              <li>Impute with Mode (categorical)</li>
-              <li>Drop the row</li>
-            </ul>
-          </div>
-        </div>
-        <div class="th-card" style="border-color:rgba(59,130,246,.3)">
-          <div class="th-icon">🔗</div>
-          <div class="th-title" style="color:var(--blue)">2. Data Integration</div>
-          <div class="th-body">
-            Combine data from multiple sources into one unified dataset.<br>
-            Handles: entity identification, data redundancy, unit variations (km→miles).
-          </div>
-        </div>
-        <div class="th-card" style="border-color:rgba(16,185,129,.3)">
-          <div class="th-icon">⚙️</div>
-          <div class="th-title" style="color:var(--green)">3. Data Transformation</div>
-          <div class="th-body">
-            Convert data to proper format for ML.<br>
-            Includes:
-            <ul>
-              <li>Aggregation</li>
-              <li>Feature Scaling ⭐</li>
-              <li>Categorical Encoding ⭐</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Feature Scaling -->
-  <div class="card">
-    <div class="ch"><span class="tag t-t">SCALING</span><span class="ch-t">Feature Scaling — Normalization vs Standardization</span></div>
-    <div class="cb">
-      <table class="cmp">
-        <thead><tr><th>Aspect</th><th>Normalization (Min-Max)</th><th>Standardization (Z-score)</th></tr></thead>
-        <tbody>
-          <tr><td>Formula</td><td class="hl" style="font-family:'JetBrains Mono',monospace">X′ = (X−X_min)/(X_max−X_min)</td><td class="hl2" style="font-family:'JetBrains Mono',monospace">X′ = (X − μ) / σ</td></tr>
-          <tr><td>Output range</td><td class="hl">0 to 1 (positive data)</td><td class="hl2">No fixed range, mean=0, std=1</td></tr>
-          <tr><td>Outlier effect</td><td style="color:var(--red)">Heavily affected</td><td class="hl2">More robust</td></tr>
-          <tr><td>Best when</td><td class="hl">Standard deviation is small</td><td class="hl2">Outliers exist in data</td></tr>
-          <tr><td>Distribution</td><td>Does not change shape</td><td class="hl2">Produces ~ normal distribution</td></tr>
-        </tbody>
-      </table>
-      <div class="info ir" style="margin-top:10px">
-        <strong>⚠️ Normalization Limitation:</strong> Adding one outlier can drastically shift all other normalized values. Example: marks 50 mapped to 1.0, but after adding outlier 90, same marks 50 → only 0.375.
+      <div class="info-card">
+        <h4>Multinomial ← Binomial</h4>
+        <p>المعامل الثنائي هو حالة خاصة من المتعدد الحدود عندما s=2:<br>
+        <span style="color:var(--gold)">C(n,k) = n! / (k! × (n-k)!)</span><br>
+        وهو ما نحصل عليه من الصيغة العامة عند مجموعتَين.</p>
       </div>
     </div>
   </div>
 
-  <!-- Categorical Encoding -->
-  <div class="card">
-    <div class="ch"><span class="tag t-a">ENCODING</span><span class="ch-t">Categorical Encoding — Label Encoder vs One-Hot Encoder</span></div>
-    <div class="cb">
-      <div class="info ib" style="margin-bottom:12px">
-        <strong>Why encode?</strong> ML algorithms only accept numerical data. Categorical variables must be converted to numbers before training.
-      </div>
-
-      <table class="cmp">
-        <thead><tr><th>Aspect</th><th>Label Encoder</th><th>One-Hot Encoder</th></tr></thead>
-        <tbody>
-          <tr><td>Output</td><td class="hl">Single column: 0, 1, 2…</td><td>Multiple binary columns (0/1)</td></tr>
-          <tr><td>Best for</td><td class="hl">Ordered categories (ordinal)</td><td class="hl2">Unordered categories (nominal)</td></tr>
-          <tr><td>Risk</td><td style="color:var(--red)">Creates fake order between labels</td><td class="hl2">No fake order</td></tr>
-          <tr><td>Example</td><td class="hl">Small &lt; Medium &lt; Large</td><td class="hl2">Red, Blue, Green (colors)</td></tr>
-          <tr><td>n categories →</td><td class="hl">1 column</td><td>n binary columns</td></tr>
-          <tr><td>Active per row</td><td class="hl">1 number</td><td class="hl2">Only ONE column = 1, rest = 0</td></tr>
-        </tbody>
-      </table>
-
-      <div class="info ia" style="margin-top:10px">
-        <strong>⚠️ Never use Label Encoder</strong> for unordered categories like colors or city names — the model will incorrectly think Green(2) &gt; Red(0), which is meaningless!
-      </div>
-
-      <!-- Category types -->
-      <div class="div"><div class="dl"></div><span class="dt">3 Types of Categorical Features</span><div class="dl"></div></div>
-      <div class="theory-grid">
-        <div class="th-card"><div class="th-title" style="color:var(--teal)">Binary</div><div class="th-body">Two values only.<br>Examples: Yes/No, True/False</div></div>
-        <div class="th-card"><div class="th-title" style="color:var(--amber)">Ordinal</div><div class="th-body">Specific ordered groups.<br>Examples: Low/Medium/High, Cold/Hot</div></div>
-        <div class="th-card"><div class="th-title" style="color:var(--purple)">Nominal</div><div class="th-body">Unordered groups.<br>Examples: cat/dog/tiger, Red/Blue/Green</div></div>
-      </div>
-    </div>
-  </div>
-</div><!-- /lec2 -->
-
-
-<!-- ════════════════════════════════════════
-     EXAM FOCUS / CHEAT SHEET
-════════════════════════════════════════ -->
-<div id="ref" class="sec">
-  <div class="qhdr">
-    <div>
-      <div class="qhdr-t">⚡ Exam Focus — High-Priority Topics</div>
-      <div class="qhdr-s">Based on quiz patterns from the doctor's questions</div>
-    </div>
-    <div class="qhdr-d">Must Know</div>
-  </div>
-
-  <!-- Normalization formula -->
-  <div class="card">
-    <div class="ch"><span class="tag t-t">🔢</span><span class="ch-t">Normalization Formula + Steps (likely to be tested)</span></div>
-    <div class="cb">
-      <div class="formula" style="font-size:1rem">X′ = (X − X<sub>min</sub>) / (X<sub>max</sub> − X<sub>min</sub>)</div>
-      <div class="steps" style="margin-top:12px">
-        <div class="step-flow">
-          <div class="sf-num" style="background:var(--teal-d);color:var(--teal)">1</div>
-          <div class="sf-body"><div class="sf-title">Find X_min and X_max</div><div class="sf-desc">Scan all values in the column to find minimum and maximum.</div></div>
-        </div>
-        <div class="step-flow">
-          <div class="sf-num" style="background:var(--teal-d);color:var(--teal)">2</div>
-          <div class="sf-body"><div class="sf-title">Compute the Range</div><div class="sf-desc">Range = X_max − X_min</div></div>
-        </div>
-        <div class="step-flow">
-          <div class="sf-num" style="background:var(--teal-d);color:var(--teal)">3</div>
-          <div class="sf-body"><div class="sf-title">Apply formula to the target X</div><div class="sf-desc">X′ = (X − X_min) / Range → result is in [0, 1]</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Standardization formula -->
-  <div class="card">
-    <div class="ch"><span class="tag t-a">📐</span><span class="ch-t">Standardization Formula + Steps</span></div>
-    <div class="cb">
-      <div class="formula" style="font-size:1rem">X′ = (X − μ) / σ</div>
-      <div class="info ia" style="margin-top:10px">
-        <strong>μ (mu)</strong> = Mean of the column &nbsp;|&nbsp; <strong>σ (sigma)</strong> = Standard Deviation<br>
-        After standardization: Mean = 0, Std Dev = 1
-      </div>
-      <div class="info ig" style="margin-top:8px">
-        <strong>Standard Deviation formula:</strong> σ = √[ Σ(xᵢ − μ)² / n ]<br>
-        Example: dataset {4,8,6,5,3} → μ = 5.2 → variance = 2.56 → σ ≈ 1.6
-      </div>
-    </div>
-  </div>
-
-  <!-- One-Hot Encoding key fact -->
-  <div class="card">
-    <div class="ch"><span class="tag t-p">🔥</span><span class="ch-t">One-Hot Encoding — Key Exam Facts</span></div>
-    <div class="cb">
-      <div class="lim-list">
-        <div class="lim-item">
-          <span class="lim-num">✓</span>
-          <div class="lim-body"><strong>Creates n binary columns</strong> for n categories — NOT n−1, NOT n+1</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num">✓</span>
-          <div class="lim-body"><strong>Only ONE column is 1</strong> (active) per row — all others are 0</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num">✓</span>
-          <div class="lim-body"><strong>Use for nominal (unordered)</strong> categories: colors, cities, animal names</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num">✓</span>
-          <div class="lim-body"><strong>LabelEncoder</strong> encodes labels from <strong>0 to n_classes−1</strong> (not 0 to n, not 0 to n−2)</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num">✓</span>
-          <div class="lim-body"><strong>Feature scaling → True</strong>: helps model accuracy and speeds up convergence</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num">✓</span>
-          <div class="lim-body"><strong>Missing values</strong>: all 3 methods are valid (drop, impute, assign category) → Answer: d) All of the above</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Quick definitions -->
-  <div class="card">
-    <div class="ch"><span class="tag t-g">📚</span><span class="ch-t">Quick Definitions — Short Answer Ready</span></div>
-    <div class="cb">
-      <div class="lim-list">
-        <div class="lim-item">
-          <span class="lim-num" style="color:var(--teal)">ML</span>
-          <div class="lim-body">Machine Learning: a subfield of AI that enables computers to learn from data without explicit programming. "Predicting the future based on the past."</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num" style="color:var(--blue)">SL</span>
-          <div class="lim-body">Supervised Learning: training with labeled data (input→output known). Used for prediction. Sub-types: Classification, Regression.</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num" style="color:var(--green)">UL</span>
-          <div class="lim-body">Unsupervised Learning: training with unlabeled data. Finds hidden patterns. Sub-types: Clustering, Association, Dimensionality Reduction.</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num" style="color:var(--red)">OUT</span>
-          <div class="lim-body">Outlier: an extreme value that falls outside the normal range. Main cause of normalization failure. Solution: use Standardization instead.</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num" style="color:var(--amber)">NORM</span>
-          <div class="lim-body">Normalization (Min-Max Scaling): rescales values to [0,1]. Best when standard deviation is small. Sensitive to outliers.</div>
-        </div>
-        <div class="lim-item">
-          <span class="lim-num" style="color:var(--purple)">STD</span>
-          <div class="lim-body">Standardization (Z-score): rescales to mean=0, std=1. Use when outliers exist. Not bounded to a fixed range.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Standardization worked example -->
-  <div class="card">
-    <div class="ch"><span class="tag t-a">📊</span><span class="ch-t">Standardization — Worked Example (from lecture)</span></div>
-    <div class="cb">
-      <div class="info ib" style="margin-bottom:12px">
-        Dataset: {4, 8, 6, 5, 3} — Find standard deviation step by step
-      </div>
-      <div class="calc-box">
-        <div class="calc-title">Step-by-step: Standard Deviation</div>
-        <div class="step"><span class="step-n">①</span><span class="step-c">Mean μ = (4+8+6+5+3) / 5 = 26/5 = <span class="step-r">5.2</span></span></div>
-        <div class="step"><span class="step-n">②</span><span class="step-c">Deviations squared:<br>
-          (4−5.2)² = (−1.2)² = <span class="step-r">1.44</span><br>
-          (8−5.2)² = (2.8)²  = <span class="step-r">7.84</span><br>
-          (6−5.2)² = (0.8)²  = <span class="step-r">0.64</span><br>
-          (5−5.2)² = (−0.2)² = <span class="step-r">0.04</span><br>
-          (3−5.2)² = (−2.2)² = <span class="step-r">4.84</span>
-        </span></div>
-        <div class="step"><span class="step-n">③</span><span class="step-c">Variance = (1.44 + 7.84 + 0.64 + 0.04 + 4.84) / 5 = 14.8/5 = <span class="step-r">2.96</span></span></div>
-        <div class="step"><span class="step-n">④</span><span class="step-c">Standard Deviation σ = √2.96 ≈ <span class="step-r">1.72</span></span></div>
-        <div class="formula" style="margin-top:10px">σ = √[ Σ(xᵢ − μ)² / n ] = √2.96 ≈ <strong>1.72</strong></div>
-      </div>
-      <div class="info ig" style="margin-top:10px">
-        <strong>After standardization</strong> all values in a column will have: Mean = 0 and Std Dev = 1.<br>
-        Formula: X′ = (X − μ) / σ &nbsp;→&nbsp; For X=4: X′ = (4 − 5.2) / 1.72 ≈ −0.698
-      </div>
-    </div>
-  </div>
-
-  <!-- Missing Value Imputation Example -->
-  <div class="card">
-    <div class="ch"><span class="tag t-g">📋</span><span class="ch-t">Missing Value Imputation — Mean Example (from lecture)</span></div>
-    <div class="cb">
-      <div class="info ib" style="margin-bottom:12px">
-        Dataset: Country, Age, Salary, Purchased — Row 6 has missing Salary, Row 8 has missing Age
-      </div>
-      <div class="calc-box">
-        <div class="calc-title">SimpleImputer with Mean strategy</div>
-        <div class="step"><span class="step-n">①</span><span class="step-c">
-          Mean Salary (9 known values):<br>
-          (72000+48000+54000+61000+58000+52000+79000+83000+67000) / 9<br>
-          = 574000 / 9 = <span class="step-r">63777.7</span>
-        </span></div>
-        <div class="step"><span class="step-n">②</span><span class="step-c">
-          Mean Age (9 known values):<br>
-          (44+27+30+38+40+35+48+50+37) / 9<br>
-          = 349 / 9 = <span class="step-r">38.777</span>
-        </span></div>
-        <div class="step"><span class="step-n">③</span><span class="step-c">
-          Replace: Row 6 Salary → <span class="step-r">63777.7</span> &nbsp;|&nbsp; Row 8 Age → <span class="step-r">38.777</span>
-        </span></div>
-      </div>
-      <div class="info ia">
-        <strong>Note:</strong> For small datasets or large % of missing values → impute (replace with mean/median) rather than drop rows, to preserve data.
-      </div>
-    </div>
-  </div>
-
-  <!-- One-Hot Encoding Worked Example -->
-  <div class="card">
-    <div class="ch"><span class="tag t-p">🔢</span><span class="ch-t">One-Hot Encoding — Worked Example (Country feature)</span></div>
-    <div class="cb">
-      <div class="calc-box">
-        <div class="calc-title">Encoding: France(Fr), Germany(Ger), Spain(Sp) → 3 binary columns</div>
-        <table style="width:100%;border-collapse:collapse;font-size:.74rem;margin-top:8px">
-          <thead>
-            <tr style="background:rgba(0,191,179,.08)">
-              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Country</th>
-              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Fr_id</th>
-              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Ger_id</th>
-              <th style="padding:5px 8px;border:1px solid var(--border);color:var(--teal)">Sp_id</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td style="padding:4px 8px;border:1px solid var(--border)">France</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--green);font-weight:700">1</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td></tr>
-            <tr style="background:rgba(255,255,255,.02)"><td style="padding:4px 8px;border:1px solid var(--border)">Spain</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--green);font-weight:700">1</td></tr>
-            <tr><td style="padding:4px 8px;border:1px solid var(--border)">Germany</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--green);font-weight:700">1</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td></tr>
-            <tr style="background:rgba(255,255,255,.02)"><td style="padding:4px 8px;border:1px solid var(--border)">Spain</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border)">0</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--green);font-weight:700">1</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="info ig" style="margin-top:10px">
-        <strong>Label Encoding for Purchased (Yes/No):</strong><br>
-        No → 0 &nbsp;|&nbsp; Yes → 1<br>
-        Output: [0, 1, 0, 0, 1, 1, 0, 1, 0, 1] — one value per row, range 0 to n_classes−1 = 1
-      </div>
-    </div>
-  </div>
-
-  <!-- ML steps pipeline reminder -->
-  <div class="card">
-    <div class="ch"><span class="tag t-b">🗺️</span><span class="ch-t">ML Pipeline — Data Preparation Detail</span></div>
-    <div class="cb">
-      <div class="theory-grid" style="margin-bottom:10px">
-        <div class="th-card" style="border-color:rgba(248,113,113,.3)">
-          <div class="th-title" style="color:var(--red)">🧹 Data Cleaning</div>
-          <div class="th-body">
-            Remove inconsistencies:<br>
-            • Missing values → impute or drop<br>
-            • Duplicates → remove<br>
-            • Outliers → detect &amp; handle<br>
-            • Type errors → fix<br>
-            • Noise → smooth
-          </div>
-        </div>
-        <div class="th-card" style="border-color:rgba(59,130,246,.3)">
-          <div class="th-title" style="color:var(--blue)">🔗 Data Integration</div>
-          <div class="th-body">
-            Combine multiple sources:<br>
-            • Same attribute, different names<br>
-            • Remove duplicate attributes<br>
-            • Standardize units<br>
-            &nbsp;&nbsp;(km → miles, kg → lbs)<br>
-            → Clean, consistent dataset
-          </div>
-        </div>
-        <div class="th-card" style="border-color:rgba(16,185,129,.3)">
-          <div class="th-title" style="color:var(--green)">⚙️ Data Transformation</div>
-          <div class="th-body">
-            Format data for ML:<br>
-            • <strong>Aggregation</strong> — summarize<br>
-            • <strong>Feature Scaling</strong><br>
-            &nbsp;&nbsp;→ Normalization<br>
-            &nbsp;&nbsp;→ Standardization<br>
-            • <strong>Categorical Encoding</strong><br>
-            &nbsp;&nbsp;→ LabelEncoder<br>
-            &nbsp;&nbsp;→ OneHotEncoder
-          </div>
-        </div>
-      </div>
-      <div class="info ia">
-        <strong>Data Preparation Goal:</strong> Transform raw data into an understandable, clean, numeric format that ML algorithms can process accurately.
-      </div>
-    </div>
-  </div>
-
-  <!-- Supervised types comparison -->
-  <div class="card">
-    <div class="ch"><span class="tag t-t">🆚</span><span class="ch-t">Classification vs Regression — Quick Comparison</span></div>
-    <div class="cb">
-      <table class="cmp">
-        <thead><tr><th>Aspect</th><th>Classification</th><th>Regression</th></tr></thead>
-        <tbody>
-          <tr><td>Output type</td><td class="hl">Categorical (discrete)</td><td class="hl2">Continuous (numerical)</td></tr>
-          <tr><td>Question answered</td><td class="hl">Is it A or B?</td><td class="hl2">How much? How many?</td></tr>
-          <tr><td>Example problem</td><td class="hl">Spam or not spam?</td><td class="hl2">What is tomorrow's temperature?</td></tr>
-          <tr><td>Output examples</td><td class="hl">Yes/No, 0/1, Cat/Dog</td><td class="hl2">77.5°F, $350,000, 42.3 kg</td></tr>
-          <tr><td>Algorithms</td><td class="hl">Decision Tree, SVM, KNN, Naïve Bayes, Neural Net</td><td class="hl2">Linear Regression, Polynomial Regression</td></tr>
-          <tr><td>Metric</td><td class="hl">Accuracy, Precision, Recall, F1</td><td class="hl2">MSE, RMSE, MAE, R²</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Reinforcement Learning key facts -->
-  <div class="card">
-    <div class="ch"><span class="tag t-p">🎮</span><span class="ch-t">Reinforcement Learning — Key Concepts</span></div>
-    <div class="cb">
-      <div class="theory-grid">
-        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
-          <div class="th-title" style="color:var(--purple)">Agent</div>
-          <div class="th-body">The learner / decision-maker that interacts with the environment.</div>
-        </div>
-        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
-          <div class="th-title" style="color:var(--purple)">Environment</div>
-          <div class="th-body">Everything the agent interacts with. Provides states and rewards.</div>
-        </div>
-        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
-          <div class="th-title" style="color:var(--purple)">State</div>
-          <div class="th-body">A specific situation the agent finds itself in at a given moment.</div>
-        </div>
-        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
-          <div class="th-title" style="color:var(--purple)">Action</div>
-          <div class="th-body">All possible moves the agent can make in the current state.</div>
-        </div>
-        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
-          <div class="th-title" style="color:var(--purple)">Reward</div>
-          <div class="th-body">Feedback from the environment based on the action taken. Goal: maximize cumulative reward.</div>
-        </div>
-        <div class="th-card" style="border-color:rgba(167,139,250,.3)">
-          <div class="th-title" style="color:var(--purple)">Real Example</div>
-          <div class="th-body">Autonomous driving: car (agent) learns to drive (actions) on roads (environment) to avoid crashes (reward/penalty).</div>
-        </div>
-      </div>
-      <div class="info ip" style="margin-top:10px">
-        <strong>Key difference from Supervised:</strong> No labeled training data. The agent learns by trial and error — taking actions, observing outcomes, and adjusting to maximize rewards.
-      </div>
-    </div>
-  </div>
-
-
-</div><!-- /ref -->
-
-</main>
-
-<!-- FOOTER -->
-<footer>
-  <div class="ft">
-    <div><div class="fi-l">University</div><div class="fi-v">Tikrit University</div></div>
-    <div class="fsep"></div>
-    <div><div class="fi-l">Course</div><div class="fi-v">Machine Learning — Theory</div></div>
-    <div class="fsep"></div>
-    <div><div class="fi-l">Stage</div><div class="fi-v" style="font-family:'JetBrains Mono',monospace;font-size:.75rem">3rd · 2025–2026</div></div>
-  </div>
-  <div style="height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:.7rem"></div>
-  <p class="fcopy">Quiz Solutions + Lecture 1 &amp; 2 Summary — Exam-Focused</p>
-</footer>
+</div>
 
 <script>
-function go(id){
-  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
-  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
-  document.getElementById(id).classList.add('on');
-  document.querySelectorAll('.tb').forEach(b=>{
-    if((b.getAttribute('onclick')||'').includes("'"+id+"'")) b.classList.add('on');
-  });
-  window.scrollTo({top:0,behavior:'smooth'});
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-document.addEventListener('keydown',e=>{
-  if(!e.altKey)return;
-  const m={'1':'quiz','2':'lec1','3':'lec2','4':'ref'};
-  if(m[e.key]){e.preventDefault();go(m[e.key]);}
-});
 </script>
 </body>
 </html>
